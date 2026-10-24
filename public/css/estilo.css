@@ -18,7 +18,7 @@ body {
 
 .container {
   display: flex;
-  width: 90%;
+  width: 80%;
   margin: auto;
 }
 
@@ -79,7 +79,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 30px;
+  margin-left: 100px;
 }
 
 .main-container .infos {
@@ -93,8 +93,20 @@ body {
 }
 
 .titulo-main {
-  font-size: 40px;
+  font-size: 50px;
   text-transform: uppercase;
+}
+
+.titulo-main span {
+  color: #54967a;
+}
+
+.main-container .gatilhos a{
+  padding: 10px;
+  background-color: #b4cbef;
+  border-radius: 8px;
+  color:white;
+  text-decoration: none;
 }
 
 .box {
@@ -306,6 +318,10 @@ body {
   width: 70%;
 }
 
+.left {
+  margin-left: 30px;
+}
+
 .box-impactos h1 {
   font-size: 42px;
   color: #54967a;
@@ -314,6 +330,7 @@ body {
 .box-impactos img {
   width: 300px;
   border: 2px solid #b4cbef;
+  border-radius: 8px;
 }
 
 .proposito {
@@ -377,6 +394,11 @@ body {
   top: 415px;
   left: 395px;
   z-index: 4;
+}
+
+.proposito span {
+  color: #bdd5fa;
+  font-size: 25px;
 }
 
 .footer {

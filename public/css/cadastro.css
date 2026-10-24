@@ -176,11 +176,20 @@ a {
     min-height: 100vh;
 }
 
+.div-foto {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .div-foto img {
-    width: 537px;
-    min-height: 600px;  
-    margin: 30px;
+    width: 400px;
+    max-width: 90%;
+    height: auto;
+    margin: 20px;
     border-radius: 8px;
+    object-fit: contain;
 }
 
 .footer {
