@@ -1,76 +1,92 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>YUME | Perfil</title>
+    <title>YUME | Perfil</title>
 
-  <script src="./js/sessao.js"></script>
+    <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="./css/perfil.css">
-  <link rel="icon" href="./assets/imgs/logo.svg">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="./css/perfil.css">
+    <link rel="icon" href="./assets/imgs/logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
 <body>
-  <div class="header">
-    <div class="container">
-      <img src="assets/imgs/logo.svg" width="75px">
-      <ul class="navbar">
-        <li class="agora">
-          <a href="feed.html">Feed</a>
-        </li>
-        <li>
-          <a href="quiz.html">Quizes</a>
-        </li>
-        <li>
-          <a class="btn-entrar" href="perfil.html">Perfil</a>
-        </li>
-        <li>
-          <a class="btn-cadastrar" href="cadastro.html">Sair</a>
-        </li>
-      </ul>
+
+    <div class="janela">
+
+        <aside class="header-left">
+            <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Métricas</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="perfil.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </aside>
+
+        <main class="dash">
+
+            <div class="header">
+                <h1>MEU <span>PERFIL</span></h1>
+            </div>
+
+            <section class="perfil-container">
+
+                <img src="assets/imgs/davi.jpeg" alt="Foto de perfil">
+
+                <div class="info">
+                    <h2>Davi Chagas</h2>
+
+                    <div class="campo-info">
+                        <span class="info-label">E-mail</span>
+                        <span>davi@gmail.com</span>
+                    </div>
+
+                    <div class="campo-info">
+                        <span class="info-label">Senha</span>
+                        <a href="#" class="alterar-senha">Alterar senha</a>
+                    </div>
+
+                    <button class="btn-editar">Editar perfil</button>
+                </div>
+
+            </section>
+
+        </main>
+
     </div>
-  </div>
 
-  <div class="box">
-    <h1 class="titulo-feed">MEU <span>PERFIL</span></h1>
-  </div>
+    <script>
+        document.getElementById("b_usuario").textContent =
+            sessionStorage.NOME_USUARIO || "usuário";
+    </script>
 
-
-  <div class="perfil-container">
-
-    <img src="assets/imgs/davi.jpeg" alt="Foto de perfil">
-
-    <div class="info">
-      <h2>Davi Chagas</h2>
-
-      <div class="campo-info">
-        <span class="info-label">E-mail</span>
-        <span>davi@gmail.com</span>
-      </div>
-
-      <div class="campo-info">
-        <span class="info-label">Senha</span>
-        <a href="#" class="alterar-senha">Alterar senha</a>
-      </div>
-
-      <button class="btn-editar">Editar perfil</button>
-    </div>
-
-  </div>
-
-
-
-  <div class="footer">
-    <div class="container">
-      <img src="assets/imgs/logo.svg" width="75px">
-      <h4>Desenvolvido por Davi Chagas | SPTech &copy; 2026</h4>
-    </div>
-  </div>
 </body>
-
 </html>

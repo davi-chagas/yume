@@ -1,103 +1,122 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     padding: 0;
-    font-family: "Montserrat", sans-serif;
-    background-color: black;
-    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
 }
 
-:root {
-    --tamanho-header: 80px;
-    --tamanho-footer: 150px;
+.janela {
+    min-height: 100vh;
 }
 
-.container {
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 29%;
+    height: 100vh;
+    padding: 30px 0;
     display: flex;
-    width: 80%;
-    margin: auto;
-}
-
-.header {
-    height: var(--tamanho-header);
-    background: linear-gradient(
-        to bottom,
-        transparent 60%,
-        rgba(229, 9, 20, 0.15) 80%,
-        rgba(229, 9, 20, 0.45) 100%
-    );
-}
-
-.header .container {
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    height: 100%;
+    justify-content: space-evenly;
+    background: linear-gradient(180deg, #bdd5fa 0%, #b0cffb 100%);
 }
 
-.header a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    transition: 0.3s;
+.header-left > img {
+    width: 100px;
 }
 
-.header a:hover {
-    color: #A61932;
-}
-
-.header .btn-entrar {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #A61932;
-    border-radius: 8px;
-}
-
-.header .btn-cadastrar {
-    display: inline-block;
-    padding: 11px 20px;
-    border: 1px solid #A61932;
-    border-radius: 8px;
-    background-color: #A61932;
-}
-
-.header .btn-cadastrar:hover {
-    color: white;
-}
-
-.navbar {
-    width: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    list-style: none;
-    font-size: 18px;
-}
-
-.box {
+.hello {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 35px 0;
 }
 
-.titulo-feed {
-    font-size: 30px;
-    letter-spacing: 2px;
+.hello h3 {
+    color: #54967a;
+    font-size: 1.2rem;
 }
 
-.titulo-feed span {
-    color: #A61932;
+.hello h3 span {
+    font-weight: 800;
+}
+
+.btn-nav-white {
+    width: auto;
+    min-width: 72px;
+    padding: 8px 6px;
+    background-color: #54967a;
+    border: 2px solid #54967a;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-nav-white a {
+    text-decoration: none;
+}
+
+.btn-nav-white h3 {
+    color: white;
+    font-size: 25px;
+    margin: 0;
+}
+
+.btn-logout {
+    padding: 8px 10px;
+    background-color: #54967a;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-logout h3 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.dash {
+    width: 71%;
+    min-height: 100vh;
+    margin-left: 29%;
+    padding: 20px 3%;
+    background-color: #f5f5f5;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #54967a;
+    font-size: 28px;
+    font-weight: 700;
 }
 
 .novo-post-container {
     width: 100%;
     max-width: 700px;
-    margin: 0 auto 70px;
-    padding: 0 25px;
-    box-sizing: border-box;
+    margin: 0 auto 40px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .form-post {
@@ -115,20 +134,18 @@ body {
 .campo-post > label:first-child {
     font-size: 15px;
     font-weight: 600;
+    color: #39232f;
 }
 
 .campo-post input[type="text"],
 .campo-post textarea {
     width: 100%;
     padding: 14px;
-    box-sizing: border-box;
-
-    background-color: transparent;
-    border: 1px solid #383838;
+    background-color: #f9fafb;
+    border: 1px solid #d5d5d5;
     border-radius: 8px;
-
-    color: white;
-    font-family: "Montserrat", sans-serif;
+    color: #222;
+    font-family: inherit;
     font-size: 14px;
     outline: none;
     transition: border-color 0.3s;
@@ -136,12 +153,12 @@ body {
 
 .campo-post input[type="text"]:focus,
 .campo-post textarea:focus {
-    border-color: #A61932;
+    border-color: #54967a;
 }
 
 .campo-post input::placeholder,
 .campo-post textarea::placeholder {
-    color: #777;
+    color: #888;
 }
 
 .campo-post textarea {
@@ -153,27 +170,26 @@ body {
 .upload-imagem {
     min-height: 160px;
     padding: 25px;
-    box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
-    border: 1px dashed #555;
+    border: 1px dashed #aabbb2;
     border-radius: 10px;
+    background-color: #f9fbfa;
     cursor: pointer;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .upload-imagem:hover {
-    border-color: #A61932;
+    border-color: #54967a;
+    background-color: #f1f7f3;
 }
 
 .upload-icone {
-    color: #A61932;
+    color: #54967a;
     font-size: 38px;
     line-height: 1;
 }
@@ -196,7 +212,7 @@ body {
     width: 100%;
     max-height: 350px;
     object-fit: contain;
-    border: 1px solid #292929;
+    border: 1px solid #ddd;
     border-radius: 8px;
     margin-top: 5px;
 }
@@ -205,7 +221,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     margin-top: 5px;
 }
 
@@ -213,7 +229,7 @@ body {
 .btn-publicar {
     padding: 12px 20px;
     border-radius: 8px;
-    font-family: "Montserrat", sans-serif;
+    font-family: inherit;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
@@ -221,64 +237,44 @@ body {
 }
 
 .btn-cancelar {
-    color: #ccc;
-    border: 1px solid #383838;
+    color: #54967a;
+    background-color: transparent;
+    border: 1px solid #54967a;
 }
 
 .btn-cancelar:hover {
-    border-color: #A61932;
-    color: white;
+    background-color: #edf5f0;
 }
 
 .btn-publicar {
     color: white;
-    background-color: #A61932;
-    border: 1px solid #A61932;
+    background-color: #54967a;
+    border: 2px solid #54967a;
     font-weight: 600;
 }
 
 .btn-publicar:hover {
-    background-color: #851329;
+    background-color: #41765e;
+    border-color: #41765e;
 }
 
-.footer {
-    min-height: var(--tamanho-footer);
-    display: flex;
-    background: linear-gradient(
-        to bottom,
-        rgba(229, 9, 20, 0.45) 0%,
-        rgba(229, 9, 20, 0.15) 20%,
-        transparent 40%
-    );
+#alerta {
+    margin-top: 15px;
 }
-
-.footer .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    text-align: center;
-}
-
-.footer h4 {
-    font-size: 14px;
-}
-
-/* BARRA DE ROLAGEM */
 
 ::-webkit-scrollbar {
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #111;
+    background-color: #f3f3f3;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #a52a4a;
+    background-color: #bdd5fa;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #A61932;
+    background-color: #a5c3f0;
 }

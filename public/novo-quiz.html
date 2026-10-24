@@ -5,148 +5,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>YUME | Novo Quiz</title>
 
     <link rel="stylesheet" href="./css/novo-quiz.css">
     <link rel="icon" href="./assets/imgs/logo.svg">
+    <script src="../js/sessao.js"></script>
 </head>
 
 <body>
 
-    <div class="header">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo">
+    <div class="janela">
 
-            <ul class="navbar">
-                <li><a href="feed.html">Feed</a></li>
-                <li><a class="agora" href="quiz.html">Quizes</a></li>
-                <li><a class="btn-entrar" href="perfil.html">Perfil</a></li>
-                <li><a class="btn-cadastrar" href="cadastro.html">Sair</a></li>
-            </ul>
-        </div>
-    </div>
+        <aside class="header-left">
+            <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
 
-    <div class="box">
-        <h1 class="titulo-pagina">NOVO <span>QUIZ</span></h1>
-    </div>
-
-    <div class="quiz-container">
-
-        <form class="form-quiz">
-
-            <div class="campo-quiz">
-                <label for="ipt_titulo">Título do quiz</label>
-                <input
-                    type="text"
-                    id="ipt_titulo"
-                    name="titulo"
-                    placeholder="Ex: Conhecimentos sobre Naruto"
-                    maxlength="100"
-                    required>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="campo-quiz">
-                <label for="ipt_pergunta">Pergunta</label>
-                <textarea
-                    id="ipt_pergunta"
-                    name="pergunta"
-                    placeholder="Digite sua pergunta..."
-                    rows="3"
-                    required></textarea>
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
             </div>
 
-            <div class="campo-quiz">
-                <label>Alternativas</label>
-                <p class="descricao">
-                    Cadastre as quatro opções e marque a resposta correta.
-                </p>
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
 
-                <div class="alternativa">
-                    <span class="letra">A</span>
-                    <input
-                        type="text"
-                        name="alternativa_a"
-                        placeholder="Primeira alternativa"
-                        required>
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </aside>
 
-                    <label class="radio-correta">
+        <main class="dash">
+
+            <div class="header">
+                <h1>NOVO QUIZ</h1>
+            </div>
+
+            <section class="quiz-container">
+
+                <form class="form-quiz">
+
+                    <div class="campo-quiz">
+                        <label for="ipt_titulo">Título do quiz</label>
                         <input
-                            type="radio"
-                            name="resposta_correta"
-                            value="A"
+                            type="text"
+                            id="ipt_titulo"
+                            name="titulo"
+                            placeholder="Ex: Conhecimentos sobre Naruto"
+                            maxlength="100"
                             required>
-                        Correta
-                    </label>
-                </div>
+                    </div>
 
-                <div class="alternativa">
-                    <span class="letra">B</span>
-                    <input
-                        type="text"
-                        name="alternativa_b"
-                        placeholder="Segunda alternativa"
-                        required>
+                    <div class="campo-quiz">
+                        <label for="ipt_pergunta">Pergunta</label>
+                        <textarea
+                            id="ipt_pergunta"
+                            name="pergunta"
+                            placeholder="Digite sua pergunta..."
+                            rows="3"
+                            required></textarea>
+                    </div>
 
-                    <label class="radio-correta">
-                        <input
-                            type="radio"
-                            name="resposta_correta"
-                            value="B">
-                        Correta
-                    </label>
-                </div>
+                    <div class="campo-quiz">
+                        <label>Alternativas</label>
+                        <p class="descricao">
+                            Cadastre as quatro opções e marque a resposta correta.
+                        </p>
 
-                <div class="alternativa">
-                    <span class="letra">C</span>
-                    <input
-                        type="text"
-                        name="alternativa_c"
-                        placeholder="Terceira alternativa"
-                        required>
+                        <div class="alternativa">
+                            <span class="letra">A</span>
+                            <input
+                                type="text"
+                                name="alternativa_a"
+                                placeholder="Primeira alternativa"
+                                required>
 
-                    <label class="radio-correta">
-                        <input
-                            type="radio"
-                            name="resposta_correta"
-                            value="C">
-                        Correta
-                    </label>
-                </div>
+                            <label class="radio-correta">
+                                <input type="radio" name="resposta_correta" value="A" required>
+                                Correta
+                            </label>
+                        </div>
 
-                <div class="alternativa">
-                    <span class="letra">D</span>
-                    <input
-                        type="text"
-                        name="alternativa_d"
-                        placeholder="Quarta alternativa"
-                        required>
+                        <div class="alternativa">
+                            <span class="letra">B</span>
+                            <input
+                                type="text"
+                                name="alternativa_b"
+                                placeholder="Segunda alternativa"
+                                required>
 
-                    <label class="radio-correta">
-                        <input
-                            type="radio"
-                            name="resposta_correta"
-                            value="D">
-                        Correta
-                    </label>
-                </div>
-            </div>
+                            <label class="radio-correta">
+                                <input type="radio" name="resposta_correta" value="B">
+                                Correta
+                            </label>
+                        </div>
 
-            <div class="acoes-quiz">
-                <button type="submit" class="btn-publicar">Cadastrar quiz</button>
-            </div>
+                        <div class="alternativa">
+                            <span class="letra">C</span>
+                            <input
+                                type="text"
+                                name="alternativa_c"
+                                placeholder="Terceira alternativa"
+                                required>
 
-        </form>
+                            <label class="radio-correta">
+                                <input type="radio" name="resposta_correta" value="C">
+                                Correta
+                            </label>
+                        </div>
+
+                        <div class="alternativa">
+                            <span class="letra">D</span>
+                            <input
+                                type="text"
+                                name="alternativa_d"
+                                placeholder="Quarta alternativa"
+                                required>
+
+                            <label class="radio-correta">
+                                <input type="radio" name="resposta_correta" value="D">
+                                Correta
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="acoes-quiz">
+                        <a href="feed.html" class="btn-cancelar">Cancelar</a>
+                        <button type="submit" class="btn-publicar">Cadastrar quiz</button>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <div id="alerta"></div>
+
+        </main>
 
     </div>
 
-    <div class="footer">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo">
-            <h4>Desenvolvido por Davi Chagas | SPTech &copy; 2026</h4>
-        </div>
-    </div>
+    <script>
+        document.getElementById("b_usuario").textContent =
+            sessionStorage.NOME_USUARIO || "usuário";
+    </script>
 
 </body>
-
 </html>

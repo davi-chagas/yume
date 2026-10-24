@@ -17,95 +17,103 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
+
 <body>
+    <div class="janela">
 
-    <div class="header">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo">
+        <aside class="header-left">
+            <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
 
-            <ul class="navbar">
-                <li>
-                    <a href="feed.html">Feed</a>
-                </li>
-                <li>
-                    <a href="quiz.html">Quizes</a>
-                </li>
-                <li>
-                    <a class="btn-entrar" href="perfil.html">Perfil</a>
-                </li>
-                <li>
-                    <a class="btn-cadastrar" href="cadastro.html">Sair</a>
-                </li>
-            </ul>
-        </div>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </aside>
+
+        <main class="dash">
+
+            <div class="header">
+                <h1>NOVO POST</h1>
+            </div>
+
+            <section class="novo-post-container">
+                <form class="form-post" enctype="multipart/form-data">
+
+                    <div class="campo-post">
+                        <label for="ipt_titulo">Título da publicação</label>
+                        <input
+                            type="text"
+                            id="ipt_titulo"
+                            name="titulo"
+                            placeholder="Dê um título para sua publicação"
+                            maxlength="100"
+                            required>
+                    </div>
+
+                    <div class="campo-post">
+                        <label for="ipt_descricao">Descrição</label>
+                        <textarea
+                            id="ipt_descricao"
+                            name="descricao"
+                            placeholder="Compartilhe seus pensamentos com a comunidade..."
+                            rows="5"
+                            maxlength="1000"
+                            required></textarea>
+                    </div>
+
+                    <div class="campo-post">
+                        <label for="ipt_imagem">Imagem da publicação</label>
+
+                        <label for="ipt_imagem" class="upload-imagem">
+                            <span class="upload-icone">+</span>
+                            <span>Escolha uma imagem para o post</span>
+                            <span class="upload-detalhe">PNG, JPG ou JPEG</span>
+                        </label>
+
+                        <input
+                            type="file"
+                            id="ipt_imagem"
+                            name="imagem"
+                            accept="image/png, image/jpeg"
+                            required>
+
+                        <img id="preview_imagem" alt="Pré-visualização da imagem">
+                    </div>
+
+                    <div class="acoes-post">
+                        <button type="submit" class="btn-publicar">
+                            Publicar post
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <div id="alerta"></div>
+
+        </main>
     </div>
 
-    <div class="box">
-        <h1 class="titulo-feed">NOVO <span>POST</span></h1>
-    </div>
-
-    <main class="novo-post-container">
-
-        <form class="form-post" enctype="multipart/form-data">
-
-            <div class="campo-post">
-                <label for="ipt_titulo">Título da publicação</label>
-                <input
-                    type="text"
-                    id="ipt_titulo"
-                    name="titulo"
-                    placeholder="Dê um título para sua publicação"
-                    maxlength="100"
-                    required>
-            </div>
-
-            <div class="campo-post">
-                <label for="ipt_descricao">Descrição</label>
-                <textarea
-                    id="ipt_descricao"
-                    name="descricao"
-                    placeholder="Compartilhe seus pensamentos com a comunidade..."
-                    rows="5"
-                    maxlength="1000"
-                    required></textarea>
-            </div>
-
-            <div class="campo-post">
-                <label>Imagem da publicação</label>
-
-                <label for="ipt_imagem" class="upload-imagem">
-                    <span class="upload-icone">+</span>
-                    <span>Escolha uma imagem para o post</span>
-                    <span class="upload-detalhe">PNG, JPG ou JPEG</span>
-                </label>
-
-                <input
-                    type="file"
-                    id="ipt_imagem"
-                    name="imagem"
-                    accept="image/png, image/jpeg"
-                    required>
-
-                <img id="preview_imagem" alt="Pré-visualização da imagem">
-            </div>
-
-            <div class="acoes-post">
-                <button type="submit" class="btn-publicar">Publicar post</button>
-            </div>
-
-        </form>
-
-    </main>
-
-    <div class="footer">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo">
-            <h4>Desenvolvido por Davi Chagas | SPTech &copy; 2026</h4>
-        </div>
-    </div>
-
- 
-
+    <script>
+        document.getElementById("b_usuario").textContent =
+            sessionStorage.NOME_USUARIO || "usuário";
+    </script>
 </body>
+
 
 </html>

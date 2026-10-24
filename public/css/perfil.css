@@ -1,145 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     padding: 0;
-    font-family: "Montserrat", sans-serif;
-    background-color: black;
-    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
 }
 
-:root {
-    --tamanho-header: 80px;
-    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-footer: 65px;
+.janela {
+    min-height: 100vh;
 }
 
-.container {
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 29%;
+    height: 100vh;
+    padding: 30px 0;
     display: flex;
-    width: 80%;
-    margin: auto;
-}
-
-.header {
-    height: var(--tamanho-header);
-    position: relative;
-    background: linear-gradient(to bottom,
-            transparent 60%,
-            rgba(229, 9, 20, 0.15) 80%,
-            rgba(229, 9, 20, 0.45) 100%);
-}
-
-.header .container {
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    height: 100%;
+    justify-content: space-evenly;
+    background: linear-gradient(180deg, #bdd5fa 0%, #b0cffb 100%);
 }
 
-.header a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    transition: 0.3s;
+.header-left > img {
+    width: 100px;
 }
 
-.header .btn-entrar {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #A61932;
-    border-radius: 8px;
-    background-color: transparent;
-    transition: 0.3s;
+.hello {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.header .btn-entrar:hover {
-    background-color: rgba(112, 32, 68, 0.2);
-    border-color: #A61932;
+.hello h3 {
+    color: #54967a;
+    font-size: 1.2rem;
 }
 
-.header a:hover {
-    color: #A61932;
-}
-
-.header .btn-cadastrar {
-    display: inline-block;
-    padding: 11px 20px;
-    border: 1px solid #A61932;
-    border-radius: 8px;
-    background-color: #A61932;
-    transition: 0.3s;
-}
-
-.header .btn-cadastrar:hover {
-    background-color: #A61932;
-    border-color: #A61932;
-    color: white;
-}
-
-.agora {
+.hello h3 span {
     font-weight: 800;
 }
 
-.navbar {
-    width: 500px;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    color: white;
-    gap: 20px;
-
+.btn-nav-white {
+    width: auto;
+    min-width: 72px;
+    padding: 8px 6px;
+    background-color: #54967a;
+    border: 2px solid #54967a;
+    border-radius: 5px;
+    text-align: center;
 }
 
-.feed-container {
-    width: 100%;
-    min-height: 100vh;
-    padding: 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-}
-
-.box {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.titulo-feed span {
-    color: #A61932;
-}
-
-.btn-post {
-    background-color: #A61932;
-    padding: 10px;
-    border-radius: 8px;
+.btn-nav-white a {
     text-decoration: none;
-    list-style-type: none;
+}
+
+.btn-nav-white h3 {
     color: white;
+    font-size: 25px;
+    margin: 0;
+}
+
+.btn-logout {
+    padding: 8px 10px;
+    background-color: #54967a;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-logout h3 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.dash {
+    width: 71%;
+    min-height: 100vh;
+    margin-left: 29%;
+    padding: 20px 3%;
+    background-color: #f5f5f5;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #54967a;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.header h1 span {
+    color: #54967a;
 }
 
 .perfil-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 35px;
-    padding: 30px;
-    color: white;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
-.perfil-container img {
+.perfil-container > img {
     width: 180px;
     height: 180px;
     flex-shrink: 0;
-
     border-radius: 15px;
-    border: 2px solid #A61932;
+    border: 2px solid #bdd5fa;
     object-fit: cover;
 }
 
@@ -152,6 +145,7 @@ body {
 
 .info h2 {
     margin: 0;
+    color: #39232f;
     font-size: 24px;
 }
 
@@ -162,7 +156,7 @@ body {
 }
 
 .info-label {
-    color: #999;
+    color: #888;
     font-size: 13px;
 }
 
@@ -171,8 +165,12 @@ body {
     font-size: 15px;
 }
 
+.campo-info span:last-child {
+    color: #333;
+}
+
 .alterar-senha {
-    color: #d52b49;
+    color: #54967a;
     text-decoration: none;
 }
 
@@ -184,58 +182,31 @@ body {
     padding: 10px 18px;
     border: none;
     border-radius: 7px;
-
-    background-color: #A61932;
+    background-color: #bdd5fa;
     color: white;
+    font-family: inherit;
     font-size: 14px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .btn-editar:hover {
-    background-color: #851329;
+    background-color: #41765e;
 }
 
-.footer {
-    height: 150px;
-    color: #fff;
-    display: flex;
-    font-size: 15px;
-    background: linear-gradient(to bottom,
-            rgba(229, 9, 20, 0.45) 0%,
-            rgba(229, 9, 20, 0.15) 20%,
-            transparent 40%);
-}
-
-.footer .container {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    justify-content: center;
-    text-align: center;
-}
-
-.footer .container .version {
-    font-size: 12px;
-}
-
-
-/* Largura da barra de rolagem */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Fundo da barra */
 ::-webkit-scrollbar-track {
-    background-color: #111111;
+    background-color: #f3f3f3;
 }
 
-/* Parte que você arrasta */
 ::-webkit-scrollbar-thumb {
-    background-color: #a52a4a;
+    background-color: #bdd5fa;
     border-radius: 10px;
 }
 
-/* Cor ao passar o mouse */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #a52a4a;
+    background-color: #a5c3f0;
 }

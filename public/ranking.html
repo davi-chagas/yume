@@ -6,110 +6,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YUME | Ranking</title>
+
     <link rel="stylesheet" href="./css/ranking.css">
     <link rel="icon" href="./assets/imgs/logo.svg">
+    <script src="./js/sessao.js"></script>
 </head>
 
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="feed.html">
-                <img src="assets/imgs/logo.svg" width="75px" alt="Logo YUME">
-            </a>
 
-            <nav>
-                <ul class="navbar">
-                    <li><a href="feed.html">Feed</a></li>
-                    <li><a href="quiz.html">Quizes</a></li>
-                    <li><a class="btn-entrar" href="perfil.html">Perfil</a></li>
-                    <li><a class="btn-cadastrar" href="cadastro.html">Sair</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="janela">
 
-    <div class="ranking-container">
-        <div class="ranking-intro">
-            <h1>Ranking <span>de jogadores</span></h1>
-        </div>
+        <aside class="header-left">
+            <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
 
-        <div class="ranking-box">
-            <div class="ranking-topo">
-                <div>
-                    <h2>Melhores Pontuações</h2>
-                </div>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="ranking-lista">
-                <div class="usuario-ranking destaque">
-                    <div class="posicao posicao-primeiro">1</div>
-                    <div class="foto-container">
-                        <img src="assets/imgs/davi.jpeg" alt="Foto de Davi Chagas">
-                    </div>
-                    <div class="usuario-info">
-                        <span class="nome-usuario">Davi Chagas</span>
-                    </div>
-                    <div class="pontuacao">
-                        <strong>20</strong>
-                        <span>acertos</span>
-                    </div>
-                    <div class="percentual">100%</div>
-                </div>
-
-                <div class="usuario-ranking">
-                    <div class="posicao">2</div>
-                    <div class="foto-container">
-                        <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
-                    </div>
-                    <div class="usuario-info">
-                        <span class="nome-usuario">Monys Girl</span>
-                    </div>
-                    <div class="pontuacao">
-                        <strong>18</strong>
-                        <span>acertos</span>
-                    </div>
-                    <div class="percentual">90%</div>
-                </div>
-
-                <div class="usuario-ranking">
-                    <div class="posicao">3</div>
-                    <div class="foto-container">
-                        <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
-                    </div>
-                    <div class="usuario-info">
-                        <span class="nome-usuario">Akira</span>
-                    </div>
-                    <div class="pontuacao">
-                        <strong>16</strong>
-                        <span>acertos</span>
-                    </div>
-                    <div class="percentual">80%</div>
-                </div>
-
-                <div class="usuario-ranking">
-                    <div class="posicao">4</div>
-                    <div class="foto-container">
-                        <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
-                    </div>
-                    <div class="usuario-info">
-                        <span class="nome-usuario">Yuki</span>
-                    </div>
-                    <div class="pontuacao">
-                        <strong>14</strong>
-                        <span>acertos</span>
-                    </div>
-                    <div class="percentual">70%</div>
-                </div>
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
             </div>
-        </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </aside>
+
+        <main class="dash">
+
+            <div class="header">
+                <h1>RANKING <span>DE JOGADORES</span></h1>
+            </div>
+
+            <section class="ranking-container">
+
+                <div class="ranking-box">
+
+                    <div class="ranking-topo">
+                        <h2>Melhores Pontuações</h2>
+                    </div>
+
+                    <div class="ranking-lista">
+
+                        <div class="usuario-ranking destaque">
+                            <div class="posicao posicao-primeiro">1</div>
+
+                            <div class="foto-container">
+                                <img src="assets/imgs/davi.jpeg" alt="Foto de Davi Chagas">
+                            </div>
+
+                            <div class="usuario-info">
+                                <span class="nome-usuario">Davi Chagas</span>
+                            </div>
+
+                            <div class="pontuacao">
+                                <strong>20</strong>
+                                <span>acertos</span>
+                            </div>
+
+                            <div class="percentual">100%</div>
+                        </div>
+
+                        <div class="usuario-ranking">
+                            <div class="posicao">2</div>
+
+                            <div class="foto-container">
+                                <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
+                            </div>
+
+                            <div class="usuario-info">
+                                <span class="nome-usuario">Monys Girl</span>
+                            </div>
+
+                            <div class="pontuacao">
+                                <strong>18</strong>
+                                <span>acertos</span>
+                            </div>
+
+                            <div class="percentual">90%</div>
+                        </div>
+
+                        <div class="usuario-ranking">
+                            <div class="posicao">3</div>
+
+                            <div class="foto-container">
+                                <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
+                            </div>
+
+                            <div class="usuario-info">
+                                <span class="nome-usuario">Akira</span>
+                            </div>
+
+                            <div class="pontuacao">
+                                <strong>16</strong>
+                                <span>acertos</span>
+                            </div>
+
+                            <div class="percentual">80%</div>
+                        </div>
+
+                        <div class="usuario-ranking">
+                            <div class="posicao">4</div>
+
+                            <div class="foto-container">
+                                <img src="assets/imgs/davi.jpeg" alt="Foto de jogador">
+                            </div>
+
+                            <div class="usuario-info">
+                                <span class="nome-usuario">Yuki</span>
+                            </div>
+
+                            <div class="pontuacao">
+                                <strong>14</strong>
+                                <span>acertos</span>
+                            </div>
+
+                            <div class="percentual">70%</div>
+                        </div>
+
+                    </div>
+
+                    <div class="ranking-rodape">
+                        <a href="feed.html" class="btn-voltar">Voltar ao feed</a>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo YUME">
-            <h4>Desenvolvido por Davi Chagas | SPTech &copy; 2026</h4>
-        </div>
-    </footer>
+    <script>
+        document.getElementById("b_usuario").textContent =
+            sessionStorage.NOME_USUARIO || "usuário";
+    </script>
+
 </body>
 
 </html>

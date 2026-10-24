@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
-  background-color: black;
+  font-family: "Space Grotesk", sans-serif;
+  background-color: #F3F3F3;
+  color: #1e1e1e
 }
 
 :root {
@@ -18,17 +18,13 @@ body {
 
 .container {
   display: flex;
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
 
 .header {
   height: var(--tamanho-header);
   position: relative;
-  background: linear-gradient(to bottom,
-      transparent 60%,
-      rgba(229, 9, 20, 0.15) 80%,
-      rgba(229, 9, 20, 0.45) 100%);
 }
 
 .header .container {
@@ -39,45 +35,31 @@ body {
 
 .header a {
   text-decoration: none;
-  color: white;
+  color: #1e1e1e;
   font-weight: 600;
   transition: 0.3s;
 }
 
-.header .btn-entrar {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 1px solid #A61932;
-  border-radius: 8px;
-  background-color: transparent;
-  transition: 0.3s;
-}
-
-.header .btn-entrar:hover {
-  background-color: rgba(112, 32, 68, 0.2);
-  border-color: #A61932;
-}
-
 .header a:hover {
-  color: #A61932;
+  color: #54967a;
 }
 
 .header .btn-cadastrar {
   display: inline-block;
   padding: 11px 20px;
-  border: 1px solid #A61932;
   border-radius: 8px;
-  background-color: #A61932;
+  background-color: #bdd5fa;
+  color: white;
   transition: 0.3s;
 }
 
 .header .btn-cadastrar:hover {
-  background-color: #A61932;
-  border-color: #A61932;
+  background-color: #b4cbef;
   color: white;
 }
 
 .agora {
+  color: #54967a;
   font-weight: 800;
 }
 
@@ -89,27 +71,34 @@ body {
   justify-content: space-between;
   list-style: none;
   color: white;
-  gap: 20px;
 }
 
-.banner {
-  height: 891px;
-  width: 100%;
-  color: white;
-  background-image: url('../assets/imgs/banner.png');
-  background-size: cover;
-  background-position: center;
-}
 
-.banner .container {
+.main-container{
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  padding: 30px;
 }
 
-/* ORIGEM */
+.main-container .infos {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+
+.main-container img {
+  width: 700px;
+}
+
+.titulo-main {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
 .box {
-  color: white;
+  color: #1e1e1e;
   padding: 80px 0;
   margin-top: 30px;
 }
@@ -139,8 +128,8 @@ body {
 .box img {
   width: 434px;
   height: 500px;
-  border: 2px solid #A61932;
-  border-radius: 50px;
+  border: 2px solid #bdd5fa;
+  border-radius: 22px;
 }
 
 .box .container .boxes {
@@ -153,28 +142,26 @@ body {
 .badge {
   padding: 12px;
   font-size: 12px;
-  letter-spacing: 2px;
-  border: 2px solid #A61932;
-  border-radius: 50px;
-  color: #A61932;
+  border: 2px solid #54967a;
+  border-radius: 8px;
+  color: #54967a;
 }
 
 .box h1 {
   font-size: 42px;
   font-weight: 800;
-  color: #BBB6B6;
+  color: #1e1e1e;
 }
 
 .box span {
-  color: #A61932;
+  color: #54967a;
 }
 
 .box .info-box p {
   margin: 0;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.9;
-  font-weight: 400;
-  color: white;
+  color: 7f839d;
 }
 
 .box {
@@ -208,7 +195,6 @@ body {
   color: #BBB6B6;
 }
 
-/* MOMENTOS */
 .momentos {
   color: white;
   padding: 80px 0;
@@ -242,34 +228,33 @@ body {
   width: fit-content;
   padding: 9px 15px;
   margin-bottom: 25px;
-  border: 1px solid #A61932;
-  border-radius: 50px;
+  border: 1px solid #54967a;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 2px;
 }
 
 .momentos h1 {
   margin: 0 0 25px;
-  color: #BBB6B6;
+  color: #1e1e1e;
   font-size: 42px;
   font-weight: 800;
   line-height: 1.2;
 }
 
 .momentos .destaque-titulo {
-  color: #A61932;
+  color: #54967a;
 }
 
 .momentos .citacao {
   margin: 0 0 30px;
-  color: #D5CDD2;
+  color: #39232F;
   font-size: 17px;
   line-height: 1.9;
 }
 
 .momentos .destaque {
-  color: #A61932;
+  color: #bdd5fa  ;
   font-weight: 700;
 }
 
@@ -279,7 +264,7 @@ body {
 
 .momentos .autor span,
 .momentos .label-info {
-  color: #A69AA3;
+  color: #39232F;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -288,7 +273,7 @@ body {
 .momentos .autor h4,
 .momentos .sub-informacoes h4 {
   margin: 6px 0 0;
-  color: white;
+  color: #54967a;
   font-size: 16px;
   font-weight: 600;
 }
@@ -304,10 +289,32 @@ body {
   width: 420px;
   height: 480px;
   object-fit: cover;
-  border: 1px solid #A61932;
-  border-radius: 20px;
+  border: 2px solid #bdd5fa;
+  border-radius: 8px;
 }
 
+.impactos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-impactos {
+  display: flex;
+  align-items: center;
+  margin: 30px;
+  width: 70%;
+}
+
+.box-impactos h1 {
+  font-size: 42px;
+  color: #54967a;
+}
+
+.box-impactos img {
+  width: 300px;
+  border: 2px solid #b4cbef;
+}
 
 .proposito {
   color: white;
@@ -315,95 +322,67 @@ body {
   padding: 80px 0;
 }
 
-.proposito .container {
+.proposito-box {
+  display: flex;
   justify-content: center;
 }
 
-.proposito-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 65px;
-  width: 100%;
-  max-width: 1200px;
+.proposito .info-box {
+  position: relative;
+  width: 900px;
+  min-height: 650px;
 }
 
 .proposito .titulo-proposito {
   display: flex;
   justify-content: center;
   font-size: 50px;
-  color: #A61932;
-  font-family: "Anton", sans-serif;
-
+  color: #54967a;
+  margin-bottom: 40px;
 }
 
 .proposito .info-box p {
-  font-size: 30px;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.proposito .info-box span {
-  color: #FF3131;
-  font-size: 22px;
-  line-height: 1.5;
-  text-align: center;
-  font-size: 30px;
-
-}
-
-.proposito .info-box .titulo-logo {
-  color: white;
-  font-size: 30px;
-  line-height: 1.5;
-  text-align: center;
-  font-family: "Anton", sans-serif;
-}
-
-.proposito .cards-proposito {
-  display: flex;
-  gap: 20px
-}
-
-.proposito .card-proposito {
-  min-width: 0;
-  padding: 15px;
-  border-radius: 16px;
+  position: absolute;
+  width: 400px;
+  min-height: 100px;
   box-sizing: border-box;
-}
-
-.proposito .card-proposito h1 {
-  font-size: 100px;
-  color: #FF3131;
-  text-align: center;
-}
-
-.proposito .card-proposito h3 {
-  font-size: 30px;
-  color: white;
-  text-align: center;
-}
-
-.proposito .card-proposito p {
-  background-color: #A61932;
+  font-size: 20px;
+  text-align: left;
+  border: 1px solid rgba(84, 150, 122, 0.5);
   border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 0;
-  font-size: 18px;
-  line-height: 1.7;
-  color: white;
+  color: #39232f;
+  padding: 20px;
+  margin: 0;
+}
+
+.proposito .card-1 {
+  top: 100px;
+  left: 100px;
+  z-index: 1;
+}
+
+.proposito .card-2 {
+  top: 205px;
+  left: 395px;
+  z-index: 2;
+}
+
+.proposito .card-3 {
+  top: 310px;
+  left: 85px;
+  z-index: 3;
+}
+
+.proposito .card-4 {
+  top: 415px;
+  left: 395px;
+  z-index: 4;
 }
 
 .footer {
   height: 150px;
-  color: #fff;
   display: flex;
   font-size: 15px;
-
-  background: linear-gradient(to bottom,
-      rgba(229, 9, 20, 0.45) 0%,
-      rgba(229, 9, 20, 0.15) 20%,
-      transparent 40%);
 }
 
 .footer .container {
@@ -421,21 +400,21 @@ body {
 
 /* Largura da barra de rolagem */
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 /* Fundo da barra */
 ::-webkit-scrollbar-track {
-    background-color: #111111;
+  background-color: #F3F3F3;
 }
 
 /* Parte que você arrasta */
 ::-webkit-scrollbar-thumb {
-    background-color: #a52a4a;
-    border-radius: 10px;
+  background-color: #bdd5fa;
+  border-radius: 10px;
 }
 
 /* Cor ao passar o mouse */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #a52a4a;
+  background-color: #bdd5fa;
 }

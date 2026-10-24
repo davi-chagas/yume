@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,125 +6,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YUME | Jogar Quiz</title>
 
-    <link rel="stylesheet" href="./css/jogar-quiz.css">
+    <link rel="stylesheet" href="css/jogar-quiz.css">
     <link rel="icon" href="./assets/imgs/logo.svg">
 </head>
 
 <body>
 
-    <header class="header">
-        <div class="container">
+    <div class="janela">
+
+        <aside class="header-left">
             <a href="feed.html">
-                <img src="assets/imgs/logo.svg" width="75px" alt="Logo YUME">
+                <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
             </a>
 
-            <nav>
-                <ul class="navbar">
-                    <li><a href="feed.html">Feed</a></li>
-                    <li><a class="agora" href="quiz.html">Quizes</a></li>
-                    <li><a class="btn-entrar" href="perfil.html">Perfil</a></li>
-                    <li><a class="btn-cadastrar" href="cadastro.html">Sair</a></li>
-                </ul>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <nav class="menu-lateral">
+                <div class="btn-nav-white">
+                    <a href="feed.html">
+                        <h3>Feed</h3>
+                    </a>
+                </div>
+
+                <div class="btn-nav-white">
+                    <a href="dashboard/dashboard.html">
+                        <h3>Métricas</h3>
+                    </a>
+                </div>
+
+                <div class="btn-nav-white">
+                    <a href="perfil.html">
+                        <h3>Perfil</h3>
+                    </a>
+                </div>
             </nav>
-        </div>
-    </header>
 
-    <main class="jogo-container">
-
-        <section class="jogo-principal">
-
-            <div class="progresso">
-                <span>Pergunta 1 de 10</span>
-
-                <div class="barra-progresso">
-                    <div class="progresso-atual"></div>
-                </div>
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
             </div>
-
-            <div class="pergunta-container">
-                <h1>
-                    Qual foi o ano do lançamento de Demon Slayer?
-                </h1>
-
-                <p class="instrucao">
-                    Selecione a alternativa correta.
-                </p>
-            </div>
-
-            <form class="form-alternativas">
-
-                <label class="alternativa">
-                    <input type="radio" name="resposta" value="A">
-                    <span class="letra">A</span>
-                    <span class="texto-alternativa">2016</span>
-                </label>
-
-                <label class="alternativa">
-                    <input type="radio" name="resposta" value="B">
-                    <span class="letra">B</span>
-                    <span class="texto-alternativa">2018</span>
-                </label>
-
-                <label class="alternativa">
-                    <input type="radio" name="resposta" value="C">
-                    <span class="letra">C</span>
-                    <span class="texto-alternativa">2019</span>
-                </label>
-
-                <label class="alternativa">
-                    <input type="radio" name="resposta" value="D">
-                    <span class="letra">D</span>
-                    <span class="texto-alternativa">2020</span>
-                </label>
-
-                <div class="acoes">
-                    <a href="quiz.html" class="btn-sair">Sair do quiz</a>
-
-                    <button type="button" class="btn-proxima">
-                        Próxima
-                    </button>
-                </div>
-
-            </form>
-
-        </section>
-
-        <aside class="painel-quiz">
-
-            <div class="quantidade">
-                <span class="painel-label">Quantidade de perguntas</span>
-                <strong>10</strong>
-                <span class="painel-descricao">no total</span>
-            </div>
-
-            <div class="resumo">
-                <span class="resumo-label">Seu progresso</span>
-
-                <div class="resumo-linha">
-                    <span>Respondidas</span>
-                    <strong>0/10</strong>
-                </div>
-
-                <div class="resumo-linha">
-                    <span>Acertos</span>
-                    <strong>0</strong>
-                </div>
-            </div>
-
-            <button type="button" class="btn-finalizar">
-                Finalizar e enviar
-            </button>
-
         </aside>
 
-    </main>
+        <main class="dash">
 
-    <footer class="footer">
-        <div class="container">
-            <img src="assets/imgs/logo.svg" width="75px" alt="Logo YUME">
-            <h4>Desenvolvido por Davi Chagas | SPTech &copy; 2026</h4>
-        </div>
-    </footer>
+            <div class="jogo-container">
+
+                <section class="jogo-principal">
+
+                    <div class="progresso">
+                        <span>Pergunta 1 de 10</span>
+
+                        <div class="barra-progresso">
+                            <div class="progresso-atual"></div>
+                        </div>
+                    </div>
+
+                    <div class="pergunta-container">
+                        <h1>Qual foi o ano do lançamento de Demon Slayer?</h1>
+
+                        <p class="instrucao">
+                            Selecione a alternativa correta.
+                        </p>
+                    </div>
+
+                    <form class="form-alternativas">
+
+                        <label class="alternativa">
+                            <input type="radio" name="resposta" value="A">
+                            <span class="letra">A</span>
+                            <span class="texto-alternativa">2016</span>
+                        </label>
+
+                        <label class="alternativa">
+                            <input type="radio" name="resposta" value="B">
+                            <span class="letra">B</span>
+                            <span class="texto-alternativa">2018</span>
+                        </label>
+
+                        <label class="alternativa">
+                            <input type="radio" name="resposta" value="C">
+                            <span class="letra">C</span>
+                            <span class="texto-alternativa">2019</span>
+                        </label>
+
+                        <label class="alternativa">
+                            <input type="radio" name="resposta" value="D">
+                            <span class="letra">D</span>
+                            <span class="texto-alternativa">2020</span>
+                        </label>
+
+                        <div class="acoes">
+                            <button type="button" class="btn-proxima">
+                                Próxima
+                            </button>
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <aside class="painel-quiz">
+
+                    <div class="quantidade">
+                        <span class="painel-label">Quantidade de perguntas</span>
+                        <strong>10</strong>
+                        <span class="painel-descricao">no total</span>
+                    </div>
+
+                    <div class="resumo">
+                        <span class="resumo-label">Seu progresso</span>
+
+                        <div class="resumo-linha">
+                            <span>Respondidas</span>
+                            <strong>0/10</strong>
+                        </div>
+
+                        <div class="resumo-linha">
+                            <span>Acertos</span>
+                            <strong>0</strong>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-finalizar">
+                        Finalizar e enviar
+                    </button>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="../js/sessao.js"></script>
 
 </body>
 
