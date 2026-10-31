@@ -1,11 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: "Space Grotesk", sans-serif;
-    background-color: #bdd5fa;
+    background-color: #f5f5f5;
+    color: #222;
 }
+
+.janela {
+    min-height: 100vh;
+}
+
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 29%;
+    height: 100vh;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: linear-gradient(180deg, #bdd5fa 0%, #b0cffb 100%);
+}
+
+.header-left>img {
+    width: 100px;
+}
+
+.hello {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hello h3 {
+    color: #54967a;
+    font-size: 1.2rem;
+}
+
+.hello h3 span {
+    font-weight: 800;
+}
+
+.btn-nav,
+.btn-nav-white {
+    width: auto;
+    min-width: 72px;
+    padding: 8px 6px;
+    background-color: #54967a;
+    border: 2px solid #54967a;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-nav-white a {
+    text-decoration: none;
+}
+
+.btn-nav-white h3,
+.btn-nav h3 {
+    color: white;
+    font-size: 25px;
+    margin: 0;
+}
+
+.btn-logout {
+    padding: 8px 10px;
+    background-color: #54967a;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+} 
+.btn-logout a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-logout h3 {
+    font-size: 25px;
+    margin: 0;
+}
+
 
 
 .div-results .feed-container {
@@ -24,13 +110,26 @@ body {
 }
 
 .dash {
-    width: 80%;
-    position: relative;
-    top: 0;
-    left: 20%;
+    width: 71%;
+    min-height: 100vh;
+    margin-left: 29%;
+    padding: 20px 3%;
     background-color: #f5f5f5;
-    height: 100vh;
-    overflow: auto;
+    overflow: hidden;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 12px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #54967a;
+    font-size: 28px;
+    font-weight: 700;
 }
 
 .btns-dash {
@@ -40,19 +139,6 @@ body {
     margin-top: 30px;
     flex-wrap: wrap;
     padding: 0 30% 0 30%;
-}
-
-.header-left {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    height: 100vh;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
 }
 
 .dash-right {
@@ -66,74 +152,13 @@ body {
     overflow: auto;
 }
 
-.hello {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.hello h3 {
-    color: #54967a;
-    font-size: 1.2rem;
-}
-
-.hello h3 span {
-    font-weight: 800;
-}
-
-.btn-nav {
-    width: 40%;
-    color: white;
-    background-color: #54967a;
-    border-radius: 5px;
-    text-align: center;
-    padding: 2% 5%;
-}
-
-.btn-nav-white {
-    width: 40%;
-    background-color: #54967a;
-    border: 3px solid #54967a;
-    border-radius: 5px;
-    text-align: center;
-    padding: 2% 5%;
-}
-
-.btn-nav-white h3 {
-    color: white;
-    padding: 0;
-    margin: 0;
-}
-
-.btn-nav h3,
-.btn-logout h3 {
-    margin: 0;
-    padding: 0;
-}
-
-.btn-logout {
-    margin: 0;
-    padding: 0;
-    width: 20%;
-    background-color: #54967a;
-    color: white;
-    border-radius: 10px;
-    text-align: center;
-    padding: 10px 15px;
-    margin-bottom: 100px;
-    cursor: pointer;
-}
-
 .kpis {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    gap: 25px;
     width: 100%;
-    padding: 25px 20px;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .kpi {
@@ -145,9 +170,9 @@ body {
     min-height: 125px;
     padding: 15px;
     box-sizing: border-box;
-    border: 1px solid #292929;
+    border: 1px solid #54967a;
     border-radius: 12px;
-    background-color: black;
+    background-color: #bdd5fa;
     color: white;
     text-align: center;
     transition: border-color 0.3s, transform 0.3s;
@@ -155,7 +180,7 @@ body {
 
 
 .kpi-titulo {
-    color: #e0e0e0;
+    color: #1e1e1e;
     font-size: 13px;
     font-weight: 500;
 }
@@ -168,6 +193,130 @@ body {
 }
 
 .kpi-descricao {
-    color: #c45a6d;
+    color: #54967a;
     font-size: 11px;
+}
+
+
+.graficos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    height: 320px;
+    background-color: #bdd5fa4a;
+    padding: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chart-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    min-width: 0;
+}
+
+.chart-container h3 {
+    flex-shrink: 0;
+    color: #54967a;
+    font-size: 17px;
+    margin: 8px 0 15px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 230px !important;
+}
+
+.registros {
+    width: 100%;
+    background-color: #54967a33;
+    border: 1px solid #54967a;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 20px;
+}
+
+.registros table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: #1e1e1e;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.registros th {
+    padding: 16px 18px;
+    color: #1e1e1e;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.registros td {
+    padding: 17px 18px;
+    font-size: 13px;
+    border-bottom: 1px solid #54967a55;
+    white-space: nowrap;
+}
+
+.registros tbody tr {
+    transition: background 0.2s ease;
+}
+
+.registros tbody tr:hover {
+    background-color: #bdd5fa80;
+}
+
+.registros tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.registros td:first-child {
+    color: #1e1e1e;
+    font-weight: 600;
+}
+
+.registros td:nth-child(2) {
+    color: #54967a;
+    font-weight: 700;
+}
+
+.format-hora-tabela {
+    color: #1e1e1e;
+    font-size: 12px;
+}
+
+.format-hora-tabela span {
+    display: block;
+    margin-top: 4px;
+    color: #54967a;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Fundo da barra */
+::-webkit-scrollbar-track {
+  background-color: #F3F3F3;
+}
+
+/* Parte que você arrasta */
+::-webkit-scrollbar-thumb {
+  background-color: #bdd5fa;
+  border-radius: 10px;
+}
+
+/* Cor ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bdd5fa;
 }

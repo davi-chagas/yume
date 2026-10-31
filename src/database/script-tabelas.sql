@@ -6,53 +6,39 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+CREATE DATABASE yume
 
-USE aquatech;
+USE yume;
 
-CREATE TABLE empresa (
+CREATE TABLE user (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+	name VARCHAR(45) NOT NULL,
+	username VARCHAR(15) NOT NULL UNIQUE,
+	email VARCHAR(70) NOT NULL UNIQUE,
+	password VARCHAR(50),
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE usuario (
+CREATE TABLE post (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+	title VARCHAR(45) NOT NULL,
+	description VARCHAR(150) NULL,
+	img_url VARCHAR(300) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	type VARCHAR(50) NOT NULL,
+	CONSTRAINT ch_type CHECK (type IN('Post', 'Quiz')),
+	user_id INT,
+	FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-CREATE TABLE aviso (
+CREATE TABLE quiz_question (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+	question VARCHAR(50) NOT NULL,
+	alt_a VARCHAR(45) NOT NULL,
+	alt_b VARCHAR(45) NOT NULL,
+	alt_c VARCHAR(45) NOT NULL,
+	alt_d VARCHAR(45) NOT NULL,
+	correct_answer VARCHAR(45) NOT NULL,
+	post_id INT,
+	FOREIGN KEY (post_id) REFERENCES post(id)
 );
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	temperatura DECIMAL,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);

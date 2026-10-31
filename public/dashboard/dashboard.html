@@ -29,6 +29,7 @@
 
 <body>
 
+
     <div class="janela">
         <div class="header-left">
             <img src="../assets/imgs/logo.svg" width="100px" alt="">
@@ -38,37 +39,124 @@
             </div>
 
             <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Dashboard</h3>
+                <a href="../feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Métricas</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="../perfil.html">
+                    <h3>Perfil</h3>
                 </a>
             </div>
 
             <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+                <a href="../index.html">
+                    <h3>Sair</h3>
+                </a>
             </div>
 
         </div>
 
         <div class="dash">
-
+            <div class="header">
+                <h1>OVERVIEW</h1>
+                <h3>Olá, davi!</h3>
+            </div>
             <div class="kpis">
                 <div class="kpi">
-                    <span class="kpi-titulo">Total de curtidas</span>
+                    <span class="kpi-titulo">Total Engajamento</span>
                     <strong>92</strong>
-                    <span class="kpi-descricao">Posts e quizzes</span>
+                    <span class="kpi-descricao">80 curtidas / 12 comentários</span>
                 </div>
 
                 <div class="kpi">
-                    <span class="kpi-titulo">Total de engajamenos</span>
-                    <strong>48</strong>
-                    <span class="kpi-descricao">Interações</span>
+                    <span class="kpi-titulo">Total Publicações</span>
+                    <strong>8</strong>
+                    <span class="kpi-descricao">6 Post / 2 Quiz</span>
                 </div>
 
                 <div class="kpi">
-                    <span class="kpi-titulo">Média de interações por post</span>
-                    <strong>2.5</strong>
-                    <span class="kpi-descricao">Participações em média</span>
+                    <span class="kpi-titulo">Post mais engajado</span>
+                    <strong>CBleach?</strong>
+                    <span class="kpi-descricao">15 curtidas / 3 comentários</span>
                 </div>
+            </div>
+
+            <div class="graficos">
+                <div class="chart-container">
+                    <h3>Curtidas e Comentários</h3>
+                    <canvas id="engagement"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Distribuição dos engajamentos</h3>
+                    <canvas id="distribution"></canvas>
+                </div>
+            </div>
+
+            <div class="registros">
+                <div class="header-tabela">
+                    <h3>Registros de Posts & Quiz</h3>
+                </div>
+                <table>
+                    <thead class="titulo-tabela">
+                        <tr>
+                            <th>Publicação</th>
+                            <th>Tipo</th>
+                            <th>Curtidas</th>
+                            <th>Comentários</th>
+                            <th>Data/Hora</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>O que podemos aprender com Naruto?</td>
+                            <td>Post</td>
+                            <td>128</td>
+                            <td>24</td>
+                            <td class="format-hora-tabela">28/10/2026 <span>14:30</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Quiz: Conhecimentos sobre One Piece</td>
+                            <td>Quiz</td>
+                            <td>96</td>
+                            <td>18</td>
+                            <td class="format-hora-tabela">27/10/2026 <span>19:45</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>A importância da amizade em Hunter x Hunter</td>
+                            <td>Post</td>
+                            <td>87</td>
+                            <td>15</td>
+                            <td class="format-hora-tabela">26/10/2026 <span>10:20</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Quiz: Você conhece Bleach?</td>
+                            <td>Quiz</td>
+                            <td>64</td>
+                            <td>12</td>
+                            <td class="format-hora-tabela">25/10/2026 <span>16:10</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>As reflexões que Vinland Saga nos proporciona</td>
+                            <td>Post</td>
+                            <td>153</td>
+                            <td>32</td>
+                            <td class="format-hora-tabela">24/10/2026 <span>21:05</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div id="alerta">
@@ -86,8 +174,46 @@
 </body>
 
 </html>
-
 <script>
+    const engagement = document.getElementById('engagement');
+    const distribution = document.getElementById('distribution');
+
+    new Chart(engagement, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Engajamento',
+                data: [30, 22, 10, 7, 8, 9, 22, 35],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(distribution, {
+        type: 'doughnut',
+        data: {
+            labels: ['Post', 'Quiz'],
+            datasets: [{
+                label: 'Distribuicao',
+                data: [30, 22],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+<!-- <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     c_usuario.innerHTML = sessionStorage.CPF_USUARIO;
 
@@ -314,4 +440,4 @@
             });
 
     }
-</script>
+</script> -->

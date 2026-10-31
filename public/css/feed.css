@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 * {
@@ -82,6 +81,11 @@ body {
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+}
+
+.btn-logout a {
+    text-decoration: none;
+    color: white;
 }
 
 .btn-logout h3 {
@@ -269,4 +273,25 @@ body {
     height: 124px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Fundo da barra */
+::-webkit-scrollbar-track {
+  background-color: #F3F3F3;
+}
+
+/* Parte que você arrasta */
+::-webkit-scrollbar-thumb {
+  background-color: #bdd5fa;
+  border-radius: 10px;
+}
+
+/* Cor ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bdd5fa;
 }

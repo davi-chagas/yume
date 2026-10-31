@@ -81,6 +81,12 @@ body {
     cursor: pointer;
 }
 
+.btn-logout a {
+    text-decoration: none;
+    color: white;
+}
+
+
 .btn-logout h3 {
     font-size: 25px;
     margin: 0;
