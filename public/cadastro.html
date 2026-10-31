@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
+<body>
   <div class="header">
     <div class="container">
       <a href="index.html">
@@ -40,25 +40,45 @@
       <img src="assets/imgs/login.png" alt="">
     </div>
     <div class="div-formulario">
+
+
       <div class="div-campos">
+        <div class="alerta-erro">
+          <div class="card-erro" id="cardErro">
+            <span id="msg_error"></span>
+          </div>
+        </div>
         <div class="div-titulo">
           <h1>CADASTRE-SE</h1>
         </div>
 
-        <label for="ipt_email" class="label-inputs">Email</label><br>
-        <input type="text" id="ipt_email" placeholder="nome completo" class="ipt-info"><br>
+        <label for="ipt_name" class="label-inputs">Nome</label><br>
+        <input type="text" id="ipt_name" placeholder="Digite seu nome" class="ipt-info"> <br>
+
+        <label for="ipt_username" class="label-inputs">Username</label><br>
+        <input type="text" id="ipt_username" placeholder="Digite um username com @" class="ipt-info"><br>
 
         <label for="ipt_email" class="label-inputs">E-mail</label><br>
         <input type="text" id="ipt_email" placeholder="nome@email.com" class="ipt-info"><br>
 
-        <label for="ipt_senha" class="label-inputs">Senha</label><br>
-        <input type="password" id="ipt_senha" onkeyup="mostrarSenha()" placeholder="Digite sua senha" required
+        <label for="ipt_password" class="label-inputs">Senha</label><br>
+        <input type="password" id="ipt_password" onkeyup="mostrarSenha()" placeholder="Digite sua senha" required
           class="ipt-info"><br>
 
-        <label for="ipt_senha" class="label-inputs">Confirmação Senha</label><br>
-        <input type="password" id="ipt_senha" onkeyup="mostrarSenha()" placeholder="Digite sua senha" required
-          class="ipt-info"><br>
-        <div id="div_senha"></div>
+        <div id="div_password"></div>
+
+        <label for="ipt_confirm_password" class="label-inputs">Confirmação Senha</label><br>
+        <input type="password" id="ipt_confirm_password" onkeyup="mostrarSenha()" placeholder="Digite sua senha"
+          required class="ipt-info"><br>
+
+        <div id="div_confirm_password"></div>
+
+        <div class="alerta-success">
+          <div class="card-success" id="cardSuccess">
+            <span id="msg_success"></span>
+          </div>
+        </div>
+
 
 
         <button onclick="cadastrar()">Cadastrar</button>
@@ -82,34 +102,28 @@
 
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
   function cadastrar() {
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var cpfVar = cpf_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
+    var nameVar = ipt_name.value;
+    var emailVar = ipt_email.value;
+    var usernameVar = ipt_username.value;
+    var passwordVar = ipt_password.value;
+    var confirmacaoSenhaVar = ipt_confirm_password.value;
 
     // Verificando se há algum campo em branco
     if (
-      nomeVar == "" ||
+      nameVar == "" ||
       emailVar == "" ||
-      senhaVar == "" ||
-      cpfVar == '' ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
+      passwordVar == "" ||
+      usernameVar == '' ||
+      confirmacaoSenhaVar == ""
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+      cardErro.style.display = 'block';
+      msg_error.innerHTML =
+        "Todos os campos precisam ser preenchidos";
 
       finalizarAguardar();
       return false;
@@ -117,10 +131,30 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    if (nomeVar.length < 1) {
+    if (nameVar.length < 1) {
       cardErro.style.display = 'block';
-      mensagem_erro.innerHTML =
+      msg_error.innerHTML =
         'Nome precisa ser maior que 1 caracter'
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    if (!usernameVar.startsWith('@')) {
+      cardErro.style.display = 'block';
+      msg_error.innerHTML =
+        'Username precisa começar com @'
+      finalizarAguardar()
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    if (usernameVar.length > 15) {
+      cardErro.style.display = 'block';
+      msg_error.innerHTML =
+        'Limite máximo de caracteres para username excedido (15)'
       finalizarAguardar();
       return false;
     } else {
@@ -129,7 +163,7 @@
 
     if (!emailVar.includes('@') || !emailVar.includes('.')) {
       cardErro.style.display = 'block';
-      mensagem_erro.innerHTML =
+      msg_error.innerHTML =
         'Email deve incluir @ e .'
       finalizarAguardar();
       return false;
@@ -137,67 +171,42 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    if (senhaVar.length < 7) {
+    if (passwordVar.length < 7) {
       cardErro.style.display = 'block';
-      mensagem_erro.innerHTML =
+      msg_error.innerHTML =
         'Senha precisa ser maior que 6 caracteres'
+    } else {
+      setInterval(sumirMensagem, 5000);
     }
-    if (confirmacaoSenhaVar != senhaVar) {
+
+    if (confirmacaoSenhaVar != passwordVar) {
       cardErro.style.display = 'block';
-      mensagem_erro.innerHTML =
-        'A senhas não coincidem'
+      msg_error.innerHTML =
+        'As senhas não coincidem'
       finalizarAguardar();
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
     }
 
-    if (cpfVar.length != 11) {
-      cardErro.style.display = 'block';
-      mensagem_erro.innerHTML =
-        'CPF precisa ter 11 caracters'
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
-    }
-
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
+        nomeServer: nameVar,
+        usernameServer: usernameVar,
         emailServer: emailVar,
-        senhaServer: senhaVar,
-        cpfServer: cpfVar,
-        idEmpresaVincularServer: idEmpresaVincular
+        passwordServer: passwordVar,
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
+          cardSuccess.style.display = 'block';
+          msg_success.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
@@ -218,27 +227,48 @@
     return false;
   }
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
+  function mostrarSenha() {
+    let password = ipt_password.value.trim();
+    let confirm_password = ipt_confirm_password.value.trim();
+    let have_special = password.includes('!') || password.includes('@') || password.includes('#') || password.includes('$') || password.includes('.') || password.includes('*')
+    let upper_password = password.toUpperCase();
+    let lower_password = password.toLowerCase();
+    let req = 0;
 
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+    if (password.length >= 8) {
+      req++
+    }
+
+    if (password != upper_password) {
+      req++
+    }
+
+    if (password != lower_password) {
+      req++
+    }
+
+    if (have_special) {
+      req++
+    }
+
+    if (req == 4) {
+      div_password.innerHTML = `Senha <b style="color: green">Forte</b>`
+    } else if (req == 3) {
+      div_password.innerHTML = `Senha <b style="color: #FFD700">Média</b>`
+    } else {
+      div_password.innerHTML = `Senha <b style="color: red">Fraca</b>`
+    }
+
+    if (password != confirm_password) {
+      div_confirm_password.innerHTML = `Senhas <b style="color:red">não coincidem</b>`
+    } else {
+      div_confirm_password.innerHTML = ``
+    }
   }
 
   function sumirMensagem() {
     cardErro.style.display = "none";
+    cardSuccess.style.display = "none";
   }
+
 </script>

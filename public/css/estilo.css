@@ -74,7 +74,7 @@ body {
 }
 
 
-.main-container{
+.main-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,6 +87,12 @@ body {
   flex-direction: column;
   padding-left: 30px;
 }
+
+.main-container p {
+  font-size: 16px;
+  line-height: 1.9;
+}
+
 
 .main-container img {
   width: 700px;
@@ -101,11 +107,11 @@ body {
   color: #54967a;
 }
 
-.main-container .gatilhos a{
+.main-container .gatilhos a {
   padding: 10px;
   background-color: #b4cbef;
   border-radius: 8px;
-  color:white;
+  color: white;
   text-decoration: none;
 }
 
@@ -266,7 +272,7 @@ body {
 }
 
 .momentos .destaque {
-  color: #bdd5fa  ;
+  color: #bdd5fa;
   font-weight: 700;
 }
 
