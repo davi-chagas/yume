@@ -27,17 +27,54 @@ function createPost(req, res) {
         res.status(400).send('Usuário indefinido')
     } else {
         postModel.createPost(title, description, img_url, type, user_id).
-        then(function (result) {
-            res.json(result)
-        })
-        .catch(
-            function(err){
-                console.log(err);
-                console.log('Houve um erro ao realizar o post: ' + err.sqlMessage);
-                res.status(500).json(err.sqlMessage)
-            }
-        )
+            then(function (result) {
+                res.json(result)
+            })
+            .catch(
+                function (err) {
+                    console.log(err);
+                    console.log('Houve um erro ao realizar o post: ' + err.sqlMessage);
+                    res.status(500).json(err.sqlMessage)
+                }
+            )
     }
 }
 
-module.exports = { getAllPosts, getAllQuizes, createPost };
+function updatePost(req, res) {
+    var new_title = req.body.title;
+    var new_description = req.body.description;
+    var new_img_url = req.body.img_url;
+    var post_id = req.params.post_id;
+
+    postModel.update(new_title, new_description, new_img_url, post_id)
+        .then(
+            function (result) {
+                res.json(result);
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao atualizar o post: ', err.sqlMessage);
+                res.json(500).json(err.sqlMessage)
+            }
+        )
+}
+
+function deletePost(req, res) {
+    var post_id = req.params.post_id;
+
+    postModel.deletePost(post_id)
+        .then(
+            function (result) {
+                res.json(result)
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao deletar o post: ', err.sqlMessage);
+                res.json(500).json(err.sqlMessage);
+            }
+        )
+}
+
+module.exports = { getAllPosts, getAllQuizes, createPost, updatePost, deletePost };

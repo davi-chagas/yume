@@ -15,5 +15,16 @@ function createPost(title, description, img_url, type, user_id) {
     return database.executar(instrucaoSql);
 }
 
+function update(new_title, new_description, new_img_url, post_id){
+    var instrucaoSql = `UPDATE post SET title = '${new_title}', description = '${new_description}', img_url = '${new_img_url}' WHERE id = ${post_id}`;
 
-module.exports = { getPosts, getQuizes, createPost };
+    return database.executar(instrucaoSql);
+}
+
+function deletePost(post_id){
+    var instrucaoSql = `DELETE FROM post WHERE id = ${post_id};`;
+
+    return database.executar(instrucaoSql);
+}
+
+module.exports = { getPosts, getQuizes, createPost, update, deletePost };

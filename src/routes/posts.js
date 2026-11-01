@@ -15,4 +15,12 @@ router.post('/:user_id', function (req, res) {
     postController.createPost(req, res)
 })
 
+router.put('/:post_id', function (req, res) {
+    postController.updatePost(req, res);
+})
+
+router.delete('/:post_id', function (req, res) {
+    postController.deletePost(req, res);
+})
+
 module.exports = router;
