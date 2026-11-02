@@ -116,7 +116,6 @@
     function newPost() {
         var titleVar = ipt_title.value;
         var descriptionVar = ipt_description.value;
-        var typeVar = 'Post';
         var userIdVar = sessionStorage.ID_USUARIO;
         var imgVar = ipt_img.files[0];
 
@@ -143,7 +142,6 @@
 
         formData.append("title", titleVar);
         formData.append("description", descriptionVar);
-        formData.append("type", typeVar);
         formData.append("user_id", userIdVar);
 
         if (imgVar) {

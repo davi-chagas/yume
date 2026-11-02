@@ -6,33 +6,18 @@ function getAll(req, res) {
     })
 }
 
-function getAllPosts(req, res) {
-    postModel.getPosts().then((result) => {
-        res.status(200).json(result);
-    })
-}
-
-function getAllQuizes(req, res) {
-    postModel.getQuizes().then((result) => {
-        res.status(200).json(result)
-    })
-}
-
 function createPost(req, res) {
     var title = req.body.title;
     var description = req.body.description;
-    var type = req.body.type;
     var user_id = req.body.user_id;
     var img_url = req.file ? `/assets/${req.file.filename}` : null; // se tiver img envia para assets/ caso nao retorna como null
 
     if (title == undefined) {
         res.status(400).send('Titulo indefinido')
-    } else if (type == undefined) {
-        res.status(400).send('Tipo do post indefinido')
     } else if (user_id == undefined) {
         res.status(400).send('Usuário indefinido')
     } else {
-        postModel.createPost(title, description, type, user_id, img_url).
+        postModel.createPost(title, description, user_id, img_url).
             then(function (result) {
                 res.json(result)
             })
@@ -83,4 +68,4 @@ function deletePost(req, res) {
         )
 }
 
-module.exports = { getAll, getAllPosts, getAllQuizes, createPost, updatePost, deletePost };
+module.exports = { getAll, createPost, updatePost, deletePost };

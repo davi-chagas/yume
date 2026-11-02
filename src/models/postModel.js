@@ -1,25 +1,27 @@
 var database = require("../database/config");
 
 function getAll() {
-    var instrucaoSql = `SELECT * FROM post AS p
-    JOIN user AS u
+    var instrucaoSql = `SELECT
+    p.id AS post_id,
+    p.title,
+    p.description,
+    p.img_url,
+    p.created_at,
+    p.user_id,
+    u.name,
+    u.username
+FROM post AS p
+JOIN user AS u
     ON u.id = p.user_id
-    ORDER BY p.created_at DESC`
+ORDER BY p.created_at DESC;`
     return database.executar(instrucaoSql);
 }
 
-function getPosts() {
-    var instrucaoSql = `SELECT * FROM post WHERE type = 'Post' ORDER BY created_at DESC`
-    return database.executar(instrucaoSql);
-}
+function createPost(title, description, user_id, img_url) {
+    var instrucaoSql = `INSERT INTO post 
+        (title, description, type, user_id, img_url) 
+        VALUES ('${title}', '${description}', ${user_id}, '${img_url}')`;
 
-function getQuizes() {
-    var instrucaoSql = `SELECT * FROM post WHERE type = 'Quiz ORDER BY created_at DESC'`
-    return database.executar(instrucaoSql);
-}
-
-function createPost(title, description, type, user_id, img_url) {
-    var instrucaoSql = `INSERT INTO post (title, description, type, user_id, img_url) VALUES ('${title}', '${description}', '${type}', ${user_id}, '${img_url}')`
     return database.executar(instrucaoSql);
 }
 
@@ -35,4 +37,4 @@ function deletePost(post_id) {
     return database.executar(instrucaoSql);
 }
 
-module.exports = { getAll, getPosts, getQuizes, createPost, update, deletePost };
+module.exports = { getAll,createPost, update, deletePost };

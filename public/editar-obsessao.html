@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YUME | Editar Obsessões</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/editar-obsessao.css">
+    <link rel="icon" href="./assets/imgs/logo.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="janela">
+
+        <aside class="header-left">
+
+            <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Métricas</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="perfil.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <a href="index.html">
+                    <h3>Sair</h3>
+                </a>
+            </div>
+
+        </aside>
+
+        <main class="dash">
+
+            <div class="header">
+                <div>
+                    <h1>Editar <span>Obsessões</span></h1>
+                    <p>Personalize seu perfil com aquilo que faz parte do seu universo.</p>
+                </div>
+            </div>
+
+            <form class="form-obsessoes" enctype="multipart/form-data">
+
+                <section class="obsessao-section">
+
+                    <div class="obsessao-titulo">
+                        <h2>Anime Favorito</h2>
+                        <span>01</span>
+                    </div>
+
+                    <div class="obsessao-conteudo">
+
+                        <div class="preview-imagem">
+                            <img src="assets/imgs/placeholder.png" alt="Anime favorito">
+                        </div>
+
+                        <div class="campos">
+
+                            <div class="campo">
+                                <label for="ipt_favorite_anime">Nome do anime</label>
+                                <input
+                                    type="text"
+                                    id="ipt_favorite_anime"
+                                    name="favorite_anime"
+                                    placeholder="Ex: Bleach">
+                            </div>
+
+                            <div class="campo">
+                                <label for="ipt_img_favorite_anime">Imagem do anime</label>
+                                <input
+                                    type="file"
+                                    id="ipt_img_favorite_anime"
+                                    name="img_favorite_anime"
+                                    accept="image/png, image/jpeg, image/webp">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="obsessao-section">
+
+                    <div class="obsessao-titulo">
+                        <h2>Assistindo Atualmente</h2>
+                        <span>02</span>
+                    </div>
+
+                    <div class="obsessao-conteudo">
+
+                        <div class="preview-imagem">
+                            <img src="assets/imgs/placeholder.png" alt="Anime atual">
+                        </div>
+
+                        <div class="campos">
+
+                            <div class="campo">
+                                <label for="ipt_watching_now">Nome do anime</label>
+                                <input
+                                    type="text"
+                                    id="ipt_watching_now"
+                                    name="watching_now"
+                                    placeholder="Ex: Naruto">
+                            </div>
+
+                            <div class="campo">
+                                <label for="ipt_img_watching_now">Imagem do anime</label>
+                                <input
+                                    type="file"
+                                    id="ipt_img_watching_now"
+                                    name="img_watching_now"
+                                    accept="image/png, image/jpeg, image/webp">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="obsessao-section">
+
+                    <div class="obsessao-titulo">
+                        <h2>Personagem Favorito</h2>
+                        <span>03</span>
+                    </div>
+
+                    <div class="obsessao-conteudo">
+
+                        <div class="preview-imagem">
+                            <img src="assets/imgs/placeholder.png" alt="Personagem favorito">
+                        </div>
+
+                        <div class="campos">
+
+                            <div class="campo">
+                                <label for="ipt_favorite_character">Nome do personagem</label>
+                                <input
+                                    type="text"
+                                    id="ipt_favorite_character"
+                                    name="favorite_character"
+                                    placeholder="Ex: Toshiro Hitsugaya">
+                            </div>
+
+                            <div class="campo">
+                                <label for="ipt_img_favorite_character">Imagem do personagem</label>
+                                <input
+                                    type="file"
+                                    id="ipt_img_favorite_character"
+                                    name="img_favorite_character"
+                                    accept="image/png, image/jpeg, image/webp">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <div class="acoes">
+
+                    <a href="perfil.html" class="btn-cancelar">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="btn-salvar">
+                        Salvar Alterações
+                    </button>
+
+                </div>
+
+            </form>
+
+        </main>
+
+    </div>
+
+    <script>
+        document.getElementById("b_usuario").textContent =
+            sessionStorage.NOME_USUARIO || "usuário";
+    </script>
+
+</body>
+
+</html>
