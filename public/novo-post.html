@@ -35,6 +35,12 @@
 
             <div class="btn-nav-white">
                 <a href="dashboard/dashboard.html">
+                    <h3>Métricas</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
                     <h3>Perfil</h3>
                 </a>
             </div>
@@ -52,20 +58,24 @@
 
             <section class="novo-post-container">
                 <form class="form-post" onsubmit="return newPost()" enctype="multipart/form-data">
-                    <div id="msg_error"></div>
-                    <div id="msg_success"></div>
+                    <div class="card-erro" id="cardErr">
+                        <div id="msg_error" class="msg-error"></div>
+                    </div>
+                    <div class="card-success" id="cardSuccess">
+                        <div id="msg_success" class="msg-success"></div>
+                    </div>
 
                     <div class="campo-post">
                         <label for="ipt_title">Título da publicação</label>
                         <input type="text" id="ipt_title" name="titulo" placeholder="Dê um título para sua publicação"
-                            maxlength="100" required>
+                            maxlength="100">
                     </div>
 
                     <div class="campo-post">
                         <label for="ipt_description">Descrição</label>
                         <textarea id="ipt_description" name="descricao"
-                            placeholder="Compartilhe seus pensamentos com a comunidade..." rows="5" maxlength="1000"
-                            required></textarea>
+                            placeholder="Compartilhe seus pensamentos com a comunidade..." rows="5"
+                            maxlength="1000"></textarea>
                     </div>
 
                     <div class="campo-post">
@@ -114,13 +124,19 @@
         msg_success.innerHTML = "";
 
         if (titleVar == '') {
+            cardErr.style.display = 'block';
             msg_error.innerHTML = 'Título precisa ser preenchido';
             return false;
+        } else {
+            setInterval(sumirMensagem, 5000)
         }
 
         if (descriptionVar == '') {
+            cardErr.style.display = 'block';
             msg_error.innerHTML = 'Descrição precisa ser preenchida';
             return false;
+        } else {
+            setInterval(sumirMensagem, 5000)
         }
 
         var formData = new FormData();
@@ -140,8 +156,13 @@
         })
             .then(function (result) {
                 if (result.ok) {
+                    cardSuccess.style.display = 'block'
                     msg_success.innerHTML = 'Post registrado com sucesso!';
                     document.querySelector(".form-post").reset();
+
+                    setTimeout(() => {
+                        window.location = 'feed.html'
+                    })
                 } else {
                     throw new Error('Houve um erro ao tentar cadastrar o post.');
                 }
@@ -152,5 +173,10 @@
             });
 
         return false;
+    }
+
+    function sumirMensagem() {
+        cardErr.style.display = "none";
+        cardSuccess.style.display = "none";
     }
 </script>

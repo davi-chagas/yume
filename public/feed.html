@@ -75,6 +75,11 @@
     </div>
   </div>
 
+  <div id="modalImagem" class="modal-imagem">
+    <span id="fecharModal" class="fechar-modal">&times;</span>
+    <img id="imagemAmpliada" src="" alt="Imagem ampliada">
+  </div>
+
 
 </body>
 
@@ -137,6 +142,17 @@
             imgPost.src = post.img_url;
             imgPost.alt = "Imagem da publicação";
 
+            imgPost.style.cursor = "pointer";
+
+            // Adiciona o evento de clique na imagem (gerado pelo IA)
+            imgPost.addEventListener("click", function () {
+              let modal = document.getElementById("modalImagem");
+              let imagemAmpliada = document.getElementById("imagemAmpliada");
+
+              imagemAmpliada.src = post.img_url;
+              modal.style.display = "flex";
+            });
+
             divImagens.appendChild(imgPost);
             divPost.appendChild(divImagens);
           }
@@ -178,4 +194,24 @@
         console.error("Erro:", erro);
       });
   }
+
+  // Trecho gerado pela IA para clicar na imagem
+  let modal = document.getElementById("modalImagem");
+  let fecharModal = document.getElementById("fecharModal");
+
+  fecharModal.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", function (evento) {
+    if (evento.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  document.addEventListener("keydown", function (evento) {
+    if (evento.key === "Escape") {
+      modal.style.display = "none";
+    }
+  });
 </script>
