@@ -67,7 +67,6 @@
         <div class="dash">
             <div class="header">
                 <h1>OVERVIEW</h1>
-                <h3>Olá, davi!</h3>
             </div>
             <div class="kpis">
                 <div class="kpi">
@@ -93,10 +92,6 @@
                 <div class="chart-container">
                     <h3>Curtidas e Comentários</h3>
                     <canvas id="engagement"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3>Distribuição dos engajamentos</h3>
-                    <canvas id="distribution"></canvas>
                 </div>
             </div>
 
@@ -184,10 +179,10 @@
     new Chart(engagement, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
                 label: 'Engajamento',
-                data: [30, 22, 10, 7, 8, 9, 22, 35],
+                data: [30, 22, 10, 7, 8, 9, 22, 35, 22, 12, 12, 30],
                 borderWidth: 1
             }]
         },
