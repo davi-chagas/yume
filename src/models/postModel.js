@@ -1,12 +1,12 @@
 var database = require("../database/config");
 
 function getPosts() {
-    var instrucaoSql = `SELECT * FROM post WHERE type = 'Post'`
+    var instrucaoSql = `SELECT * FROM post WHERE type = 'Post' ORDER BY created_at DESC`
     return database.executar(instrucaoSql);
 }
 
 function getQuizes() {
-    var instrucaoSql = `SELECT * FROM post WHERE type = 'Quiz'`
+    var instrucaoSql = `SELECT * FROM post WHERE type = 'Quiz ORDER BY created_at DESC'`
     return database.executar(instrucaoSql);
 }
 

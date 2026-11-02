@@ -47,7 +47,7 @@ CREATE TABLE comment_post (
 	user_id INT,
     post_id INT,
     content VARCHAR(150),
-	create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(user_id, post_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (post_id) REFERENCES post(id)
