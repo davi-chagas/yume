@@ -5,13 +5,9 @@ function validarSessao() {
     var username = sessionStorage.USERNAME_USER;
 
     var b_usuario = document.getElementById("b_usuario");
-    var c_usuario = document.getElementById("c_usuario");
-    var d_usuario = document.getElementById("d_usuario");
 
     if (email != null && name != null && username != null) {
         b_usuario.innerHTML = name;
-        c_usuario.innerHTML = email;
-        c_usuario.innerHTML = username;
     } else {
         window.location = "../login.html";
     }

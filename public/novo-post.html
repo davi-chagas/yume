@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -52,45 +51,33 @@
             </div>
 
             <section class="novo-post-container">
-                <form class="form-post" enctype="multipart/form-data">
+                <form class="form-post" onsubmit="return newPost()" enctype="multipart/form-data">
+                    <div id="msg_error"></div>
+                    <div id="msg_success"></div>
 
                     <div class="campo-post">
-                        <label for="ipt_titulo">Título da publicação</label>
-                        <input
-                            type="text"
-                            id="ipt_titulo"
-                            name="titulo"
-                            placeholder="Dê um título para sua publicação"
-                            maxlength="100"
-                            required>
+                        <label for="ipt_title">Título da publicação</label>
+                        <input type="text" id="ipt_title" name="titulo" placeholder="Dê um título para sua publicação"
+                            maxlength="100" required>
                     </div>
 
                     <div class="campo-post">
-                        <label for="ipt_descricao">Descrição</label>
-                        <textarea
-                            id="ipt_descricao"
-                            name="descricao"
-                            placeholder="Compartilhe seus pensamentos com a comunidade..."
-                            rows="5"
-                            maxlength="1000"
+                        <label for="ipt_description">Descrição</label>
+                        <textarea id="ipt_description" name="descricao"
+                            placeholder="Compartilhe seus pensamentos com a comunidade..." rows="5" maxlength="1000"
                             required></textarea>
                     </div>
 
                     <div class="campo-post">
-                        <label for="ipt_imagem">Imagem da publicação</label>
+                        <label for="ipt_img">Imagem da publicação</label>
 
-                        <label for="ipt_imagem" class="upload-imagem">
+                        <label for="ipt_img" class="upload-imagem">
                             <span class="upload-icone">+</span>
                             <span>Escolha uma imagem para o post</span>
                             <span class="upload-detalhe">PNG, JPG ou JPEG</span>
                         </label>
 
-                        <input
-                            type="file"
-                            id="ipt_imagem"
-                            name="imagem"
-                            accept="image/png, image/jpeg"
-                            required>
+                        <input type="file" id="ipt_img" name="imagem" accept="image/png, image/jpeg">
 
                         <img id="preview_imagem" alt="Pré-visualização da imagem">
                     </div>
@@ -108,12 +95,62 @@
 
         </main>
     </div>
-
-    <script>
-        document.getElementById("b_usuario").textContent =
-            sessionStorage.NOME_USUARIO || "usuário";
-    </script>
 </body>
 
 
 </html>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NAME_USER;
+
+    function newPost() {
+        var titleVar = ipt_title.value;
+        var descriptionVar = ipt_description.value;
+        var typeVar = 'Post';
+        var userIdVar = sessionStorage.ID_USUARIO;
+        var imgVar = ipt_img.files[0];
+
+        msg_error.innerHTML = "";
+        msg_success.innerHTML = "";
+
+        if (titleVar == '') {
+            msg_error.innerHTML = 'Título precisa ser preenchido';
+            return false;
+        }
+
+        if (descriptionVar == '') {
+            msg_error.innerHTML = 'Descrição precisa ser preenchida';
+            return false;
+        }
+
+        var formData = new FormData();
+
+        formData.append("title", titleVar);
+        formData.append("description", descriptionVar);
+        formData.append("type", typeVar);
+        formData.append("user_id", userIdVar);
+
+        if (imgVar) {
+            formData.append("imagem", imgVar);
+        }
+
+        fetch(`/posts`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(function (result) {
+                if (result.ok) {
+                    msg_success.innerHTML = 'Post registrado com sucesso!';
+                    document.querySelector(".form-post").reset();
+                } else {
+                    throw new Error('Houve um erro ao tentar cadastrar o post.');
+                }
+            })
+            .catch(function (erro) {
+                console.log("ERRO:", erro);
+                msg_error.innerHTML = 'Não foi possível cadastrar o post.';
+            });
+
+        return false;
+    }
+</script>
