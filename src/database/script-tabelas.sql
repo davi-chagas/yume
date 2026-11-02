@@ -37,14 +37,6 @@ CREATE TABLE quiz_question (
 CREATE TABLE like_post (
 	user_id INT,
     post_id INT,
-    PRIMARY KEY(user_id, post_id),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (post_id) REFERENCES post(id)
-);
-
-CREATE TABLE like_post (
-	user_id INT,
-    post_id INT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(user_id, post_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
