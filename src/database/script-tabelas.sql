@@ -1,13 +1,4 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE yume
-
+CREATE DATABASE yume;
 USE yume;
 
 CREATE TABLE user (
@@ -41,4 +32,31 @@ CREATE TABLE quiz_question (
 	correct_answer VARCHAR(45) NOT NULL,
 	post_id INT,
 	FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE like_post (
+	user_id INT,
+    post_id INT,
+    PRIMARY KEY(user_id, post_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE like_post (
+	user_id INT,
+    post_id INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(user_id, post_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE comment_post (
+	user_id INT,
+    post_id INT,
+    content VARCHAR(150),
+	create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(user_id, post_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (post_id) REFERENCES post(id)
 );
