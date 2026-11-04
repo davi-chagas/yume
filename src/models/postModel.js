@@ -19,7 +19,7 @@ ORDER BY p.created_at DESC;`
 
 function createPost(title, description, user_id, img_url) {
     var instrucaoSql = `INSERT INTO post 
-        (title, description, type, user_id, img_url) 
+        (title, description, user_id, img_url) 
         VALUES ('${title}', '${description}', ${user_id}, '${img_url}')`;
 
     return database.executar(instrucaoSql);

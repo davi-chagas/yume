@@ -14,19 +14,19 @@ function autenticar(req, res) {
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); 
+                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-                               
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        username: resultadoAutenticar[0].username,
-                                        name: resultadoAutenticar[0].name,
-                                        password: resultadoAutenticar[0].password,
-                                    });
-                                
+
+                        res.json({
+                            id: resultadoAutenticar[0].id,
+                            email: resultadoAutenticar[0].email,
+                            username: resultadoAutenticar[0].username,
+                            name: resultadoAutenticar[0].name,
+                            password: resultadoAutenticar[0].password,
+                        });
+
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou password inválido(s)");
                     } else {
@@ -62,7 +62,7 @@ function cadastrar(req, res) {
     } else if (password == undefined) {
         res.status(400).send("Sua senha está undefined!");
     }
-     else {
+    else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, username, email, password)

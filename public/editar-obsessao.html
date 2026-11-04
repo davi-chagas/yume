@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -62,7 +61,6 @@
             <div class="header">
                 <div>
                     <h1>Editar <span>Obsessões</span></h1>
-                    <p>Personalize seu perfil com aquilo que faz parte do seu universo.</p>
                 </div>
             </div>
 
@@ -77,27 +75,17 @@
 
                     <div class="obsessao-conteudo">
 
-                        <div class="preview-imagem">
-                            <img src="assets/imgs/placeholder.png" alt="Anime favorito">
-                        </div>
-
                         <div class="campos">
 
                             <div class="campo">
                                 <label for="ipt_favorite_anime">Nome do anime</label>
-                                <input
-                                    type="text"
-                                    id="ipt_favorite_anime"
-                                    name="favorite_anime"
+                                <input type="text" id="ipt_favorite_anime" name="favorite_anime"
                                     placeholder="Ex: Bleach">
                             </div>
 
                             <div class="campo">
                                 <label for="ipt_img_favorite_anime">Imagem do anime</label>
-                                <input
-                                    type="file"
-                                    id="ipt_img_favorite_anime"
-                                    name="img_favorite_anime"
+                                <input type="file" id="ipt_img_favorite_anime" name="img_favorite_anime"
                                     accept="image/png, image/jpeg, image/webp">
                             </div>
 
@@ -115,28 +103,16 @@
                     </div>
 
                     <div class="obsessao-conteudo">
-
-                        <div class="preview-imagem">
-                            <img src="assets/imgs/placeholder.png" alt="Anime atual">
-                        </div>
-
                         <div class="campos">
 
                             <div class="campo">
                                 <label for="ipt_watching_now">Nome do anime</label>
-                                <input
-                                    type="text"
-                                    id="ipt_watching_now"
-                                    name="watching_now"
-                                    placeholder="Ex: Naruto">
+                                <input type="text" id="ipt_watching_now" name="watching_now" placeholder="Ex: Naruto">
                             </div>
 
                             <div class="campo">
                                 <label for="ipt_img_watching_now">Imagem do anime</label>
-                                <input
-                                    type="file"
-                                    id="ipt_img_watching_now"
-                                    name="img_watching_now"
+                                <input type="file" id="ipt_img_watching_now" name="img_watching_now"
                                     accept="image/png, image/jpeg, image/webp">
                             </div>
 
@@ -154,28 +130,17 @@
                     </div>
 
                     <div class="obsessao-conteudo">
-
-                        <div class="preview-imagem">
-                            <img src="assets/imgs/placeholder.png" alt="Personagem favorito">
-                        </div>
-
                         <div class="campos">
 
                             <div class="campo">
                                 <label for="ipt_favorite_character">Nome do personagem</label>
-                                <input
-                                    type="text"
-                                    id="ipt_favorite_character"
-                                    name="favorite_character"
+                                <input type="text" id="ipt_favorite_character" name="favorite_character"
                                     placeholder="Ex: Toshiro Hitsugaya">
                             </div>
 
                             <div class="campo">
                                 <label for="ipt_img_favorite_character">Imagem do personagem</label>
-                                <input
-                                    type="file"
-                                    id="ipt_img_favorite_character"
-                                    name="img_favorite_character"
+                                <input type="file" id="ipt_img_favorite_character" name="img_favorite_character"
                                     accept="image/png, image/jpeg, image/webp">
                             </div>
 
@@ -202,12 +167,9 @@
         </main>
 
     </div>
-
-    <script>
-        document.getElementById("b_usuario").textContent =
-            sessionStorage.NOME_USUARIO || "usuário";
-    </script>
-
 </body>
 
 </html>
+<script>
+    b_usuario.innerHTML = sessionStorage.NAME_USER;
+</script>

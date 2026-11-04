@@ -37,17 +37,20 @@
 
   <div class="main-container">
     <div class="infos">
-      <h1 class="titulo-main">Onde cada história deixa a sua <span>marca!</span></h1>
+      <h1 class="titulo-main">
+        Onde cada história deixa a sua <span>marca!</span>
+      </h1>
+
       <p>
-        Mais do que histórias, animes e mangás carregam ensinamentos, sentimentos e diferentes perspectivas. O YUME
-        nasce para conectar pessoas que compartilham dessa paixão, criando um espaço para expressar opiniões,
-        compartilhar experiências e descobrir o que cada história pode nos ensinar.
+        A YUME nasce para conectar pessoas que compartilham dessa paixão,
+        criando um espaço para expressar opiniões, compartilhar experiências
+        e descobrir o que cada história pode nos ensinar.
       </p>
+
       <div class="gatilhos">
         <a class="btn-cadastrar" href="#propositos">Propósitos</a>
         <a class="btn-cadastrar" href="#impacto">Impactos</a>
       </div>
-
     </div>
 
     <img src="assets/imgs/hitsugaya.png" alt="">
@@ -76,95 +79,111 @@
 
   <div class="momentos">
     <div class="container">
-      <div class="momentos-box">
-        <div class="info-box">
-          <span class="badge">MOMENTOS MARCANTES</span>
-          <h1>
-            <span class="destaque-titulo">RESILIÊNCIA</span>
-            EM TEMPOS DIFÍCEIS
-          </h1>
-          <p class="citacao">
-            “Se estiver se sentindo desmotivado ou sentindo que não é
-            bom o suficiente,
-            <span class="destaque">incendeie o seu coração.</span>
-            Enxugue as lágrimas e siga em frente.”
-          </p>
-          <div class="autor">
-            <span>PERSONAGEM</span>
-            <h4>Rengoku</h4>
-          </div>
-          <div class="sub-informacoes">
-            <div>
-              <span class="label-info">OBRA</span>
-              <h4>Demon Slayer</h4>
-            </div>
-           
-          </div>
-        </div>
-        <img src="assets/imgs/rengoku.webp" alt="Rengoku">
+
+      <div class="momentos-box" id="momentos-conteudo">
+        <!-- O JavaScript renderiza o slide aqui -->
       </div>
+
+      <div class="momentos-controles">
+        <button class="seta-momento" id="anterior" aria-label="Momento anterior">
+          &#10094;
+        </button>
+
+        <div class="momentos-indicadores" id="momentos-indicadores"></div>
+
+        <button class="seta-momento" id="proximo" aria-label="Próximo momento">
+          &#10095;
+        </button>
+      </div>
+
     </div>
   </div>
 
-  <div class="impactos" id="impacto">
-    <div class="box-impactos">
-      <div>
-        <span class="badge">Impactos na minha vida</span>
-        <h1>IDENTIDADE E MODA</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quam nemo aperiam facilis beatae, error
-          ducimus at nesciunt quaerat laboriosam cum recusandae earum libero unde! Voluptas non obcaecati pariatur
-          omnis!</p>
+  <div class="impactos-container" id="impacto">
+    <section class="impactos">
+      <div class="box-impactos">
+        <div class="conteudo-impactos">
+          <span class="badge">Impactos na minha vida</span>
+          <h1>ESTÉTICA E MODA</h1>
+          <p>
+            Os animes despertaram meu interesse por estilos como Gorpcore, Grunge,
+            Dark e Cyberpunk, incentivando-me a explorar a moda. Obras como Akira
+            e JoJo's Bizarre Adventure também me mostraram como a cultura dos animes
+            influencia o universo fashion, seja por suas referências visuais ou por
+            sua identidade marcante.
+          </p>
+        </div>
+
+        <img src="assets/imgs/moda.jpeg" alt="Referências de moda nos animes">
       </div>
-      <img src="assets/imgs/moda.jpeg" alt="">
-    </div>
-  </div>
-  <div class="impactos">
-    <div class="box-impactos">
-      <img src="assets/imgs/josuke.jpeg" alt="">
-      <div class="left">
-        <h1>MÚSICA E ESTÉTICA</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quam nemo aperiam facilis beatae, error
-          ducimus at nesciunt quaerat laboriosam cum recusandae earum libero unde! Voluptas non obcaecati pariatur
-          omnis!</p>
+    </section>
+
+    <section class="impactos">
+      <div class="box-impactos">
+        <img src="assets/imgs/josuke.jpeg" alt="Josuke de JoJo's Bizarre Adventure">
+
+        <div class="conteudo-impactos left">
+          <h1>FILMOGRAFIA</h1>
+          <p>
+            Os animes despertaram meu interesse por técnicas cinematográficas,
+            como planos e enquadramentos. Obras como Chainsaw Man, a 3ª temporada
+            de Jujutsu Kaisen e Akira me fizeram perceber como a animação pode
+            explorar a linguagem visual e influenciar até mesmo produções musicais
+            e artísticas.
+          </p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="impactos">
-    <div class="box-impactos">
-      <div>
-        <h1>PERSONALIDADE</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quam nemo aperiam facilis beatae, error
-          ducimus at nesciunt quaerat laboriosam cum recusandae earum libero unde! Voluptas non obcaecati pariatur
-          omnis!</p>
+    </section>
+
+    <section class="impactos">
+      <div class="box-impactos">
+        <div class="conteudo-impactos ">
+          <h1>PERSONALIDADE</h1>
+          <p>
+            Os animes me ajudaram a compreender melhor quem sou, enxergando valores
+            e características minhas em personagens como Deku, com quem me
+            identifico, e Robin, cuja personalidade única me inspira. Essas
+            conexões despertaram meu interesse pelo autoconhecimento e pela
+            liberdade de ser eu mesmo.
+          </p>
+        </div>
+
+        <img src="assets/imgs/robin.jpeg" alt="Nico Robin">
       </div>
-      <img src="assets/imgs/robin.jpeg" alt="">
-    </div>
+    </section>
+
   </div>
 
   <div class="proposito" id="propositos">
     <h1 class="titulo-proposito">PROPÓSITO YUME</h1>
+
     <div class="proposito-box">
       <div class="info-box">
 
-        <p class="proposito-card card-1">
-          <span>価値</span>
-          E se existisse um espaço para compartilhar não apenas o que achamos de um anime, mas o que aprendemos com ele?
-        </p>
+        <div class="proposito-card card-1">
+          <span>夢</span>
+          <p>
+            YUME significa sonho. Um espaço onde minhas paixões e ideias
+            ganham forma e podem ser compartilhadas.
+          </p>
+        </div>
 
-        <p class="proposito-card card-2">
-          <span>価値</span>
-          E se existisse um espaço para compartilhar não apenas o que achamos de um anime, mas o que aprendemos com ele?
-        </p>
+        <div class="proposito-card card-2">
+          <span>繋がり</span>
+          <p>
+            Criar conexões entre pessoas que compartilham o interesse
+            por animes, mangás e suas histórias.
+          </p>
+        </div>
 
-        <p class="proposito-card card-3">
-          <span>価値</span>
-          E se existisse um espaço para compartilhar não apenas o que achamos de um anime, mas o que aprendemos com ele?
-        </p>
+        <div class="proposito-card card-3">
+          <span>共有</span>
+          <p>
+            Compartilhar sentimentos, vivências e experiências,
+            mostrando que uma obra pode significar algo diferente para cada pessoa.
+          </p>
+        </div>
 
-        <p class="proposito-card card-4">
-          <span>価値</span>
-          E se existisse um espaço para compartilhar não apenas o que achamos de um anime, mas o que aprendemos com ele?
-        </p>
       </div>
     </div>
   </div>
@@ -178,3 +197,155 @@
 </body>
 
 </html>
+
+<script>
+  const momentos = [
+    {
+      titulo: 'RESILIÊNCIA EM TEMPOS DIFÍCEIS',
+      destaque: 'RESILIÊNCIA',
+      citacao: 'Se estiver se sentindo desmotivado ou sentindo que não é bom o suficiente,',
+      destaqueCitacao: 'incendeie o seu coração.',
+      complemento: 'Enxugue as lágrimas e siga em frente.',
+      personagem: 'Rengoku',
+      obra: 'Demon Slayer',
+      imagem: 'assets/imgs/rengoku.webp',
+      alt: 'Rengoku de Demon Slayer'
+    },
+
+    {
+      titulo: 'SONHOS PODEM SE TORNAR REAIS!',
+      destaque: '',
+      citacao: 'Muitos hérois tem história da epoca da escola e possuem uma coisa em comum, os corpos deles se mexeram antes que pudessem pensar...',
+      destaqueCitacao: 'você pode se tornar um heroi!',
+      complemento: '',
+      personagem: 'All Might',
+      obra: 'Boku no Hero',
+      imagem: 'assets/imgs/u_can_be_a_hero.jpeg',
+      alt: 'Boku No hero'
+    },
+    {
+      titulo: 'DIGA QUE QUER VIVER!',
+      destaque: '',
+      citacao: 'Eu posso dizer o que eu desejo pela primeira vez na vida? EU QUERO VIVER!',
+      destaqueCitacao: 'Levem-me para o mar com vocês!.',
+      complemento: '',
+      personagem: 'Nico Robin',
+      obra: 'One Piece',
+      imagem: 'assets/imgs/want-to-ive.jpeg',
+      alt: 'One Piece'
+    }
+  ];
+
+  let slideAtual = 0;
+  let intervalo;
+
+  const conteudo = document.getElementById('momentos-conteudo');
+  const indicadores = document.getElementById('momentos-indicadores');
+
+  function renderizarMomento() {
+    const momento = momentos[slideAtual];
+
+    conteudo.style.opacity = '0';
+
+    setTimeout(() => {
+      conteudo.innerHTML = `
+        <div class="info-box">
+
+          <span class="badge">MOMENTOS MARCANTES</span>
+
+          <h1>
+            <span class="destaque-titulo">${momento.destaque}</span>
+            ${momento.titulo.replace(momento.destaque, '')}
+          </h1>
+
+          <p class="citacao">
+            “${momento.citacao}
+            <span class="destaque">${momento.destaqueCitacao}</span>
+            ${momento.complemento}”
+          </p>
+
+          <div class="autor">
+            <span>PERSONAGEM</span>
+            <h4>${momento.personagem}</h4>
+          </div>
+
+          <div class="sub-informacoes">
+            <div>
+              <span class="label-info">OBRA</span>
+              <h4>${momento.obra}</h4>
+            </div>
+          </div>
+
+        </div>
+
+        <img src="${momento.imagem}" alt="${momento.alt}">
+      `;
+
+      conteudo.style.opacity = '1';
+
+    }, 250);
+
+    atualizarIndicadores();
+  }
+
+  function criarIndicadores() {
+    indicadores.innerHTML = '';
+
+    momentos.forEach((momento, index) => {
+      const indicador = document.createElement('button');
+
+      indicador.className = 'indicador-momento';
+      indicador.setAttribute('aria-label', `Ir para o momento ${index + 1}`);
+
+      indicador.addEventListener('click', () => {
+        slideAtual = index;
+        renderizarMomento();
+        reiniciarIntervalo();
+      });
+
+      indicadores.appendChild(indicador);
+    });
+
+    atualizarIndicadores();
+  }
+
+  function atualizarIndicadores() {
+    const botoes = document.querySelectorAll('.indicador-momento');
+
+    botoes.forEach((botao, index) => {
+      botao.classList.toggle('ativo', index === slideAtual);
+    });
+  }
+
+  function proximoMomento() {
+    slideAtual = (slideAtual + 1) % momentos.length;
+    renderizarMomento();
+  }
+
+  function momentoAnterior() {
+    slideAtual = (slideAtual - 1 + momentos.length) % momentos.length;
+    renderizarMomento();
+  }
+
+  function reiniciarIntervalo() {
+    clearInterval(intervalo);
+
+    intervalo = setInterval(() => {
+      proximoMomento();
+    }, 6000);
+  }
+
+  document.getElementById('proximo').addEventListener('click', () => {
+    proximoMomento();
+    reiniciarIntervalo();
+  });
+
+  document.getElementById('anterior').addEventListener('click', () => {
+    momentoAnterior();
+    reiniciarIntervalo();
+  });
+
+  criarIndicadores();
+  renderizarMomento();
+  reiniciarIntervalo();
+</script>
