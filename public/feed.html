@@ -118,7 +118,12 @@
           let divHeader = document.createElement("div");
 
           let imgUsuario = document.createElement("img");
-          imgUsuario.src = "assets/imgs/user.svg";
+          // usa img do usuário se existir, senão fallback local
+          if (post.user_img_url && post.user_img_url !== "null" && post.user_img_url !== "undefined") {
+            imgUsuario.src = post.user_img_url;
+          } else {
+            imgUsuario.src = "assets/imgs/null.jpeg";
+          }
           imgUsuario.alt = "Foto do usuário";
 
           let spanUsuario = document.createElement("span");
@@ -128,6 +133,13 @@
 
           let spanTipo = document.createElement("span");
           spanTipo.textContent = post.type;
+          // data de criação alinhada à direita
+          let spanData = document.createElement("span");
+          // created_at já vem formatado pela model; usa direto com fallback
+          spanData.textContent = post.created_at ? post.created_at : "";
+          spanData.style.fontSize = "12px";
+          spanData.style.color = "#333";
+          spanData.style.marginLeft = "10px";
 
           let pTitulo = document.createElement('h3');
           pTitulo.textContent = post.title;
@@ -173,10 +185,12 @@
           btnComentar.alt = "Comentar";
 
           // MONTAGEM DO CABEÇALHO
-          divTipo.appendChild(spanTipo);
-
           divHeader.appendChild(imgUsuario);
           divHeader.appendChild(spanUsuario);
+          // adiciona tipo e data no canto direito do header
+          divTipo.appendChild(spanTipo);
+          divTipo.appendChild(spanData);
+          divHeader.appendChild(divTipo);
 
           // MONTAGEM DAS AÇÕES
           divAcoes.appendChild(btnCurtir);

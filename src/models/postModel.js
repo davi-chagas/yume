@@ -6,7 +6,7 @@ function getAll() {
     p.title,
     p.description,
     p.img_url,
-    p.created_at,
+    DATE_FORMAT(p.created_at, '%d/%m/%Y %h:%m:%s') AS created_at,
     p.user_id,
     u.name,
     u.username

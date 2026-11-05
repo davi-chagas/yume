@@ -175,16 +175,26 @@ body {
 
 .post-box>div:first-child {
     display: grid;
-    grid-template-columns: 25px minmax(0, 1fr) auto;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
     align-items: center;
     gap: 10px;
     width: 100%;
 }
 
 .post-box>div:first-child>img {
-    width: 23px;
-    height: 23px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
+}
+
+.post-box>div:first-child>div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.post-box>div:first-child>div span:last-child {
+    opacity: 0.9;
 }
 
 .post-box>div:first-child>span {
