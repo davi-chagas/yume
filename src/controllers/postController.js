@@ -1,7 +1,13 @@
-var postModel = require('../models/postModel')
+var postModel = require('../models/postModel');
 
 function getAll(req, res) {
     postModel.getAll().then((result) => {
+        res.status(200).json(result);
+    })
+}
+
+function getAllComments(req, res){
+    postModel.getComments().then((result) => {
         res.status(200).json(result);
     })
 }
@@ -29,6 +35,75 @@ function createPost(req, res) {
                 }
             )
     }
+}
+
+function likePost(req, res) {
+    var user_id = req.body.user_id;
+    var post_id = req.body.post_id;
+
+    postModel.likePost(user_id, post_id)
+        .then(
+            function (result) {
+                res.send(result)
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao realizar o post: ' + err.sqlMessage);
+                res.status(500).json(err.sqlMessage)
+            }
+        )
+}
+
+function commentPost(req, res) {
+    var user_id = req.body.user_id;
+    var post_id = req.body.post_id;
+    var content = req.body.content;
+
+    postModel.commentPost(user_id, post_id, content)
+        .then(
+            function (result) {
+                res.send(result)
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao realizar o post: ' + err.sqlMessage);
+                res.status(500).json(err.sqlMessage)
+            }
+        )
+}
+
+function deleteComment(req, res) {
+    var post_id = req.params.post_id;
+
+    postModel.deleteCommentPost(post_id)
+        .then(
+            function (result) {
+                res.json(result)
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao realizar o delete: ' + err.sqlMessage);
+                res.status(500).json(err.sqlMessage)
+            })
+}
+
+function deleteLike(req, res) {
+    var post_id = req.params.post_id;
+
+    postModel.deleteLikePost(post_id)
+        .then(
+            function (result) {
+                res.json(result)
+            }
+        ).catch(
+            function (err) {
+                console.log(err);
+                console.log('Houve um erro ao realizar o delete: ' + err.sqlMessage);
+                res.status(500).json(err.sqlMessage)
+            })
 }
 
 function updatePost(req, res) {
@@ -68,4 +143,4 @@ function deletePost(req, res) {
         )
 }
 
-module.exports = { getAll, createPost, updatePost, deletePost };
+module.exports = { getAll, getAllComments, createPost, updatePost, deletePost, commentPost, likePost, deleteComment, deleteLike };

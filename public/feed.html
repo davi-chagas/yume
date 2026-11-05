@@ -147,6 +147,12 @@
           let pDescricao = document.createElement("p");
           pDescricao.textContent = post.description;
 
+          let pLikes = document.createElement('p');
+          pLikes.textContent = post.COUNT_LIKE;
+
+          let pComment = document.createElement('p');
+          pComment.textContent = post.COUNT_COMMENT;
+
           let divImagens = document.createElement("div");
           divImagens.className = "post-images";
 
@@ -194,7 +200,9 @@
 
           // MONTAGEM DAS AÇÕES
           divAcoes.appendChild(btnCurtir);
+          divAcoes.appendChild(pLikes);
           divAcoes.appendChild(btnComentar);
+          divAcoes.appendChild(pComment);
 
           // MONTAGEM DO CARD
           divPost.appendChild(divHeader);
