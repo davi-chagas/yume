@@ -2,38 +2,32 @@
 <html lang="pt-br">
 
 <head>
-  <link rel="icon" href="../assets/imgs/logo.svg">
+  <link rel="icon" href="assets/imgs/logo.svg">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YUME | Feed</title>
 
+  <title>YUME | Feed</title>
 
   <link rel="stylesheet" href="css/feed.css">
   <script src="../js/sessao.js"></script>
   <script src="./../js/alerta.js"></script>
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-
-  <!-- scripts do Chart.js - 2022-1 -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!--FONT AWESOME-->
-  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
 
-<!-- <body onload=" atualizarFeed()"> -->
-
 <body onload="validarSessao(); atualizarFeed()">
+
   <div class="janela">
+
     <div class="header-left">
-      <img src="assets/imgs/logo.svg" width="100px" alt="">
+
+      <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
 
       <div class="hello">
-        <h3>Olá, <span id="b_usuario">usuário</span>!</h3> <br>
+        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
       </div>
 
       <div class="btn-nav-white">
@@ -63,15 +57,20 @@
     </div>
 
     <div class="dash">
+
       <div class="header">
         <h1>FEED</h1>
+
         <div>
           <a href="novo-post.html">+ Post</a>
         </div>
       </div>
+
       <div class="post-container" id="post_container">
       </div>
+
     </div>
+
   </div>
 
   <div id="modalImagem" class="modal-imagem">
@@ -79,17 +78,24 @@
     <img id="imagemAmpliada" src="" alt="Imagem ampliada">
   </div>
 
-
 </body>
 
 </html>
 
 <script>
-  b_usuario.innerHTML = sessionStorage.NAME_USER;
+  var nomeUsuario = sessionStorage.NAME_USER;
+  var user_id = sessionStorage.ID_USUARIO;
+  var avatarPadrao = "assets/imgs/null.jpeg";
+
+  document.getElementById("b_usuario").textContent = nomeUsuario;
 
   function atualizarFeed() {
-    fetch("/posts")
+    console.log("ID do usuário:", user_id);
+    console.log("SessionStorage:", sessionStorage.ID_USUARIO);
+    fetch(`/posts?user_id=${user_id}`)
       .then(function (resposta) {
+        console.log("Resposta dos posts:", resposta);
+
         if (!resposta.ok) {
           throw new Error("Erro ao buscar os posts.");
         }
@@ -99,130 +105,428 @@
       .then(function (posts) {
         console.log("Posts recebidos:", posts);
 
-        let feed = document.getElementById("post_container");
+        var feed = document.getElementById("post_container");
 
         feed.innerHTML = "";
 
         if (posts.length === 0) {
-          feed.innerHTML = "<p>Nenhum post encontrado.</p>";
+          feed.innerHTML = "<p class='feed-vazio'>Nenhuma publicação encontrada.</p>";
           return;
         }
 
-        for (let i = 0; i < posts.length; i++) {
+        fetch("/posts/comments")
+          .then(function (resposta) {
+            console.log("Resposta dos comentários:", resposta);
 
-          let post = posts[i];
+            if (!resposta.ok) {
+              throw new Error("Erro ao buscar os comentários.");
+            }
 
-          let divPost = document.createElement("div");
-          divPost.className = "post-box";
+            return resposta.json();
+          })
+          .then(function (comentarios) {
+            console.log("Comentários recebidos:", comentarios);
 
-          let divHeader = document.createElement("div");
+            for (var i = 0; i < posts.length; i++) {
+              criarPost(posts[i], comentarios);
+            }
+          })
+          .catch(function (erro) {
+            console.error("Erro ao carregar comentários:", erro);
 
-          let imgUsuario = document.createElement("img");
-          // usa img do usuário se existir, senão fallback local
-          if (post.user_img_url && post.user_img_url !== "null" && post.user_img_url !== "undefined") {
-            imgUsuario.src = post.user_img_url;
-          } else {
-            imgUsuario.src = "assets/imgs/null.jpeg";
-          }
-          imgUsuario.alt = "Foto do usuário";
-
-          let spanUsuario = document.createElement("span");
-          spanUsuario.textContent = post.username;
-
-          let divTipo = document.createElement("div");
-
-          let spanTipo = document.createElement("span");
-          spanTipo.textContent = post.type;
-          // data de criação alinhada à direita
-          let spanData = document.createElement("span");
-          // created_at já vem formatado pela model; usa direto com fallback
-          spanData.textContent = post.created_at ? post.created_at : "";
-          spanData.style.fontSize = "12px";
-          spanData.style.color = "#333";
-          spanData.style.marginLeft = "10px";
-
-          let pTitulo = document.createElement('h3');
-          pTitulo.textContent = post.title;
-
-          let pDescricao = document.createElement("p");
-          pDescricao.textContent = post.description;
-
-          let pLikes = document.createElement('p');
-          pLikes.textContent = post.COUNT_LIKE;
-
-          let pComment = document.createElement('p');
-          pComment.textContent = post.COUNT_COMMENT;
-
-          let divImagens = document.createElement("div");
-          divImagens.className = "post-images";
-
-          if (post.img_url && post.img_url !== "null" && post.img_url !== "undefined") {
-            let imgPost = document.createElement("img");
-
-            imgPost.src = post.img_url;
-            imgPost.alt = "Imagem da publicação";
-
-            imgPost.style.cursor = "pointer";
-
-            // Adiciona o evento de clique na imagem (gerado pelo IA)
-            imgPost.addEventListener("click", function () {
-              let modal = document.getElementById("modalImagem");
-              let imagemAmpliada = document.getElementById("imagemAmpliada");
-
-              imagemAmpliada.src = post.img_url;
-              modal.style.display = "flex";
-            });
-
-            divImagens.appendChild(imgPost);
-            divPost.appendChild(divImagens);
-          }
-          let divAcoes = document.createElement("div");
-          divAcoes.className = "post-actions";
-
-          // BOTÃO DE CURTIR
-
-          let btnCurtir = document.createElement("img");
-          btnCurtir.src = "assets/imgs/like.svg";
-          btnCurtir.alt = "Curtir";
-
-          // BOTÃO DE COMENTAR
-          let btnComentar = document.createElement("img");
-          btnComentar.src = "assets/imgs/comment.svg";
-          btnComentar.alt = "Comentar";
-
-          // MONTAGEM DO CABEÇALHO
-          divHeader.appendChild(imgUsuario);
-          divHeader.appendChild(spanUsuario);
-          // adiciona tipo e data no canto direito do header
-          divTipo.appendChild(spanTipo);
-          divTipo.appendChild(spanData);
-          divHeader.appendChild(divTipo);
-
-          // MONTAGEM DAS AÇÕES
-          divAcoes.appendChild(btnCurtir);
-          divAcoes.appendChild(pLikes);
-          divAcoes.appendChild(btnComentar);
-          divAcoes.appendChild(pComment);
-
-          // MONTAGEM DO CARD
-          divPost.appendChild(divHeader);
-          divPost.appendChild(pTitulo)
-          divPost.appendChild(pDescricao);
-          divPost.appendChild(divImagens);
-          divPost.appendChild(divAcoes);
-
-          // INSERÇÃO NO FEED
-          feed.appendChild(divPost);
-        }
+            for (var i = 0; i < posts.length; i++) {
+              criarPost(posts[i], []);
+            }
+          });
       })
       .catch(function (erro) {
-        console.error("Erro:", erro);
+        console.error("Erro ao carregar feed:", erro);
+
+        document.getElementById("post_container").innerHTML =
+          "<p class='feed-erro'>Não foi possível carregar as publicações.</p>";
       });
   }
 
-  // Trecho gerado pela IA para clicar na imagem
-  let modal = document.getElementById("modalImagem");
-  let fecharModal = document.getElementById("fecharModal");
+  function criarPost(post, comentarios) {
+    var feed = document.getElementById("post_container");
+
+    var divPost = document.createElement("div");
+    divPost.className = "post-box";
+
+    var divHeader = document.createElement("div");
+    divHeader.className = "post-header";
+
+    var divUsuario = document.createElement("div");
+    divUsuario.className = "post-user";
+
+    var imgUsuario = document.createElement("img");
+    var foto = post.user_img_url;
+
+    if (foto && foto !== "null" && foto !== "undefined") {
+      imgUsuario.src = foto;
+    } else {
+      imgUsuario.src = avatarPadrao;
+    }
+
+    imgUsuario.alt = "Foto do usuário";
+
+    imgUsuario.onerror = function () {
+      this.src = avatarPadrao;
+    };
+
+    var spanUsername = document.createElement("span");
+    spanUsername.className = "post-username";
+    spanUsername.textContent = (post.username || "usuário");
+
+    divUsuario.appendChild(imgUsuario);
+    divUsuario.appendChild(spanUsername);
+
+    var spanData = document.createElement("span");
+    spanData.className = "post-date";
+    spanData.textContent = post.created_at || "";
+
+    divHeader.appendChild(divUsuario);
+    divHeader.appendChild(spanData);
+
+    var pTitulo = document.createElement("h3");
+    pTitulo.className = "post-title";
+    pTitulo.textContent = post.title || "";
+
+    var pDescricao = document.createElement("p");
+    pDescricao.className = "post-description";
+    pDescricao.textContent = post.description || "";
+
+    var divImagens = document.createElement("div");
+    divImagens.className = "post-images";
+
+    if (post.img_url && post.img_url !== "null" && post.img_url !== "undefined") {
+      var imgPost = document.createElement("img");
+
+      imgPost.src = post.img_url;
+      imgPost.alt = "Imagem da publicação";
+
+      imgPost.onerror = function () {
+        this.parentElement.style.display = "none";
+      };
+
+      imgPost.addEventListener("click", function () {
+        var modal = document.getElementById("modalImagem");
+        var imagemAmpliada = document.getElementById("imagemAmpliada");
+
+        imagemAmpliada.src = post.img_url;
+        modal.style.display = "flex";
+      });
+
+      divImagens.appendChild(imgPost);
+    }
+
+    var divAcoes = document.createElement("div");
+    divAcoes.className = "post-actions";
+
+    var divLike = document.createElement("div");
+    divLike.className = "post-action-item";
+
+    var btnCurtir = document.createElement("button");
+    btnCurtir.type = "button";
+    btnCurtir.className = "btn-like";
+
+    var imgLike = document.createElement("img");
+
+    var usuarioCurtiu =
+      post.has_like == 1 ||
+      post.has_like === true ||
+      post.has_like == 1 ||
+      post.has_like === true
+
+    imgLike.src = usuarioCurtiu
+      ? "assets/imgs/has_like.svg"
+      : "assets/imgs/like.svg";
+
+    imgLike.alt = "Curtir publicação";
+
+    var pLikes = document.createElement("span");
+    pLikes.className = "like-count";
+    pLikes.textContent = post.COUNT_LIKE || 0;
+
+    btnCurtir.appendChild(imgLike);
+
+    btnCurtir.addEventListener("click", function () {
+      alterarLike(post, imgLike, pLikes);
+    });
+
+    divLike.appendChild(btnCurtir);
+    divLike.appendChild(pLikes);
+
+    var divComentarioAcao = document.createElement("div");
+    divComentarioAcao.className = "post-action-item";
+
+    var btnComentar = document.createElement("button");
+    btnComentar.type = "button";
+    btnComentar.className = "btn-comment";
+
+    var imgComentario = document.createElement("img");
+    imgComentario.src = "assets/imgs/comment.svg";
+    imgComentario.alt = "Comentários";
+
+    var pComentarios = document.createElement("span");
+    pComentarios.className = "comment-count";
+    pComentarios.textContent = post.COUNT_COMMENT || 0;
+
+    btnComentar.appendChild(imgComentario);
+
+    divComentarioAcao.appendChild(btnComentar);
+    divComentarioAcao.appendChild(pComentarios);
+
+    divAcoes.appendChild(divLike);
+    divAcoes.appendChild(divComentarioAcao);
+
+    var divComentarios = document.createElement("div");
+    divComentarios.className = "post-comments";
+    divComentarios.style.display = "none";
+
+    var tituloComentarios = document.createElement("h4");
+    tituloComentarios.textContent = "Comentários";
+
+    var listaComentarios = document.createElement("div");
+    listaComentarios.className = "comments-list";
+
+    var comentariosPost = [];
+
+    for (var i = 0; i < comentarios.length; i++) {
+      if (Number(comentarios[i].post_id) === Number(post.post_id)) {
+        comentariosPost.push(comentarios[i]);
+      }
+    }
+
+    renderizarComentarios(comentariosPost, listaComentarios);
+
+    var formComentario = document.createElement("form");
+    formComentario.className = "form-comentario";
+
+    var inputComentario = document.createElement("input");
+    inputComentario.type = "text";
+    inputComentario.placeholder = "Escreva um comentário...";
+    inputComentario.maxLength = 500;
+    inputComentario.required = true;
+
+    var btnEnviar = document.createElement("button");
+    btnEnviar.type = "submit";
+    btnEnviar.textContent = "Enviar";
+
+    formComentario.appendChild(inputComentario);
+    formComentario.appendChild(btnEnviar);
+
+    formComentario.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      var content = inputComentario.value.trim();
+
+      if (content === "") {
+        alert("Digite um comentário antes de enviar.");
+        return;
+      }
+
+      enviarComentario(post.post_id, content, listaComentarios, pComentarios, inputComentario);
+    });
+
+    divComentarios.appendChild(tituloComentarios);
+    divComentarios.appendChild(listaComentarios);
+    divComentarios.appendChild(formComentario);
+
+    btnComentar.addEventListener("click", function () {
+      if (divComentarios.style.display === "none") {
+        divComentarios.style.display = "block";
+        imgComentario.src = "assets/imgs/comment.svg";
+      } else {
+        divComentarios.style.display = "none";
+      }
+    });
+
+    divPost.appendChild(divHeader);
+    divPost.appendChild(pTitulo);
+    divPost.appendChild(pDescricao);
+
+    if (divImagens.children.length > 0) {
+      divPost.appendChild(divImagens);
+    }
+
+    divPost.appendChild(divAcoes);
+    divPost.appendChild(divComentarios);
+
+    feed.appendChild(divPost);
+  }
+
+  function renderizarComentarios(comentarios, listaComentarios) {
+    listaComentarios.innerHTML = "";
+
+    if (comentarios.length === 0) {
+      var mensagem = document.createElement("p");
+      mensagem.className = "sem-comentarios";
+      mensagem.textContent = "Nenhum comentário ainda.";
+
+      listaComentarios.appendChild(mensagem);
+      return;
+    }
+
+    for (var i = 0; i < comentarios.length; i++) {
+      var comentario = comentarios[i];
+
+      var divComentario = document.createElement("div");
+      divComentario.className = "comment-item";
+
+      var divUsuarioComentario = document.createElement("div");
+      divUsuarioComentario.className = "comment-user";
+
+      var imgUsuarioComentario = document.createElement("img");
+      var fotoComentario = comentario.img_url || comentario.user_img_url;
+
+      imgUsuarioComentario.src =
+        fotoComentario && fotoComentario !== "null"
+          ? fotoComentario
+          : avatarPadrao;
+
+      imgUsuarioComentario.alt = "Foto do usuário";
+
+      imgUsuarioComentario.onerror = function () {
+        this.src = avatarPadrao;
+      };
+
+      var spanUsuarioComentario = document.createElement("span");
+      spanUsuarioComentario.textContent = (comentario.username || "usuário");
+
+      var textoComentario = document.createElement("p");
+      textoComentario.textContent = comentario.content || "";
+
+      divUsuarioComentario.appendChild(imgUsuarioComentario);
+      divUsuarioComentario.appendChild(spanUsuarioComentario);
+
+      divComentario.appendChild(divUsuarioComentario);
+      divComentario.appendChild(textoComentario);
+
+      listaComentarios.appendChild(divComentario);
+    }
+  }
+
+  function alterarLike(post, imgLike, pLikes) {
+    var usuarioCurtiu =
+      imgLike.getAttribute("src").includes("has_like.svg");
+
+    var url = usuarioCurtiu
+      ? "/posts/like/" + post.post_id + "/" + user_id
+      : "/posts/like";
+
+    var metodo = usuarioCurtiu ? "DELETE" : "POST";
+
+    var dados = {
+      user_id: user_id,
+      post_id: post.post_id
+    };
+
+    fetch(url, {
+      method: metodo,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: metodo === "POST" ? JSON.stringify(dados) : undefined
+    })
+      .then(function (resposta) {
+        console.log("Resposta do like:", resposta);
+
+        if (!resposta.ok) {
+          throw new Error("Erro ao atualizar curtida.");
+        }
+
+        if (usuarioCurtiu) {
+          imgLike.src = "assets/imgs/like.svg";
+          pLikes.textContent = Math.max(0, Number(pLikes.textContent) - 1);
+        } else {
+          imgLike.src = "assets/imgs/has_like.svg";
+          pLikes.textContent = Number(pLikes.textContent) + 1;
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro ao atualizar like:", erro);
+        alert("Não foi possível atualizar sua curtida.");
+      });
+  }
+
+  function enviarComentario(post_id, content, listaComentarios, pComentarios, inputComentario) {
+    var dados = {
+      user_id: user_id,
+      post_id: post_id,
+      content: content
+    };
+
+    fetch("/posts/comment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("Resposta do comentário:", resposta);
+
+        if (!resposta.ok) {
+          throw new Error("Erro ao enviar comentário.");
+        }
+
+        return resposta.json();
+      })
+      .then(function () {
+        var novoComentario = {
+          username: sessionStorage.USERNAME_USER,
+          content: content,
+          img_url: sessionStorage.IMG_USER
+        };
+
+        var mensagem = listaComentarios.querySelector(".sem-comentarios");
+
+        if (mensagem) {
+          mensagem.remove();
+        }
+
+        var divComentario = document.createElement("div");
+        divComentario.className = "comment-item";
+
+        var divUsuarioComentario = document.createElement("div");
+        divUsuarioComentario.className = "comment-user";
+
+        var imgUsuarioComentario = document.createElement("img");
+        imgUsuarioComentario.src = novoComentario.img_url || avatarPadrao;
+        imgUsuarioComentario.alt = "Foto do usuário";
+
+        imgUsuarioComentario.onerror = function () {
+          this.src = avatarPadrao;
+        };
+
+        var spanUsuarioComentario = document.createElement("span");
+        spanUsuarioComentario.textContent = novoComentario.username;
+
+        var textoComentario = document.createElement("p");
+        textoComentario.textContent = novoComentario.content;
+
+        divUsuarioComentario.appendChild(imgUsuarioComentario);
+        divUsuarioComentario.appendChild(spanUsuarioComentario);
+
+        divComentario.appendChild(divUsuarioComentario);
+        divComentario.appendChild(textoComentario);
+
+        listaComentarios.appendChild(divComentario);
+
+        pComentarios.textContent = Number(pComentarios.textContent) + 1;
+        inputComentario.value = "";
+
+        listaComentarios.scrollTop = listaComentarios.scrollHeight;
+      })
+      .catch(function (erro) {
+        console.error("Erro ao enviar comentário:", erro);
+        alert("Não foi possível enviar seu comentário.");
+      });
+  }
+
+  var modal = document.getElementById("modalImagem");
+  var fecharModal = document.getElementById("fecharModal");
 
   fecharModal.addEventListener("click", function () {
     modal.style.display = "none";

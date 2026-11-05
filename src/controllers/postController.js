@@ -1,12 +1,14 @@
 var postModel = require('../models/postModel');
 
 function getAll(req, res) {
-    postModel.getAll().then((result) => {
+    var user_id = req.query.user_id;
+
+    postModel.getAll(user_id).then((result) => {
         res.status(200).json(result);
-    })
+    });
 }
 
-function getAllComments(req, res){
+function getAllComments(req, res) {
     postModel.getComments().then((result) => {
         res.status(200).json(result);
     })
@@ -76,8 +78,9 @@ function commentPost(req, res) {
 
 function deleteComment(req, res) {
     var post_id = req.params.post_id;
+    var user_id = req.params.user_id;
 
-    postModel.deleteCommentPost(post_id)
+    postModel.deleteCommentPost(user_id, post_id)
         .then(
             function (result) {
                 res.json(result)
@@ -92,8 +95,9 @@ function deleteComment(req, res) {
 
 function deleteLike(req, res) {
     var post_id = req.params.post_id;
+    var user_id = req.params.user_id;
 
-    postModel.deleteLikePost(post_id)
+    postModel.deleteLikePost(post_id, user_id)
         .then(
             function (result) {
                 res.json(result)

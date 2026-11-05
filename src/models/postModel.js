@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function getAll() {
+function getAll(user_id) {
     var instrucaoSql = `SELECT
     p.id AS post_id,
     p.title,
@@ -11,7 +11,11 @@ function getAll() {
     u.name,
     u.username,
     COUNT(lp.post_id) AS COUNT_LIKE,
-    COUNT(cp.post_id) AS COUNT_COMMENT
+    COUNT(cp.post_id) AS COUNT_COMMENT,
+    (SELECT COUNT(*) FROM like_post AS lp_user
+    WHERE lp_user.post_id = p.id
+    AND lp_user.user_id = ${user_id}
+    ) AS has_like
 FROM post AS p
 JOIN user AS u
     ON u.id = p.user_id
@@ -27,6 +31,7 @@ ORDER BY p.created_at DESC;`
 function getComments() {
     var instrucaoSql = `
     SELECT 
+    cp.post_id,
     u.id,
     u.username,
     cp.content
@@ -51,16 +56,16 @@ function createPost(title, description, user_id, img_url) {
 
 function commentPost(user_id, post_id, content) {
     var instrucaoSql =
-        `INSERT INTO comment_post (user_id, post_id, content_id) VALUES
+        `INSERT INTO comment_post (user_id, post_id, content) VALUES
     (${user_id}, ${post_id}, '${content}')`
 
     return database.executar(instrucaoSql);
 }
 
-function deleteCommentPost(post_id) {
+function deleteCommentPost(post_id, user_id) {
     var instrucaoSql =
-        `DELETE FROM comment_post
-    WHERE post_id = ${post_id}`
+        `DELETE FROM comment_post 
+    WHERE post_id = ${post_id} AND user_id = ${user_id}`
 
     return database.executar(instrucaoSql);
 }
@@ -73,10 +78,12 @@ function likePost(user_id, post_id) {
     return database.executar(instrucaoSql);
 }
 
-function deleteLikePost(post_id) {
+function deleteLikePost(post_id, user_id) {
     var instrucaoSql =
         `DELETE FROM like_post 
-    WHERE post_id = ${post_id}`
+    WHERE post_id = ${post_id} AND user_id = ${user_id}`
+
+    return database.executar(instrucaoSql);
 }
 
 function update(new_title, new_description, new_img_url, post_id) {
