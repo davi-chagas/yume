@@ -83,7 +83,30 @@ function cadastrar(req, res) {
     }
 }
 
+function updateUser(req, res) {
+    var name = req.body.name;
+    var username = req.body.username;
+    var img_url = req.file ? `/assets/${req.file.filename}` : null; // se tiver img envia para assets/ caso nao retorna como null
+    var email = req.body.email;
+    var user_id = req.params.user_id;
+
+    usuarioModel.update(name, username, img_url, email, user_id)
+        .then(function (result) {
+            res.json(result)
+        })
+        .catch(function (err) {
+            console.log(err);
+            console.log(
+                "\nHouve um erro ao realizar a edição! Erro: ",
+                err.sqlMessage
+            );
+            res.status(500).json(err.sqlMessage);
+        })
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    updateUser
 }

@@ -3,7 +3,8 @@ function validarSessao() {
     var email = sessionStorage.EMAIL_USER;
     var name = sessionStorage.NAME_USER;
     var username = sessionStorage.USERNAME_USER;
-    var id = sessionStorage.USER_ID;
+    var id = sessionStorage.ID_USUARIO || sessionStorage.USER_ID;
+    var img_url = sessionStorage.IMG_USER || sessionStorage.IMG_USER_URL;
 
     var b_usuario = document.getElementById("b_usuario");
 
@@ -35,4 +36,3 @@ function finalizarAguardar(texto) {
         divErrosLogin.innerHTML = texto;
     }
 }
-
