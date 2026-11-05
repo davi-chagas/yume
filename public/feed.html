@@ -129,6 +129,9 @@
           let spanTipo = document.createElement("span");
           spanTipo.textContent = post.type;
 
+          let pTitulo = document.createElement('h3');
+          pTitulo.textContent = post.title;
+
           let pDescricao = document.createElement("p");
           pDescricao.textContent = post.description;
 
@@ -159,6 +162,7 @@
           divAcoes.className = "post-actions";
 
           // BOTÃO DE CURTIR
+
           let btnCurtir = document.createElement("img");
           btnCurtir.src = "assets/imgs/like.svg";
           btnCurtir.alt = "Curtir";
@@ -180,6 +184,7 @@
 
           // MONTAGEM DO CARD
           divPost.appendChild(divHeader);
+          divPost.appendChild(pTitulo)
           divPost.appendChild(pDescricao);
           divPost.appendChild(divImagens);
           divPost.appendChild(divAcoes);

@@ -22,7 +22,7 @@
 
     <div class="janela">
 
-        <aside class="header-left">
+        <div class="header-left">
 
             <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
 
@@ -53,10 +53,9 @@
                     <h3>Sair</h3>
                 </a>
             </div>
+        </div>
 
-        </aside>
-
-        <main class="dash">
+        <div class="dash">
 
             <div class="header">
                 <div>
@@ -64,7 +63,7 @@
                 </div>
             </div>
 
-            <form class="form-obsessoes" enctype="multipart/form-data">
+            <form class="form-obsessoes" id="form_obsessoes" enctype="multipart/form-data">
 
                 <section class="obsessao-section">
 
@@ -104,7 +103,6 @@
 
                     <div class="obsessao-conteudo">
                         <div class="campos">
-
                             <div class="campo">
                                 <label for="ipt_watching_now">Nome do anime</label>
                                 <input type="text" id="ipt_watching_now" name="watching_now" placeholder="Ex: Naruto">
@@ -115,15 +113,11 @@
                                 <input type="file" id="ipt_img_watching_now" name="img_watching_now"
                                     accept="image/png, image/jpeg, image/webp">
                             </div>
-
                         </div>
-
                     </div>
-
                 </section>
 
                 <section class="obsessao-section">
-
                     <div class="obsessao-titulo">
                         <h2>Personagem Favorito</h2>
                         <span>03</span>
@@ -131,7 +125,6 @@
 
                     <div class="obsessao-conteudo">
                         <div class="campos">
-
                             <div class="campo">
                                 <label for="ipt_favorite_character">Nome do personagem</label>
                                 <input type="text" id="ipt_favorite_character" name="favorite_character"
@@ -143,33 +136,137 @@
                                 <input type="file" id="ipt_img_favorite_character" name="img_favorite_character"
                                     accept="image/png, image/jpeg, image/webp">
                             </div>
-
                         </div>
-
                     </div>
 
                 </section>
 
                 <div class="acoes">
-
-                    <a href="perfil.html" class="btn-cancelar">
-                        Cancelar
-                    </a>
-
                     <button type="submit" class="btn-salvar">
                         Salvar Alterações
                     </button>
 
                 </div>
-
             </form>
-
-        </main>
-
+        </div>
     </div>
+
 </body>
 
-</html>
 <script>
-    b_usuario.innerHTML = sessionStorage.NAME_USER;
+
+    document.getElementById('b_usuario').textContent = sessionStorage.NAME_USER;
+    function updateObsessions() {
+        var user_id = sessionStorage.ID_USUARIO;
+
+        fetch(`/obsessions/${user_id}`)
+            .then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw "Houve um erro ao buscar as obsessões!";
+                }
+
+            })
+            .then(function (obsessions) {
+
+                if (obsessions.length === 0) {
+                    return;
+                }
+
+                var obsession = obsessions[0];
+
+                ipt_favorite_anime.value = obsession.favorite_anime || '';
+                ipt_watching_now.value = obsession.watching_now || '';
+                ipt_favorite_character.value = obsession.favorite_character || '';
+
+            })
+            .catch(function (erro) {
+
+                console.log(`#ERRO: ${erro}`);
+                alert('Não foi possível carregar suas obsessões.');
+
+            });
+    }
+
+    function saveObsessions(event) {
+        event.preventDefault();
+
+        var user_id = sessionStorage.ID_USUARIO;
+
+        var favorite_anime = ipt_favorite_anime.value;
+        var watching_now = ipt_watching_now.value;
+        var favorite_character = ipt_favorite_character.value;
+
+        if (
+            favorite_anime.trim() == '' ||
+            watching_now.trim() == '' ||
+            favorite_character.trim() == ''
+        ) {
+            alert('Preencha todos os campos antes de salvar.');
+            return false;
+        }
+
+        var formData = new FormData();
+
+        formData.append('favorite_anime', favorite_anime);
+        formData.append('watching_now', watching_now);
+        formData.append('favorite_character', favorite_character);
+
+        var img_favorite_anime = ipt_img_favorite_anime.files[0];
+        var img_watching_now = ipt_img_watching_now.files[0];
+        var img_favorite_character = ipt_img_favorite_character.files[0];
+
+        if (img_favorite_anime) {
+            formData.append('img_favorite_anime', img_favorite_anime);
+        }
+
+        if (img_watching_now) {
+            formData.append('img_watching_now', img_watching_now);
+        }
+
+        if (img_favorite_character) {
+            formData.append('img_favorite_character', img_favorite_character);
+        }
+
+        fetch(`/obsessions/${user_id}`, {
+            method: 'PUT',
+            body: formData
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert('Obsessões atualizadas com sucesso!');
+
+                    window.location = 'perfil.html';
+
+                } else {
+                    throw "Houve um erro ao atualizar as obsessões!";
+                }
+
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+                alert('Não foi possível salvar suas alterações.');
+
+            });
+
+        return false;
+    }
+
+    document.getElementById('form_obsessoes')
+        .addEventListener('submit', saveObsessions);
+
+    window.addEventListener('load', function () {
+
+        validarSessao();
+        updateObsessions();
+
+    });
 </script>
+
+</html>

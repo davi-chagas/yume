@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
 
-<body onload="validarSessao(); updateObsession()">
+<body onload="validarSessao(); getObsessions()">
 
     <div class="janela">
 
@@ -129,31 +129,23 @@
 
 </html>
 <script>
+    var nomeUsuario = sessionStorage.NAME_USER;
+    var usernameUsuario = sessionStorage.USERNAME_USER;
+    var emailUsuario = sessionStorage.EMAIL_USER;
+    var fotoUsuario = sessionStorage.IMG_USER;
+    var user_id = sessionStorage.ID_USUARIO;
+    var avatarPadrao = 'assets/imgs/null.jpeg';
 
-    const nomeUsuario = sessionStorage.NAME_USER;
-    const usernameUsuario = sessionStorage.USERNAME_USER;
-    const emailUsuario = sessionStorage.EMAIL_USER;
-    const fotoUsuario = sessionStorage.IMG_USER;
-    const user_id = sessionStorage.ID_USUARIO;
-
-    const avatarPadrao = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-                <rect width="200" height="200" rx="100" fill="#dce8f7"/>
-                <circle cx="100" cy="72" r="37" fill="#54967a"/>
-                <path d="M25 190c0-43 33-72 75-72s75 29 75 72" fill="#54967a"/>
-            </svg>
-        `);
-
-    document.getElementById('b_usuario').textContent = nomeUsuario || 'usuário';
-    document.getElementById('nome_usuario').textContent = nomeUsuario || 'Não informado';
-    document.getElementById('username_usuario').textContent = usernameUsuario || 'Não informado';
-    document.getElementById('email_usuario').textContent = emailUsuario || 'Não informado';
+    document.getElementById('b_usuario').textContent = nomeUsuario;
+    document.getElementById('nome_usuario').textContent = nomeUsuario;
+    document.getElementById('username_usuario').textContent = usernameUsuario;
+    document.getElementById('email_usuario').textContent = emailUsuario;
     document.getElementById('foto_usuario').src = fotoUsuario || avatarPadrao;
 
-    async function updateObsession() {
-        const container = document.getElementById('obsessoes_container');
+    function getObsessions() {
+        var container = document.getElementById('obsessoes_container');
 
-        const dadosObsessoes = [
+        var dadosObsessoes = [
             {
                 titulo: 'Anime Favorito',
                 nome: 'Não definido',
@@ -171,76 +163,77 @@
             }
         ];
 
-        try {
-            const response = await fetch(`/obsessions/${user_id}`);
+        fetch(`/obsessions/${user_id}`)
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
 
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw "Houve um erro ao buscar as obsessões!";
+                }
+            })
+            .then(function (obsessions) {
+                if (obsessions.length > 0) {
+                    var obsession = obsessions[0];
 
-            const obsessions = await response.json();
+                    dadosObsessoes[0].nome = obsession.favorite_anime || 'Não definido';
+                    dadosObsessoes[0].imagem = obsession.img_favorite_anime || avatarPadrao;
 
-            if (obsessions.length > 0) {
-                const obsession = obsessions[0];
+                    dadosObsessoes[1].nome = obsession.watching_now || 'Não definido';
+                    dadosObsessoes[1].imagem = obsession.img_watching_now || avatarPadrao;
 
-                dadosObsessoes[0].nome = obsession.favorite_anime || 'Não definido';
-                dadosObsessoes[0].imagem = obsession.img_favorite_anime || avatarPadrao;
+                    dadosObsessoes[2].nome = obsession.favorite_character || 'Não definido';
+                    dadosObsessoes[2].imagem = obsession.img_favorite_character || avatarPadrao;
+                }
 
-                dadosObsessoes[1].nome = obsession.watching_now || 'Não definido';
-                dadosObsessoes[1].imagem = obsession.img_watching_now || avatarPadrao;
+                var header = document.createElement('div');
+                header.className = 'obsessoes-header';
 
-                dadosObsessoes[2].nome = obsession.favorite_character || 'Não definido';
-                dadosObsessoes[2].imagem = obsession.img_favorite_character || avatarPadrao;
-            }
+                var titulo = document.createElement('h2');
+                titulo.textContent = 'Obsessões';
 
-        } catch (erro) {
-            console.error('Erro ao carregar obsessões:', erro);
-        }
+                var editar = document.createElement('a');
+                editar.href = 'editar-obsessao.html';
+                editar.className = 'btn-editar';
+                editar.textContent = 'Editar';
 
-        // Cria o cabeçalho da seção
-        const header = document.createElement('div');
-        header.className = 'obsessoes-header';
+                header.appendChild(titulo);
+                header.appendChild(editar);
 
-        const titulo = document.createElement('h2');
-        titulo.textContent = 'Obsessões';
+                var cards = document.createElement('div');
+                cards.className = 'obsessoes-cards';
 
-        const editar = document.createElement('a');
-        editar.href = 'editar-obsessao.html';
-        editar.className = 'btn-editar';
-        editar.textContent = 'Editar';
+                for (let i = 0; i < dadosObsessoes.length; i++) {
+                    var card = document.createElement('div');
+                    card.className = 'obsessao-card';
 
-        header.appendChild(titulo);
-        header.appendChild(editar);
+                    var subtitulo = document.createElement('h3');
+                    subtitulo.textContent = dadosObsessoes[i].titulo;
 
-        // Cria o container dos cards
-        const cards = document.createElement('div');
-        cards.className = 'obsessoes-cards';
+                    var imagem = document.createElement('img');
+                    imagem.src = dadosObsessoes[i].imagem;
+                    imagem.alt = dadosObsessoes[i].titulo;
 
-        // Percorre as três obsessões e cria seus respectivos cards
-        dadosObsessoes.forEach(function (dados) {
-            const card = document.createElement('div');
-            card.className = 'obsessao-card';
+                    var nome = document.createElement('p');
+                    nome.textContent = dadosObsessoes[i].nome;
 
-            const subtitulo = document.createElement('h3');
-            subtitulo.textContent = dados.titulo;
+                    card.appendChild(subtitulo);
+                    card.appendChild(imagem);
+                    card.appendChild(nome);
 
-            const imagem = document.createElement('img');
-            imagem.src = dados.imagem;
-            imagem.alt = dados.titulo;
+                    cards.appendChild(card);
+                }
 
-            const nome = document.createElement('p');
-            nome.textContent = dados.nome;
-
-            card.appendChild(subtitulo);
-            card.appendChild(imagem);
-            card.appendChild(nome);
-
-            cards.appendChild(card);
-        });
-
-        container.innerHTML = '';
-        container.appendChild(header);
-        container.appendChild(cards);
+                container.innerHTML = '';
+                container.appendChild(header);
+                container.appendChild(cards);
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
     }
+
+    getObsessions();
 
 </script>

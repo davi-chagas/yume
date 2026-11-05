@@ -10,13 +10,32 @@ function get(req, res) {
 
 function update(req, res) {
     var favorite_anime = req.body.favorite_anime;
-    var img_favorite_anime = req.body.img_favorite_anime;
-    var wathing_now = req.body.wathing_now;
-    var img_wathing_now = req.body.img_wathing_now;
+    var watching_now = req.body.watching_now;
     var favorite_character = req.body.favorite_character;
-    var img_favorite_character = req.body.img_favorite_character;
 
-    obsessionModel.updateObsession(favorite_anime, img_favorite_anime, wathing_now, img_wathing_now, favorite_character, img_favorite_character)
+    var files = req.files || {};
+
+    var img_favorite_anime = files.img_favorite_anime
+        ? `/assets/${files.img_favorite_anime[0].filename}`
+        : null;
+
+    var img_watching_now = files.img_watching_now
+        ? `/assets/${files.img_watching_now[0].filename}`
+        : null;
+
+    var img_favorite_character = files.img_favorite_character
+        ? `/assets/${files.img_favorite_character[0].filename}`
+        : null;
+
+    var user_id = req.params.user_id;
+
+    obsessionModel.updateObsession(favorite_anime,
+        img_favorite_anime,
+        watching_now,
+        img_watching_now,
+        favorite_character,
+        img_favorite_character,
+        user_id)
         .then(
             function (result) {
                 res.json(result)
