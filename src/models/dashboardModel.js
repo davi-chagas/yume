@@ -83,7 +83,8 @@ ON lp.post_id = p.id
 LEFT JOIN comment_post AS cp
 ON cp.post_id = p.id
 WHERE p.user_id = ${user_id}
-GROUP BY p.id;`
+GROUP BY p.id
+LIMIT 100`
 
 return database.executar(instrucaoSql);
 }

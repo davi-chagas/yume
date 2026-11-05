@@ -69,23 +69,31 @@
                 <h1>OVERVIEW</h1>
             </div>
             <div class="kpis">
+
                 <div class="kpi">
                     <span class="kpi-titulo">Total Engajamento</span>
-                    <strong>92</strong>
-                    <span class="kpi-descricao">80 curtidas / 12 comentários</span>
+                    <strong id="total_engagement">0</strong>
+                    <span class="kpi-descricao" id="descricao_engagement">
+                        Curtidas / Comentários
+                    </span>
                 </div>
 
                 <div class="kpi">
                     <span class="kpi-titulo">Total Publicações</span>
-                    <strong>8</strong>
-                    <span class="kpi-descricao">6 Post / 2 Quiz</span>
+                    <strong id="total_posts">0</strong>
+                    <span class="kpi-descricao">
+                        Publicações realizadas
+                    </span>
                 </div>
 
                 <div class="kpi">
                     <span class="kpi-titulo">Post mais engajado</span>
-                    <strong>CBleach?</strong>
-                    <span class="kpi-descricao">15 curtidas / 3 comentários</span>
+                    <strong id="bigger_post">-</strong>
+                    <span class="kpi-descricao" id="descricao_bigger_post">
+                        Curtidas / Comentários
+                    </span>
                 </div>
+
             </div>
 
             <div class="graficos">
@@ -97,8 +105,9 @@
 
             <div class="registros">
                 <div class="header-tabela">
-                    <h3>Registros de Posts & Quiz</h3>
+                    <h3>Registros de Publicações</h3>
                 </div>
+
                 <table>
                     <thead class="titulo-tabela">
                         <tr>
@@ -109,41 +118,7 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>O que podemos aprender com Naruto?</td>
-                            <td>128</td>
-                            <td>24</td>
-                            <td class="format-hora-tabela">28/10/2026 <span>14:30</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Conhecimentos sobre One Piece</td>
-                            <td>96</td>
-                            <td>18</td>
-                            <td class="format-hora-tabela">27/10/2026 <span>19:45</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>A importância da amizade em Hunter x Hunter</td>
-                            <td>87</td>
-                            <td>15</td>
-                            <td class="format-hora-tabela">26/10/2026 <span>10:20</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>Você conhece Bleach?</td>
-                            <td>64</td>
-                            <td>12</td>
-                            <td class="format-hora-tabela">25/10/2026 <span>16:10</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>As reflexões que Vinland Saga nos proporciona</td>
-                            <td>153</td>
-                            <td>32</td>
-                            <td class="format-hora-tabela">24/10/2026 <span>21:05</span></td>
-                        </tr>
+                    <tbody id="tabela_posts">
                     </tbody>
                 </table>
             </div>
@@ -204,4 +179,152 @@
             maintainAspectRatio: false
         }
     });
+
+
+    var user_id = sessionStorage.ID_USUARIO;
+
+
+    function carregarEngagement() {
+
+        fetch(`/dashboard/engagement?user_id=${user_id}`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar total de engajamento.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("Total de engajamento:", dados);
+
+                document.getElementById("total_engagement").innerHTML =
+                    dados[0].total;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+
+    function carregarCountPosts() {
+
+        fetch(`/dashboard/count-posts?user_id=${user_id}`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar quantidade de publicações.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("Total de publicações:", dados);
+
+                document.getElementById("total_posts").innerHTML =
+                    dados[0].count_post;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+
+    function carregarBiggerEngagement() {
+
+        fetch(`/dashboard/bigger-engagement?user_id=${user_id}`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar publicação mais engajada.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("Post mais engajado:", dados);
+
+                if (dados.length > 0) {
+
+                    document.getElementById("bigger_post").innerHTML =
+                        dados[0].title;
+
+                    document.getElementById("descricao_bigger_post").innerHTML =
+                        `${dados[0].QTD_LIKE} curtidas / ${dados[0].QTD_COMMENTS} comentários`;
+
+                } else {
+
+                    document.getElementById("bigger_post").innerHTML = "-";
+
+                    document.getElementById("descricao_bigger_post").innerHTML =
+                        "Nenhuma publicação encontrada.";
+                }
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function carregarPosts() {
+        fetch(`/dashboard/?user_id=${user_id}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar publicações.");
+                }
+            })
+            .then(function (dados) {
+                console.log("Publicações do usuário:", dados);
+
+                var tabela = document.getElementById("tabela_posts");
+
+                tabela.innerHTML = "";
+
+                if (dados.length > 0) {
+                    for (var i = 0; i < dados.length; i++) {
+                        var post = dados[i];
+
+                        var dataHora = post.created_at.split(" ");
+                        var data = dataHora[0].replaceAll("-", "/");
+                        var hora = dataHora[1];
+
+                        tabela.innerHTML += `
+                        <tr>
+                            <td>${post.title}</td>
+                            <td>${post.QTD_LIKE}</td>
+                            <td>${post.QTD_COMMENTS}</td>
+                            <td class="format-hora-tabela">
+                                ${data} <span>${hora}</span>
+                            </td>
+                        </tr>
+                    `;
+                    }
+                } else {
+                    tabela.innerHTML = `
+                    <tr>
+                        <td colspan="4">Nenhuma publicação encontrada.</td>
+                    </tr>
+                `;
+                }
+            })
+            .catch(function (erro) {
+                console.log("Erro ao carregar publicações:", erro);
+            });
+    }
+
+    carregarPosts();
+    carregarEngagement();
+    carregarCountPosts();
+    carregarBiggerEngagement();
+
 </script>
