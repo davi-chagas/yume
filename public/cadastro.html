@@ -99,7 +99,6 @@
 </html>
 
 <script>
-
   function cadastrar() {
     // aguardar();
 
@@ -169,7 +168,8 @@
       setInterval(sumirMensagem, 5000);
     }
 
-    if (passwordVar.length < 7) {
+
+    if (passwordVar.length < 6) {
       cardErro.style.display = 'block';
       msg_error.innerHTML =
         'Senha precisa ser maior que 6 caracteres'
@@ -186,6 +186,11 @@
     } else {
       setInterval(sumirMensagem, 5000);
     }
+
+   
+
+
+
 
     fetch("/usuarios/cadastrar", {
       method: "POST",
@@ -232,6 +237,7 @@
     let upper_password = password.toUpperCase();
     let lower_password = password.toLowerCase();
     let req = 0;
+    let isValid = false;
 
     if (password.length >= 8) {
       req++
@@ -251,8 +257,10 @@
 
     if (req == 4) {
       div_password.innerHTML = `Senha <b style="color: green">Forte</b>`
+      isValid = true;
     } else if (req == 3) {
       div_password.innerHTML = `Senha <b style="color: #FFD700">Média</b>`
+      isValid = true;
     } else {
       div_password.innerHTML = `Senha <b style="color: red">Fraca</b>`
     }

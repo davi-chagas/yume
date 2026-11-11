@@ -39,6 +39,7 @@ LEFT JOIN comment_post AS cp
 ON cp.post_id = p.id
 WHERE p.user_id = ${user_id}
 GROUP BY p.id
+ORDER BY p.created_at DESC
 LIMIT 1;`
 
     return database.executar(instrucaoSql);
@@ -86,7 +87,7 @@ WHERE p.user_id = ${user_id}
 GROUP BY p.id
 LIMIT 100`
 
-return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 

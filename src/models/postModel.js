@@ -10,8 +10,8 @@ function getAll(user_id) {
     p.user_id,
     u.name,
     u.username,
-    COUNT(lp.post_id) AS COUNT_LIKE,
-    COUNT(cp.post_id) AS COUNT_COMMENT,
+    COUNT(lp.id) AS COUNT_LIKE,
+    COUNT(cp.id) AS COUNT_COMMENT,
     (SELECT COUNT(*) FROM like_post AS lp_user
     WHERE lp_user.post_id = p.id
     AND lp_user.user_id = ${user_id}
