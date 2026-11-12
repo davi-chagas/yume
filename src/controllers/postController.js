@@ -130,22 +130,4 @@ function updatePost(req, res) {
         )
 }
 
-function deletePost(req, res) {
-    var post_id = req.params.post_id;
-    var user_id = req.params.user_id;
-
-    postModel.deletePost(post_id, user_id)
-        .then(
-            function (result) {
-                res.json(result)
-            }
-        ).catch(
-            function (err) {
-                console.log(err);
-                console.log('Houve um erro ao deletar o post: ', err.sqlMessage);
-                res.json(500).json(err.sqlMessage);
-            }
-        )
-}
-
-module.exports = { getAll, getAllComments, createPost, updatePost, deletePost, commentPost, likePost, deleteComment, deleteLike };
+module.exports = { getAll, getAllComments, createPost, updatePost, commentPost, likePost, deleteComment, deleteLike };

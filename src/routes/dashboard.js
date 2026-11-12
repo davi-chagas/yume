@@ -27,4 +27,8 @@ router.get('/', function (req, res) {
     dashboardController.getAllPostsByUser(req, res);
 })
 
+router.delete('/:post_id', function (req, res) {
+    dashboardController.deletePost(req, res);
+})
+
 module.exports = router ;

@@ -292,6 +292,20 @@ body {
     font-weight: 600;
 }
 
+.btn-remover {
+    padding: 6px 12px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-remover:hover {
+    background-color: #b52b27;
+}
+
 /* Largura da barra de rolagem */
 ::-webkit-scrollbar {
     width: 10px;

@@ -1,30 +1,26 @@
 var database = require("../database/config");
 
 function getAll(user_id) {
-    var instrucaoSql = `SELECT
-    p.id AS post_id,
-    p.title,
-    p.description,
-    p.img_url,
-    DATE_FORMAT(p.created_at, '%d/%m/%Y %h:%i:%s') AS created_at,
-    p.user_id,
-    u.name,
-    u.username,
-    COUNT(lp.id) AS COUNT_LIKE,
-    COUNT(cp.id) AS COUNT_COMMENT,
-    (SELECT COUNT(*) FROM like_post AS lp_user
-    WHERE lp_user.post_id = p.id
-    AND lp_user.user_id = ${user_id}
-    ) AS has_like
-FROM post AS p
-JOIN user AS u
-    ON u.id = p.user_id
-LEFT JOIN like_post AS lp
-    ON lp.post_id = p.id
-LEFT JOIN comment_post AS cp
-    ON cp.post_id = p.id
-GROUP BY p.id
-ORDER BY p.created_at DESC;`
+    var instrucaoSql = `
+        SELECT
+            p.id AS post_id,
+            p.title,
+            p.description,
+            p.img_url,
+            DATE_FORMAT(p.created_at, '%d/%m/%Y %H:%i:%s') AS created_at,
+            p.user_id,
+            u.name,
+            u.username,
+            u.img_url AS user_img_url,
+            (SELECT COUNT(*) FROM like_post lp WHERE lp.post_id = p.id) AS COUNT_LIKE,
+            (SELECT COUNT(*) FROM comment_post cp WHERE cp.post_id = p.id) AS COUNT_COMMENT,
+            (SELECT COUNT(*) FROM like_post lp_user
+                WHERE lp_user.post_id = p.id
+                AND lp_user.user_id = ${user_id}) AS has_like
+        FROM post AS p
+        JOIN user AS u ON u.id = p.user_id
+        ORDER BY p.created_at DESC;`;
+
     return database.executar(instrucaoSql);
 }
 
@@ -92,12 +88,7 @@ function update(new_title, new_description, new_img_url, post_id) {
     return database.executar(instrucaoSql);
 }
 
-function deletePost(post_id, user_id) {
-    var instrucaoSql = `DELETE FROM post WHERE id = ${post_id} AND user_id = ${user_id};`;
-
-    return database.executar(instrucaoSql);
-}
 
 module.exports = {
-    getAll, getComments, createPost, update, deletePost, commentPost, likePost, deleteCommentPost, deleteLikePost
+    getAll, getComments, createPost, update, commentPost, likePost, deleteCommentPost, deleteLikePost
 };

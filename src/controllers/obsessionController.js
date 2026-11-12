@@ -44,7 +44,7 @@ function update(req, res) {
             function (err) {
                 console.log(err);
                 console.log('Houve um erro ao atualizar as obsessões: ', err.sqlMessage);
-                res.json(500).json(err.sqlMessage);
+                res.status(500).json(err.sqlMessage);
             }
         )
 }

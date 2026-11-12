@@ -115,7 +115,6 @@
                             <th>Curtidas</th>
                             <th>Comentários</th>
                             <th>Data/Hora</th>
-                            <th>Editar</th>
                             <th>Remover</th>
                         </tr>
                     </thead>
@@ -123,15 +122,6 @@
                     <tbody id="tabela_posts">
                     </tbody>
                 </table>
-            </div>
-
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
             </div>
         </div>
     </div>
@@ -141,57 +131,58 @@
 
 </html>
 <script>
-
+    var user_id = sessionStorage.ID_USUARIO;
     b_usuario.innerHTML = sessionStorage.NAME_USER;
 
     const engagement = document.getElementById('engagement');
-    const distribution = document.getElementById('distribution');
+    var graficoEngagement = null;
 
-    new Chart(engagement, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            datasets: [{
-                label: 'Comentários',
-                data: [30, 22, 10, 7, 8, 9, 22, 35, 22, 12, 12, 30],
-                borderWidth: 1
-            },
-            {
-                label: 'Curtidas',
-                data: [10, 32, 38, 17, 4, 5, 12, 25, 2,5, 7, 20],
-                borderWidth: 1
-            },
-            ],
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    function montarMeses(lista, campo) {
+        var meses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        for (var i = 0; i < lista.length; i++) {
+            meses[lista[i].month - 1] = lista[i][campo];
+        }
+
+        return meses;
+    }
+
+    function carregarGrafico() {
+        Promise.all([
+            fetch(`/dashboard/likes?user_id=${user_id}`).then(function (resposta) {
+                if (!resposta.ok) throw new Error("Erro ao buscar curtidas por mês.");
+                return resposta.json();
+            }),
+            fetch(`/dashboard/comments?user_id=${user_id}`).then(function (resposta) {
+                if (!resposta.ok) throw new Error("Erro ao buscar comentários por mês.");
+                return resposta.json();
+            })
+        ])
+            .then(function (respostas) {
+                var curtidas = montarMeses(respostas[0], "QTD_LIKE");
+                var comentarios = montarMeses(respostas[1], "QTD_COMMENTS");
+                if (graficoEngagement) {
+                    graficoEngagement.destroy();
                 }
-            }
-        }
-    });
 
-    new Chart(distribution, {
-        type: 'doughnut',
-        data: {
-            labels: ['Post', 'Quiz'],
-            datasets: [{
-                label: 'Distribuicao',
-                data: [30, 22],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-
-
-    var user_id = sessionStorage.ID_USUARIO;
-
-
+                graficoEngagement = new Chart(document.getElementById('engagement'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        datasets: [
+                            { label: 'Comentários', data: comentarios, borderWidth: 1 },
+                            { label: 'Curtidas', data: curtidas, borderWidth: 1 }
+                        ]
+                    },
+                    options: {
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            })
+            .catch(function (erro) {
+                console.log("Erro ao carregar gráfico:", erro);
+            });
+    }
     function carregarEngagement() {
 
         fetch(`/dashboard/engagement?user_id=${user_id}`)
@@ -308,12 +299,15 @@
 
                         tabela.innerHTML += `
                         <tr>
-                            <td>${post.title}</td>
-                            <td>${post.QTD_LIKE}</td>
+                          <td>${post.title}</td>
+                        <td>${post.QTD_LIKE}</td>
                             <td>${post.QTD_COMMENTS}</td>
                             <td class="format-hora-tabela">
-                                ${data} <span>${hora}</span>
-                            </td>
+                            ${data} <span>${hora}</span>
+                              </td>
+                        <td>
+                        <button class="btn-remover" onclick="removerPost(${post.post_id})">Remover</button>
+                        </td>
                         </tr>
                     `;
                     }
@@ -330,9 +324,35 @@
             });
     }
 
+    function removerPost(post_id) {
+        if (!confirm("Tem certeza que deseja remover esta publicação?")) {
+            return;
+        }
+
+        fetch(`/dashboard/${post_id}?user_id=${user_id}`, {
+            method: "DELETE"
+        })
+            .then(function (resposta) {
+                if (!resposta.ok) {
+                    throw new Error("Erro ao remover publicação.");
+                }
+
+                carregarPosts();
+                carregarEngagement();
+                carregarCountPosts();
+                carregarBiggerEngagement();
+                carregarGrafico();
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                alert("Não foi possível remover a publicação.");
+            });
+    }
+
     carregarPosts();
     carregarEngagement();
     carregarCountPosts();
     carregarBiggerEngagement();
+    carregarGrafico();
 
 </script>
