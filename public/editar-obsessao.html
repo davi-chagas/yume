@@ -201,15 +201,6 @@
         var watching_now = ipt_watching_now.value;
         var favorite_character = ipt_favorite_character.value;
 
-        if (
-            favorite_anime.trim() == '' ||
-            watching_now.trim() == '' ||
-            favorite_character.trim() == ''
-        ) {
-            alert('Preencha todos os campos antes de salvar.');
-            return false;
-        }
-
         var formData = new FormData();
 
         formData.append('favorite_anime', favorite_anime);

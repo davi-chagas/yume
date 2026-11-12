@@ -59,16 +59,14 @@
         <main class="dash">
 
             <div class="header">
-                <h1>Meu Perfil</h1>
+                <h1>Minhas Informações</h1>
             </div>
 
             <section class="perfil-container">
-
-                <div class="foto-perfil">
-                    <img id="foto_usuario" alt="Foto de perfil">
-                </div>
-
                 <div class="info">
+                    <div class="foto-perfil">
+                        <img id="foto_usuario" alt="Foto de perfil">
+                    </div>
 
                     <div class="campo-info">
                         <label>Nome</label>
@@ -88,38 +86,11 @@
                     <a href="editar-perfil.html" class="btn-editar">Editar Perfil</a>
 
                 </div>
-
-                <div class="divisor"></div>
-
-                <div class="medalhas">
-
-                    <h3>Medalhas</h3>
-
-                    <div class="medalha">
-                        <span>🏅</span>
-                        <p>Primeiro Post Publicado</p>
-                    </div>
-
-                    <div class="medalha">
-                        <span>🏅</span>
-                        <p>10 Publicações Realizadas</p>
-                    </div>
-
-                    <div class="medalha">
-                        <span>🏅</span>
-                        <p>Primeiro Comentário Recebido</p>
-                    </div>
-
-                </div>
-
             </section>
 
             <section class="obsessoes-container" id="obsessoes_container">
-
             </section>
-
         </main>
-
     </div>
 
 
@@ -132,7 +103,7 @@
     var emailUsuario = sessionStorage.EMAIL_USER;
     var fotoUsuario = sessionStorage.IMG_USER;
     var user_id = sessionStorage.ID_USUARIO;
-    var avatarPadrao = '/assets/imgs/null.jpeg';
+    var avatarPadrao = 'assets/imgs/null.jpeg';
 
     document.getElementById('b_usuario').textContent = nomeUsuario;
     document.getElementById('nome_usuario').textContent = nomeUsuario;

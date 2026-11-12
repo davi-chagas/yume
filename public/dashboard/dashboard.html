@@ -45,7 +45,7 @@
             </div>
 
             <div class="btn-nav-white">
-                <a href="dashboard/dashboard.html">
+                <a href="dashboard.html">
                     <h3>Métricas</h3>
                 </a>
             </div>
@@ -66,7 +66,7 @@
 
         <div class="dash">
             <div class="header">
-                <h1>OVERVIEW</h1>
+                <h1>Monitor de Publicações</h1>
             </div>
             <div class="kpis">
 
@@ -74,7 +74,7 @@
                     <span class="kpi-titulo">Total Engajamento</span>
                     <strong id="total_engagement">0</strong>
                     <span class="kpi-descricao" id="descricao_engagement">
-                        Curtidas / Comentários
+                        Curtidas + Comentários
                     </span>
                 </div>
 
@@ -98,7 +98,7 @@
 
             <div class="graficos">
                 <div class="chart-container">
-                    <h3>Curtidas e Comentários</h3>
+                    <h3>Variação de comentários e curtidas no ano</h3>
                     <canvas id="engagement"></canvas>
                 </div>
             </div>
@@ -115,6 +115,8 @@
                             <th>Curtidas</th>
                             <th>Comentários</th>
                             <th>Data/Hora</th>
+                            <th>Editar</th>
+                            <th>Remover</th>
                         </tr>
                     </thead>
 
@@ -150,10 +152,16 @@
         data: {
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
-                label: 'Engajamento',
+                label: 'Comentários',
                 data: [30, 22, 10, 7, 8, 9, 22, 35, 22, 12, 12, 30],
                 borderWidth: 1
-            }]
+            },
+            {
+                label: 'Curtidas',
+                data: [10, 32, 38, 17, 4, 5, 12, 25, 2,5, 7, 20],
+                borderWidth: 1
+            },
+            ],
         },
         options: {
             scales: {

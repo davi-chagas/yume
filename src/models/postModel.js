@@ -92,8 +92,8 @@ function update(new_title, new_description, new_img_url, post_id) {
     return database.executar(instrucaoSql);
 }
 
-function deletePost(post_id) {
-    var instrucaoSql = `DELETE FROM post WHERE id = ${post_id};`;
+function deletePost(post_id, user_id) {
+    var instrucaoSql = `DELETE FROM post WHERE id = ${post_id} AND user_id = ${user_id};`;
 
     return database.executar(instrucaoSql);
 }

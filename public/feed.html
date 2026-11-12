@@ -90,8 +90,6 @@
   document.getElementById("b_usuario").textContent = nomeUsuario;
 
   function atualizarFeed() {
-    console.log("ID do usuário:", user_id);
-    console.log("SessionStorage:", sessionStorage.ID_USUARIO);
     fetch(`/posts?user_id=${user_id}`)
       .then(function (resposta) {
         console.log("Resposta dos posts:", resposta);
@@ -176,7 +174,7 @@
 
     var spanUsername = document.createElement("span");
     spanUsername.className = "post-username";
-    spanUsername.textContent = (post.username || "usuário");
+    spanUsername.textContent = (post.username);
 
     divUsuario.appendChild(imgUsuario);
     divUsuario.appendChild(spanUsername);

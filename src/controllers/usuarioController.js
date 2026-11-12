@@ -24,6 +24,7 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             username: resultadoAutenticar[0].username,
                             name: resultadoAutenticar[0].name,
+                            img_url: resultadoAutenticar[0].img_url,
                             password: resultadoAutenticar[0].password,
                         });
 

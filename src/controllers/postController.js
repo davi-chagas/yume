@@ -132,8 +132,9 @@ function updatePost(req, res) {
 
 function deletePost(req, res) {
     var post_id = req.params.post_id;
+    var user_id = req.params.user_id;
 
-    postModel.deletePost(post_id)
+    postModel.deletePost(post_id, user_id)
         .then(
             function (result) {
                 res.json(result)

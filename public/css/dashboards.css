@@ -21,7 +21,7 @@ body {
     top: 0;
     left: 0;
     z-index: 999;
-    width: 29%;
+    width: 25%;
     height: 100vh;
     padding: 30px 0;
     display: flex;
@@ -57,10 +57,11 @@ body {
     min-width: 72px;
     padding: 8px 6px;
     background-color: #54967a;
-    border: 2px solid #54967a;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    border: 2px solid #1e1e1e;
+    box-shadow: 3px 3px 0 #1e1e1e;
 }
 
 .btn-nav-white a {
@@ -81,7 +82,10 @@ body {
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
-} 
+    border: 2px solid #1e1e1e;
+    box-shadow: 3px 3px 0 #1e1e1e;
+}
+
 .btn-logout a {
     text-decoration: none;
     color: white;
@@ -110,9 +114,9 @@ body {
 }
 
 .dash {
-    width: 71%;
+    width: 75%;
     min-height: 100vh;
-    margin-left: 29%;
+    margin-left: 25%;
     padding: 20px 3%;
     background-color: #f5f5f5;
     overflow: hidden;
@@ -170,12 +174,13 @@ body {
     min-height: 125px;
     padding: 15px;
     box-sizing: border-box;
-    border: 1px solid #54967a;
     border-radius: 12px;
     background-color: #bdd5fa;
     color: white;
     text-align: center;
     transition: border-color 0.3s, transform 0.3s;
+    border: 2px solid #1e1e1e;
+    box-shadow: 3px 3px 0 #1e1e1e;
 }
 
 
@@ -195,6 +200,7 @@ body {
 .kpi-descricao {
     color: #54967a;
     font-size: 11px;
+    font-weight: bold;
 }
 
 
@@ -288,21 +294,21 @@ body {
 
 /* Largura da barra de rolagem */
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 
 /* Fundo da barra */
 ::-webkit-scrollbar-track {
-  background-color: #F3F3F3;
+    background-color: #F3F3F3;
 }
 
 /* Parte que você arrasta */
 ::-webkit-scrollbar-thumb {
-  background-color: #bdd5fa;
-  border-radius: 10px;
+    background-color: #bdd5fa;
+    border-radius: 10px;
 }
 
 /* Cor ao passar o mouse */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #bdd5fa;
+    background-color: #bdd5fa;
 }

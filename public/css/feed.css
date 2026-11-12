@@ -1,6 +1,19 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
+/* ==========================================================
+   VARIÁVEIS (mude as cores/bordas aqui e vale para o feed todo)
+   ========================================================== */
+:root {
+    --preto: #1e1e1e;
+    --verde: #54967a;
+    --verde-escuro: #417b62;
+    --azul: #bdd5fa;
+    --borda-manga: 3px solid #1e1e1e;
+}
+
+/* ==========================================================
+   BASE
+   ========================================================== */
 * {
     box-sizing: border-box;
 }
@@ -17,12 +30,15 @@ body {
     min-height: 100vh;
 }
 
+/* ==========================================================
+   MENU LATERAL
+   ========================================================== */
 .header-left {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
-    width: 29%;
+    width: 25%;
     height: 100vh;
     padding: 30px 0;
     display: flex;
@@ -32,7 +48,7 @@ body {
     background: linear-gradient(180deg, #bdd5fa 0%, #b0cffb 100%);
 }
 
-.header-left > img {
+.header-left>img {
     width: 100px;
 }
 
@@ -44,7 +60,7 @@ body {
 }
 
 .hello h3 {
-    color: #54967a;
+    color: var(--verde);
     font-size: 1.2rem;
 }
 
@@ -57,11 +73,12 @@ body {
     width: auto;
     min-width: 72px;
     padding: 8px 6px;
-    background-color: #54967a;
-    border: 2px solid #54967a;
+    background-color: var(--verde);
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    border: 2px solid #1e1e1e;
+    box-shadow: 3px 3px 0 #1e1e1e;
 }
 
 .btn-nav-white a {
@@ -77,11 +94,12 @@ body {
 
 .btn-logout {
     padding: 8px 10px;
-    background-color: #54967a;
-    color: white;
+    background-color: var(--verde);
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    border: 2px solid #1e1e1e;
+    box-shadow: 3px 3px 0 #1e1e1e;
 }
 
 .btn-logout a {
@@ -95,9 +113,9 @@ body {
 }
 
 .dash {
-    width: 71%;
+    width: 75%;
     min-height: 100vh;
-    margin-left: 29%;
+    margin-left: 25%;
     padding: 20px 3%;
     background-color: #f5f5f5;
     overflow: hidden;
@@ -109,17 +127,17 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 0 0 12px;
+    padding: 0 0 16px;
 }
 
 .header h1 {
     margin: 0;
-    color: #54967a;
+    color: var(--verde);
     font-size: 28px;
     font-weight: 700;
 }
 
-.header > div {
+.header>div {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -127,45 +145,57 @@ body {
 
 .header a {
     display: inline-block;
-    padding: 7px 10px;
-    background-color: #bdd5fa;
+    padding: 7px 12px;
+    background-color: var(--azul);
+    border: 2px solid #1e1e1e;
     border-radius: 6px;
-    color: white;
+    color: #1e1e1e;
     text-decoration: none;
     font-size: 16px;
     font-weight: 700;
     white-space: nowrap;
-    transition: background-color 0.2s;
+    box-shadow: 3px 3px 0 #1e1e1e;
+    transition: transform 0.15s, box-shadow 0.15s, background-color 0.2s;
 }
 
 .header a:hover {
-    background-color: #54967a;
+    background-color: var(--verde);
+    color: white;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1e1e1e;
 }
 
 .post-container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 0;
+    gap: 34px;
+    padding: 0 10px 10px 0;
 }
 
 .post-box {
+    position: relative;
     width: 100%;
     min-width: 0;
-    padding: 18px;
+    padding: 18px 18px 46px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     gap: 14px;
-    border-radius: 8px;
     background-color: #d9e5f7;
     color: #222;
     text-align: left;
-    overflow: hidden;
+    border: var(--borda-manga);
+    border-radius: 6px;
+    box-shadow:
+        5px 5px 0 #fff,
+        5px 5px 0 2px #1e1e1e,
+        10px 10px 0 #fff,
+        10px 10px 0 2px #1e1e1e;
 }
 
+/* Cores alternadas dos cards */
 .post-box:nth-child(3n + 2) {
     background-color: #c4d9d1;
 }
@@ -174,6 +204,7 @@ body {
     background-color: #dcdce1;
 }
 
+/* ----- topo do post: avatar, usuário, data ----- */
 .post-header {
     width: 100%;
     display: flex;
@@ -192,17 +223,19 @@ body {
 
 .post-user img,
 .comment-user img {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #1e1e1e;
+    background-color: #fff;
 }
 
 .post-username {
     font-size: 14px;
     font-weight: 700;
-    color: #54967a;
+    color: var(--verde-escuro);
     overflow-wrap: anywhere;
 }
 
@@ -214,8 +247,8 @@ body {
 }
 
 .post-title {
-    margin: 8px 0 0;
-    font-size: 20px;
+    margin: 6px 0 0;
+    font-size: 22px;
     font-weight: 700;
     overflow-wrap: anywhere;
 }
@@ -231,28 +264,31 @@ body {
 
 .post-images {
     width: 100%;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 18px;
+    border: var(--borda-manga);
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    box-shadow: 4px 4px 0 #1e1e1e;
+    overflow: hidden;
 }
 
 .post-images img {
     display: block;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    max-height: 420px;
-    object-fit: contain;
-    border-radius: 8px;
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
     cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.post-images img:hover {
+    transform: scale(1.03);
 }
 
 .post-actions {
     display: flex;
     align-items: center;
     gap: 18px;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .post-action-item {
@@ -273,26 +309,27 @@ body {
 
 .post-actions button img {
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
     transition: transform 0.15s;
 }
 
 .post-actions button:hover img {
-    transform: scale(1.12);
+    transform: scale(1.15) rotate(-6deg);
 }
 
 .post-actions span {
-    font-size: 14px;
-    color: #222;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e1e1e;
 }
 
 .post-comments {
     width: 100%;
     min-width: 0;
-    margin-top: 8px;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin-top: 6px;
+    border-top: 2px dashed #1e1e1e;
     padding-top: 15px;
 }
 
@@ -311,10 +348,11 @@ body {
 
 .comment-item {
     position: relative;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.65);
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 2px solid #1e1e1e;
+    border-radius: 10px;
+    background: #fff;
     overflow-wrap: anywhere;
 }
 
@@ -333,7 +371,7 @@ body {
 .comment-user span {
     font-size: 13px;
     font-weight: 700;
-    color: #54967a;
+    color: var(--verde-escuro);
 }
 
 .comment-item p {
@@ -361,31 +399,35 @@ body {
     flex: 1;
     min-width: 0;
     padding: 11px;
-    border: 1px solid #ccc;
+    border: 2px solid #1e1e1e;
     border-radius: 8px;
     outline: none;
+    background: #fff;
     font-family: "Space Grotesk", sans-serif;
     font-size: 14px;
 }
 
 .form-comentario input:focus {
-    border-color: #54967a;
+    border-color: var(--verde);
 }
 
 .form-comentario button {
-    padding: 10px 15px;
-    border: none;
+    padding: 10px 16px;
+    border: 2px solid #1e1e1e;
     border-radius: 8px;
     cursor: pointer;
-    background: #54967a;
+    background: var(--verde);
     color: white;
     font-family: "Space Grotesk", sans-serif;
     font-weight: 700;
-    transition: background-color 0.2s;
+    box-shadow: 2px 2px 0 #1e1e1e;
+    transition: transform 0.15s, box-shadow 0.15s, background-color 0.2s;
 }
 
 .form-comentario button:hover {
-    background: #417b62;
+    background: var(--verde-escuro);
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #1e1e1e;
 }
 
 .feed-vazio,
@@ -426,7 +468,7 @@ body {
 }
 
 .fechar-modal:hover {
-    color: #bdd5fa;
+    color: var(--azul);
 }
 
 .comments-list::-webkit-scrollbar {
@@ -455,7 +497,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #bdd5fa;
+    background-color: var(--azul);
     border-radius: 10px;
 }
 
