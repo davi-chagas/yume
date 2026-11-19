@@ -138,7 +138,7 @@
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
                 cardErro.style.display = "block"
-                msg_error.innerHTML = 'Usuário não encontrado'
+                msg_error.innerHTML = 'Usuário não encontrado ou senha inválida'
 
                 resposta.text().then(texto => {
                     console.error(texto);

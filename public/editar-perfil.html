@@ -140,7 +140,11 @@
                     sessionStorage.EMAIL_USER = newEmail;
 
                     if (resp && resp.img_url) {
-                        sessionStorage.IMG_USER = resp.img_url;
+                        // add cache-bust so the browser fetches the newest image
+                        var url = resp.img_url;
+                        // if url already has query params, append &t=, else ?t=
+                        var separator = url.indexOf('?') === -1 ? '?' : '&';
+                        sessionStorage.IMG_USER = url + separator + 't=' + new Date().getTime();
                     }
 
                     alert('Perfil atualizado com sucesso!');

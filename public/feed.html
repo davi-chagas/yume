@@ -160,6 +160,10 @@
     var imgUsuario = document.createElement("img");
     var foto = post.user_img_url;
 
+    if ((!foto || foto === "null" || foto === "undefined") && sessionStorage.IMG_USER) {
+      foto = sessionStorage.IMG_USER;
+    }
+
     if (foto && foto !== "null" && foto !== "undefined") {
       imgUsuario.src = foto;
     } else {

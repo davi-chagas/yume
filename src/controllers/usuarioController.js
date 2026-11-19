@@ -93,7 +93,7 @@ function updateUser(req, res) {
 
     usuarioModel.update(name, username, img_url, email, user_id)
         .then(function (result) {
-            res.json(result)
+            res.json({ img_url: img_url });
         })
         .catch(function (err) {
             console.log(err);
