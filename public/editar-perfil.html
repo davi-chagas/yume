@@ -1,59 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>YUME | Editar Perfil</title>
+
+    <script src="./js/sessao.js"></script>
+
     <link rel="stylesheet" href="./css/perfil.css">
     <link rel="icon" href="./assets/imgs/logo.svg">
-    <script src="./js/sessao.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
+
 <body onload="validarSessao(); preencher()">
+
     <div class="janela">
+
         <aside class="header-left">
+
             <img src="assets/imgs/logo.svg" width="100px" alt="Logo YUME">
+
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
-            <div class="btn-nav-white"><a href="feed.html"><h3>Feed</h3></a></div>
-            <div class="btn-nav-white"><a href="dashboard/dashboard.html"><h3>Métricas</h3></a></div>
-            <div class="btn-nav-white"><a href="perfil.html"><h3>Perfil</h3></a></div>
-            <div class="btn-logout" onclick="limparSessao()"><a href="index.html"><h3>Sair</h3></a></div>
+
+            <div class="btn-nav-white">
+                <a href="feed.html">
+                    <h3>Feed</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard/dashboard.html">
+                    <h3>Métricas</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="perfil.html">
+                    <h3>Perfil</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <a href="index.html">
+                    <h3>Sair</h3>
+                </a>
+            </div>
+
         </aside>
 
         <main class="dash">
-            <div class="header"><h1>Editar Perfil</h1></div>
 
-            <section class="perfil-container" style="max-width:700px;">
-                <form id="form_editar" enctype="multipart/form-data">
-                    <div class="campo-info">
-                        <label>Foto atual</label>
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <img id="foto_usuario" alt="Foto de perfil" style="width:84px; height:84px; object-fit:cover; border-radius:6px;">
-                            <input type="file" id="input_img" name="imagem" accept="image/*">
-                        </div>
+            <div class="header">
+                <h1>Editar Perfil</h1>
+            </div>
+
+            <section class="perfil-container">
+                <form id="form_editar" class="info form-editar" enctype="multipart/form-data">
+
+                    <div class="foto-perfil">
+                        <img id="foto_usuario" alt="Foto de perfil">
                     </div>
 
                     <div class="campo-info">
-                        <label>Nome</label>
+                        <label for="input_img">Nova foto</label>
+                        <input type="file" id="input_img" name="imagem" accept="image/*">
+                    </div>
+
+                    <div class="campo-info">
+                        <label for="input_name">Nome</label>
                         <input type="text" id="input_name" name="name" placeholder="Seu nome">
                     </div>
 
                     <div class="campo-info">
-                        <label>Username</label>
+                        <label for="input_username">Username</label>
                         <input type="text" id="input_username" name="username" placeholder="@usuario">
                     </div>
 
                     <div class="campo-info">
-                        <label>Email</label>
+                        <label for="input_email">E-mail</label>
                         <input type="email" id="input_email" name="email" placeholder="seu@email.com">
                     </div>
 
-                    <div style="margin-top:16px; display:flex; gap:8px;">
+                    <div class="acoes-form">
                         <button type="button" id="btn_salvar" class="btn-editar">Salvar</button>
-                        <a href="perfil.html" class="btn-editar" style="background:#ccc; color:#000; display:flex; align-items:center; padding:8px 10px; border-radius:6px; text-decoration:none;">Cancelar</a>
                     </div>
+
                 </form>
             </section>
         </main>
@@ -67,15 +106,15 @@
         var user_id = sessionStorage.ID_USUARIO;
         var avatarPadrao = 'assets/imgs/null.jpeg';
 
-        function preencher(){
+        function preencher() {
             document.getElementById('b_usuario').textContent = nomeUsuario;
             document.getElementById('foto_usuario').src = fotoUsuario || avatarPadrao;
-            document.getElementById('input_name').value = nomeUsuario || '';
-            document.getElementById('input_username').value = usernameUsuario || '';
-            document.getElementById('input_email').value = emailUsuario || '';
+            document.getElementById('input_name').value = nomeUsuario;
+            document.getElementById('input_username').value = usernameUsuario;
+            document.getElementById('input_email').value = emailUsuario;
         }
 
-        document.getElementById('btn_salvar').addEventListener('click', function(){
+        document.getElementById('btn_salvar').addEventListener('click', function () {
             var formData = new FormData();
             var fileInput = document.getElementById('input_img');
             if (fileInput.files.length > 0) formData.append('imagem', fileInput.files[0]);
@@ -87,31 +126,32 @@
                 method: 'PUT',
                 body: formData
             })
-            .then(function(res){
-                if (!res.ok) throw 'Erro ao atualizar perfil';
-                return res.json();
-            })
-            .then(function(resp){
-                var newName = document.getElementById('input_name').value;
-                var newUsername = document.getElementById('input_username').value;
-                var newEmail = document.getElementById('input_email').value;
+                .then(function (res) {
+                    if (!res.ok) throw 'Erro ao atualizar perfil';
+                    return res.json();
+                })
+                .then(function (resp) {
+                    var newName = document.getElementById('input_name').value;
+                    var newUsername = document.getElementById('input_username').value;
+                    var newEmail = document.getElementById('input_email').value;
 
-                sessionStorage.NAME_USER = newName;
-                sessionStorage.USERNAME_USER = newUsername;
-                sessionStorage.EMAIL_USER = newEmail;
+                    sessionStorage.NAME_USER = newName;
+                    sessionStorage.USERNAME_USER = newUsername;
+                    sessionStorage.EMAIL_USER = newEmail;
 
-                if (resp && resp.img_url) {
-                    sessionStorage.IMG_USER = resp.img_url;
-                }
+                    if (resp && resp.img_url) {
+                        sessionStorage.IMG_USER = resp.img_url;
+                    }
 
-                alert('Perfil atualizado com sucesso!');
-                window.location.href = 'perfil.html';
-            })
-            .catch(function(err){
-                console.error(err);
-                alert('Não foi possível atualizar o perfil.');
-            });
+                    alert('Perfil atualizado com sucesso!');
+                    window.location.href = 'perfil.html';
+                })
+                .catch(function (err) {
+                    console.error(err);
+                    alert('Não foi possível atualizar o perfil.');
+                });
         });
     </script>
 </body>
+
 </html>

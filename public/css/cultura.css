@@ -82,7 +82,6 @@ body {
 }
 
 .cultura-content {
-  width: 950px;
   border-bottom: 2px solid #54967a;
 }
 
@@ -96,14 +95,14 @@ body {
 
 .linha-do-tempo {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   color: #1e1e1e;
   align-items: center;
 }
 
 
 .linha-do-tempo .titulo {
-  width: 500px;
+  width: 530px;
   font-size: 34px;
   text-transform: uppercase;
 }

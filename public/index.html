@@ -48,8 +48,8 @@
       </p>
 
       <div class="gatilhos">
-        <a class="btn-cadastrar" href="#propositos">Propósitos</a>
-        <a class="btn-cadastrar" href="#impacto">Impactos</a>
+        <a href="#propositos">Propósitos</a>
+        <a href="#impacto">Impactos</a>
       </div>
     </div>
 
@@ -81,7 +81,6 @@
     <div class="container">
 
       <div class="momentos-box" id="momentos-conteudo">
-        <!-- O JavaScript renderiza o slide aqui -->
       </div>
 
       <div class="momentos-controles">
@@ -200,6 +199,17 @@
 
 <script>
   const momentos = [
+    {
+      titulo: 'ODEIA A  CHUVA',
+      destaque: '',
+      citacao: 'Ichigo... você sabe como eu odeio chuva? Se seu coração estiver perturbado, o céu fica nublado. Se você estiver triste, vai chover muito fácil. Será que você consegue entender... o medo de ser pego na chuva nesse mundo solitário...',
+      destaqueCitacao: 'Para parar essa chuva, eu vou te dar qualquer força, qualquer poder.',
+      complemento: '',
+      personagem: 'Zangetsu',
+      obra: 'Bleach',
+      imagem: 'assets/imgs/old-zangetsu.jpeg',
+      alt: 'Zangetsu'
+    },
     {
       titulo: 'RESILIÊNCIA EM TEMPOS DIFÍCEIS',
       destaque: 'RESILIÊNCIA',
@@ -332,7 +342,7 @@
 
     intervalo = setInterval(() => {
       proximoMomento();
-    }, 6000);
+    }, 10000);
   }
 
   document.getElementById('proximo').addEventListener('click', () => {

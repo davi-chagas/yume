@@ -99,6 +99,8 @@
 </html>
 
 <script>
+  let isValid = false;
+
   function cadastrar() {
     // aguardar();
 
@@ -168,6 +170,16 @@
       setInterval(sumirMensagem, 5000);
     }
 
+    if (emailVar.indexOf('@') > emailVar.indexOf('.com')) {
+      cardErro.style.display = 'block';
+      msg_error.innerHTML =
+        'Email deve possuir o @ antes do .com'
+      finalizarAguardar();
+      return false
+    } else {
+      setInterval(sumirMensagem, 5000)
+    }
+
 
     if (passwordVar.length < 6) {
       cardErro.style.display = 'block';
@@ -187,47 +199,52 @@
       setInterval(sumirMensagem, 5000);
     }
 
-   
+    if (isValid == false) {
+      cardErro.style.display = 'block';
+      msg_error.innerHTML =
+        'Senha fraca ou média'
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
 
+  fetch("/usuarios/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeServer: nameVar,
+      usernameServer: usernameVar,
+      emailServer: emailVar,
+      passwordServer: passwordVar,
+    }),
+  })
+    .then(function (resposta) {
+      console.log("resposta: ", resposta);
 
+      if (resposta.ok) {
+        cardSuccess.style.display = 'block';
+        msg_success.innerHTML =
+          "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
+        setTimeout(() => {
+          window.location = "login.html";
+        }, "2000");
 
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nameVar,
-        usernameServer: usernameVar,
-        emailServer: emailVar,
-        passwordServer: passwordVar,
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardSuccess.style.display = 'block';
-          msg_success.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+        limparFormulario();
         finalizarAguardar();
-      });
+      } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      finalizarAguardar();
+    });
 
-    return false;
+  return false;
   }
 
   function mostrarSenha() {
@@ -237,7 +254,6 @@
     let upper_password = password.toUpperCase();
     let lower_password = password.toLowerCase();
     let req = 0;
-    let isValid = false;
 
     if (password.length >= 8) {
       req++
@@ -260,7 +276,6 @@
       isValid = true;
     } else if (req == 3) {
       div_password.innerHTML = `Senha <b style="color: #FFD700">Média</b>`
-      isValid = true;
     } else {
       div_password.innerHTML = `Senha <b style="color: red">Fraca</b>`
     }
@@ -276,5 +291,4 @@
     cardErro.style.display = "none";
     cardSuccess.style.display = "none";
   }
-
 </script>
