@@ -121,13 +121,26 @@
 
             return resposta.json();
           })
-          .then(function (comentarios) {
-            console.log("Comentários recebidos:", comentarios);
+            .then(function (comentarios) {
+              console.log("Comentários recebidos:", comentarios);
 
-            for (var i = 0; i < posts.length; i++) {
-              criarPost(posts[i], comentarios);
-            }
-          })
+              // adaptar formato do backend (pt-br): postagem_id, conteudo, username
+              // transformar para o formato esperado pelo front (post_id, content, username, user_img_url)
+              var comentariosAdaptados = comentarios.map(function (c) {
+                return {
+                  post_id: c.postagem_id,
+                  content: c.conteudo,
+                  username: c.username,
+                  // backend não retorna url da imagem do usuário aqui; front espera img_url ou user_img_url
+                  // tentamos usar campos que podem existir, senão fica undefined e o front usa avatarPadrao
+                  img_url: c.img_url || c.url_imagem || c.user_img_url
+                };
+              });
+
+              for (var i = 0; i < posts.length; i++) {
+                criarPost(posts[i], comentariosAdaptados);
+              }
+            })
           .catch(function (erro) {
             console.error("Erro ao carregar comentários:", erro);
 

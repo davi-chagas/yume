@@ -30,7 +30,8 @@ function listarComentarios() {
     cp.postagem_id,
     u.id,
     u.username,
-    cp.conteudo
+    cp.conteudo,
+    u.url_imagem AS user_img_url
     FROM postagem AS p
     JOIN comentario_post AS cp
     ON cp.postagem_id = p.id
