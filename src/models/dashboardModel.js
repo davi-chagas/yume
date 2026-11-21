@@ -1,93 +1,93 @@
 var database = require('../database/config')
 
-function engagement(user_id) {
+function engajamento(usuario_id) {
     var instrucaoSql = `
     SELECT
-        (SELECT COUNT(*) FROM like_post lp JOIN post p ON p.id = lp.post_id WHERE p.user_id = ${user_id})
+        (SELECT COUNT(*) FROM curtida_post cp JOIN postagem p ON p.id = cp.postagem_id WHERE p.usuario_id = ${usuario_id})
         +
-        (SELECT COUNT(*) FROM comment_post cp JOIN post p ON p.id = cp.post_id WHERE p.user_id = ${user_id})
+        (SELECT COUNT(*) FROM comentario_post cm JOIN postagem p ON p.id = cm.postagem_id WHERE p.usuario_id = ${usuario_id})
         AS total;`
 
     return database.executar(instrucaoSql);
 }
 
-function getCountPost(user_id) {
+function contarPostagens(usuario_id) {
     var instrucaoSql = `
-    SELECT COUNT(*) AS count_post
-     FROM post
-    WHERE user_id = ${user_id}
+    SELECT COUNT(*) AS qtd_postagens
+     FROM postagem
+    WHERE usuario_id = ${usuario_id}
     `
 
     return database.executar(instrucaoSql);
 }
 
-function biggerEngagement(user_id) {
+function postagemMaiorEngajamento(usuario_id) {
     var instrucaoSql = `
     SELECT
-        p.title,
-        (SELECT COUNT(*) FROM like_post WHERE post_id = p.id) AS QTD_LIKE,
-        (SELECT COUNT(*) FROM comment_post WHERE post_id = p.id) AS QTD_COMMENTS
-    FROM post p
-    WHERE p.user_id = ${user_id}
+        p.titulo,
+        (SELECT COUNT(*) FROM curtida_post WHERE postagem_id = p.id) AS QTD_LIKE,
+        (SELECT COUNT(*) FROM comentario_post WHERE postagem_id = p.id) AS QTD_COMMENTS
+    FROM postagem p
+    WHERE p.usuario_id = ${usuario_id}
     ORDER BY (QTD_LIKE + QTD_COMMENTS) DESC
     LIMIT 1;`;
 
     return database.executar(instrucaoSql);
 }
 
-function likePerMonth(user_id) {
+function curtidasPorMes(usuario_id) {
     var instrucaoSql =
-        `SELECT month(lp.created_at) AS month,
-COUNT(lp.post_id) AS QTD_LIKE
-FROM post p
- JOIN like_post AS lp
-ON lp.post_id = p.id
-WHERE p.user_id = ${user_id} AND YEAR(lp.created_at) = YEAR(CURDATE())
-GROUP BY month (lp.created_at);`
+        `SELECT month(cp.criado_em) AS mes,
+COUNT(cp.postagem_id) AS QTD_LIKE
+FROM postagem p
+ JOIN curtida_post AS cp
+ON cp.postagem_id = p.id
+WHERE p.usuario_id = ${usuario_id} AND YEAR(cp.criado_em) = YEAR(CURDATE())
+GROUP BY month (cp.criado_em);`
 
     return database.executar(instrucaoSql);
 }
 
-function commentsPerMonth(user_id) {
+function comentariosPorMes(usuario_id) {
     var instrucaoSql =
-        `SELECT month(cp.created_at) AS month,
-         COUNT(cp.post_id) AS QTD_COMMENTS
-FROM post p
- JOIN comment_post AS cp
-ON cp.post_id = p.id
-WHERE p.user_id = ${user_id} AND YEAR(cp.created_at) = YEAR(CURDATE())
-GROUP BY month (cp.created_at);`
+        `SELECT month(cm.criado_em) AS mes,
+         COUNT(cm.postagem_id) AS QTD_COMMENTS
+FROM postagem p
+ JOIN comentario_post AS cm
+ON cm.postagem_id = p.id
+WHERE p.usuario_id = ${usuario_id} AND YEAR(cm.criado_em) = YEAR(CURDATE())
+GROUP BY month (cm.criado_em);`
 
     return database.executar(instrucaoSql);
 }
 
-function allPostsByUser(user_id) {
+function todasPostagensDoUsuario(usuario_id) {
     var instrucaoSql = `
         SELECT
             p.id AS post_id,
-            p.title,
-            (SELECT COUNT(*) FROM like_post WHERE post_id = p.id) AS QTD_LIKE,
-            (SELECT COUNT(*) FROM comment_post WHERE post_id = p.id) AS QTD_COMMENTS,
-            DATE_FORMAT(p.created_at, '%d-%m-%Y %H:%i:%s') AS created_at
-        FROM post p
-        WHERE p.user_id = ${user_id}
-        ORDER BY p.created_at DESC
+            p.titulo AS title,
+            (SELECT COUNT(*) FROM curtida_post WHERE postagem_id = p.id) AS QTD_LIKE,
+            (SELECT COUNT(*) FROM comentario_post WHERE postagem_id = p.id) AS QTD_COMMENTS,
+            DATE_FORMAT(p.criado_em, '%d-%m-%Y %H:%i:%s') AS criado_em
+        FROM postagem p
+        WHERE p.usuario_id = ${usuario_id}
+        ORDER BY p.criado_em DESC
         LIMIT 100`;
 
     return database.executar(instrucaoSql);
 }
 
-function deletePost(post_id, user_id) {
-    var donoDoPost = `SELECT id FROM post WHERE id = ${post_id} AND user_id = ${user_id}`;
+function excluirPost(postagem_id, usuario_id) {
+    var donoDaPostagem = `SELECT id FROM postagem WHERE id = ${postagem_id} AND usuario_id = ${usuario_id}`;
 
-    return database.executar(`DELETE FROM like_post WHERE post_id IN (${donoDoPost})`)
+    return database.executar(`DELETE FROM curtida_post WHERE postagem_id IN (${donoDaPostagem})`)
         .then(function () {
-            return database.executar(`DELETE FROM comment_post WHERE post_id IN (${donoDoPost})`);
+            return database.executar(`DELETE FROM comentario_post WHERE postagem_id IN (${donoDaPostagem})`);
         })
         .then(function () {
-            return database.executar(`DELETE FROM post WHERE id = ${post_id} AND user_id = ${user_id}`);
+            return database.executar(`DELETE FROM postagem WHERE id = ${postagem_id} AND usuario_id = ${usuario_id}`);
         });
 }
 
 
-module.exports = { engagement,deletePost, getCountPost, biggerEngagement, likePerMonth, commentsPerMonth, allPostsByUser }
+module.exports = { engajamento, excluirPost, contarPostagens, postagemMaiorEngajamento, curtidasPorMes, comentariosPorMes, todasPostagensDoUsuario }

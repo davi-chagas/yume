@@ -1,58 +1,58 @@
 var dashboardModel = require('../models/dashboardModel');
 
-function getEngagement(req, res) {
-    var user_id = req.query.user_id
+function getEngajamento(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.engagement(user_id).then((result) => {
+    dashboardModel.engajamento(usuario_id).then((result) => {
         res.json(result)
     })
 };
 
-function getCount(req, res) {
-    var user_id = req.query.user_id;
+function getContagemPostagens(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.getCountPost(user_id).then((result) => {
+    dashboardModel.contarPostagens(usuario_id).then((result) => {
         res.json(result);
     })
 }
 
-function getBiggerEngagement(req, res) {
-    var user_id = req.query.user_id;
+function getPostagemMaiorEngajamento(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.biggerEngagement(user_id).then((result) => {
+    dashboardModel.postagemMaiorEngajamento(usuario_id).then((result) => {
         res.json(result)
     })
 };
 
-function getLikesPerMonth(req, res) {
-    var user_id = req.query.user_id;
+function getCurtidasPorMes(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.likePerMonth(user_id).then((result) => {
+    dashboardModel.curtidasPorMes(usuario_id).then((result) => {
         res.json(result)
     })
 }
 
-function getCommentsPerMonth(req, res) {
-    var user_id = req.query.user_id;
+function getComentariosPorMes(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.commentsPerMonth(user_id).then((result) => {
+    dashboardModel.comentariosPorMes(usuario_id).then((result) => {
         res.json(result)
     })
 }
 
-function getAllPostsByUser(req, res) {
-    var user_id = req.query.user_id;
+function getTodasPostagensDoUsuario(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.allPostsByUser(user_id).then((result) => {
+    dashboardModel.todasPostagensDoUsuario(usuario_id).then((result) => {
         res.json(result)
     })
 }
 
-function deletePost(req, res) {
-    var post_id = req.params.post_id;
-    var user_id = req.query.user_id;
+function excluirPost(req, res) {
+    var postagem_id = req.params.post_id || req.params.postagem_id;
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    dashboardModel.deletePost(post_id, user_id)
+    dashboardModel.excluirPost(postagem_id, usuario_id)
         .then(function (result) {
             res.json(result);
         })
@@ -61,5 +61,4 @@ function deletePost(req, res) {
             res.status(500).json(err.sqlMessage);
         });
 }
-
-module.exports = { getEngagement, getCount, deletePost, getBiggerEngagement, getLikesPerMonth, getCommentsPerMonth, getAllPostsByUser };
+module.exports = { getEngajamento, getContagemPostagens, excluirPost, getPostagemMaiorEngajamento, getCurtidasPorMes, getComentariosPorMes, getTodasPostagensDoUsuario };

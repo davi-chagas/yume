@@ -6,26 +6,26 @@ var upload = require('../config/configUpload');
 var postController = require('../controllers/postController');
 
 router.get('/', function (req, res) {
-    postController.getAll(req, res);
+    postController.listarPostagens(req, res);
 });
 router.get('/comments', function (req, res) {
-    postController.getAllComments(req, res);
+    postController.listarComentarios(req, res);
 });
 
 router.post('/', upload.single('imagem'), function (req, res) {
-    postController.createPost(req, res);
+    postController.criarPost(req, res);
 });
 
 router.post('/like', function (req, res) {
-    postController.likePost(req, res);
+    postController.curtirPost(req, res);
 });
 
 router.post('/comment', function (req, res) {
-    postController.commentPost(req, res);
+    postController.comentarPost(req, res);
 });
 
 router.put('/:post_id', function (req, res) {
-    postController.updatePost(req, res);
+    postController.atualizarPost(req, res);
 });
 
 router.delete('/comment/:comment_id/:user_id', function (req, res) {

@@ -1,94 +1,101 @@
 var database = require("../database/config");
 
-function getAll(user_id) {
+function listarPostagens(usuario_id) {
     var instrucaoSql = `
         SELECT
             p.id AS post_id,
-            p.title,
-            p.description,
-            p.img_url,
-            DATE_FORMAT(p.created_at, '%d/%m/%Y %H:%i:%s') AS created_at,
-            p.user_id,
-            u.name,
+            p.titulo AS title,
+            p.descricao AS description,
+            p.url_imagem AS img_url,
+            DATE_FORMAT(p.criado_em, '%d/%m/%Y %H:%i:%s') AS criado_em,
+            p.usuario_id AS user_id,
+            u.nome,
             u.username,
-            u.img_url AS user_img_url,
-            (SELECT COUNT(*) FROM like_post lp WHERE lp.post_id = p.id) AS COUNT_LIKE,
-            (SELECT COUNT(*) FROM comment_post cp WHERE cp.post_id = p.id) AS COUNT_COMMENT,
-            (SELECT COUNT(*) FROM like_post lp_user
-                WHERE lp_user.post_id = p.id
-                AND lp_user.user_id = ${user_id}) AS has_like
-        FROM post AS p
-        JOIN user AS u ON u.id = p.user_id
-        ORDER BY p.created_at DESC;`;
+            u.url_imagem AS user_img_url,
+                (SELECT COUNT(*) FROM curtida_post cp1 WHERE cp1.postagem_id = p.id) AS COUNT_LIKE,
+            (SELECT COUNT(*) FROM comentario_post cp2 WHERE cp2.postagem_id = p.id) AS COUNT_COMMENT,
+            (SELECT COUNT(*) FROM curtida_post lp_user
+                WHERE lp_user.postagem_id = p.id
+                AND lp_user.usuario_id = ${usuario_id}) AS has_like
+        FROM postagem AS p
+        JOIN usuario AS u ON u.id = p.usuario_id
+        ORDER BY p.criado_em DESC;`;
 
     return database.executar(instrucaoSql);
 }
 
-function getComments() {
+function listarComentarios() {
     var instrucaoSql = `
     SELECT 
-    cp.post_id,
+    cp.postagem_id,
     u.id,
     u.username,
-    cp.content
-    FROM post AS p
-    JOIN comment_post AS cp
-    ON cp.post_id = p.id
-    JOIN user AS u
-    ON  u.id = cp.user_id
-    ORDER BY cp.created_at DESC;`
+    cp.conteudo
+    FROM postagem AS p
+    JOIN comentario_post AS cp
+    ON cp.postagem_id = p.id
+    JOIN usuario AS u
+    ON  u.id = cp.usuario_id
+    ORDER BY cp.criado_em DESC;`
 
     return database.executar(instrucaoSql);
 }
 
 
-function createPost(title, description, user_id, img_url) {
-    var instrucaoSql = `INSERT INTO post 
-        (title, description, user_id, img_url) 
-        VALUES ('${title}', '${description}', ${user_id}, '${img_url}')`;
+function criarPost(titulo, descricao, usuario_id, url_imagem) {
+    var instrucaoSql = `INSERT INTO postagem 
+        (titulo, descricao, usuario_id, url_imagem) 
+        VALUES ('${titulo}', '${descricao}', ${usuario_id}, '${url_imagem}')`;
 
     return database.executar(instrucaoSql);
 }
 
-function commentPost(user_id, post_id, content) {
+function comentarPost(usuario_id, postagem_id, conteudo) {
     var instrucaoSql =
-        `INSERT INTO comment_post (user_id, post_id, content) VALUES
-    (${user_id}, ${post_id}, '${content}')`
+        `INSERT INTO comentario_post (usuario_id, postagem_id, conteudo) VALUES
+    (${usuario_id}, ${postagem_id}, '${conteudo}')`
 
     return database.executar(instrucaoSql);
 }
 
-function deleteCommentPost(post_id, user_id) {
+function deletarComentario(postagem_id, usuario_id) {
     var instrucaoSql =
-        `DELETE FROM comment_post 
-    WHERE post_id = ${post_id} AND user_id = ${user_id}`
+        `DELETE FROM comentario_post 
+    WHERE postagem_id = ${postagem_id} AND usuario_id = ${usuario_id}`
 
     return database.executar(instrucaoSql);
 }
 
-function likePost(user_id, post_id) {
+function curtirPost(usuario_id, postagem_id) {
     var instrucaoSql =
-        `INSERT INTO like_post (user_id, post_id) VALUES
-     (${user_id}, ${post_id})`
+        `INSERT INTO curtida_post (usuario_id, postagem_id) VALUES
+     (${usuario_id}, ${postagem_id})`
 
     return database.executar(instrucaoSql);
 }
 
-function deleteLikePost(post_id, user_id) {
+function deletarCurtida(postagem_id, usuario_id) {
     var instrucaoSql =
-        `DELETE FROM like_post 
-    WHERE post_id = ${post_id} AND user_id = ${user_id}`
+        `DELETE FROM curtida_post 
+    WHERE postagem_id = ${postagem_id} AND usuario_id = ${usuario_id}`
 
     return database.executar(instrucaoSql);
 }
 
-function update(new_title, new_description, new_img_url, post_id) {
-    var instrucaoSql = `UPDATE post SET title = '${new_title}', description = '${new_description}', img_url = '${new_img_url}' WHERE id = ${post_id}`;
+function atualizarPost(novo_titulo, nova_descricao, nova_url_imagem, postagem_id) {
+    var instrucaoSql = `UPDATE postagem SET titulo = '${novo_titulo}', descricao = '${nova_descricao}', url_imagem = '${nova_url_imagem}' WHERE id = ${postagem_id}`;
 
     return database.executar(instrucaoSql);
 }
 
 
 module.exports = {
-    getAll, getComments, createPost, update, commentPost, likePost, deleteCommentPost, deleteLikePost
+    listarPostagens,
+    listarComentarios,
+    criarPost,
+    atualizarPost,
+    comentarPost,
+    curtirPost,
+    deletarComentario,
+    deletarCurtida
 };

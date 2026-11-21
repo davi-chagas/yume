@@ -141,7 +141,8 @@
         var meses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         for (var i = 0; i < lista.length; i++) {
-            meses[lista[i].month - 1] = lista[i][campo];
+            // backend retorna o campo como `mes`
+            meses[lista[i].mes - 1] = lista[i][campo];
         }
 
         return meses;
@@ -225,8 +226,9 @@
 
                 console.log("Total de publicações:", dados);
 
+                // backend retorna alias `qtd_postagens`
                 document.getElementById("total_posts").innerHTML =
-                    dados[0].count_post;
+                    dados[0].qtd_postagens;
 
             })
             .catch(function (erro) {
@@ -253,8 +255,9 @@
 
                 if (dados.length > 0) {
 
+                    // backend retorna `titulo`
                     document.getElementById("bigger_post").innerHTML =
-                        dados[0].title;
+                        dados[0].titulo;
 
                     document.getElementById("descricao_bigger_post").innerHTML =
                         `${dados[0].QTD_LIKE} curtidas / ${dados[0].QTD_COMMENTS} comentários`;
@@ -293,13 +296,14 @@
                     for (var i = 0; i < dados.length; i++) {
                         var post = dados[i];
 
-                        var dataHora = post.created_at.split(" ");
-                        var data = dataHora[0].replaceAll("-", "/");
+                        // backend retorna `criado_em` no formato 'DD-MM-YYYY HH:MM:SS'
+                        var dataHora = post.criado_em.split(" ");
+                        var data = dataHora[0]; // já no formato DD-MM-YYYY
                         var hora = dataHora[1];
 
                         tabela.innerHTML += `
                         <tr>
-                          <td>${post.title}</td>
+                          <td>${post.title || post.titulo}</td>
                         <td>${post.QTD_LIKE}</td>
                             <td>${post.QTD_COMMENTS}</td>
                             <td class="format-hora-tabela">

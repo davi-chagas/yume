@@ -2,15 +2,15 @@ var usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
-    var password = req.body.passwordServer;
+    var senha = req.body.passwordServer || req.body.senhaServer;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (password == undefined) {
-        res.status(400).send("Sua password está indefinida!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, password)
+        usuarioModel.autenticar(email, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -20,12 +20,12 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
 
                         res.json({
-                            id: resultadoAutenticar[0].id,
+                        id: resultadoAutenticar[0].id,
                             email: resultadoAutenticar[0].email,
                             username: resultadoAutenticar[0].username,
-                            name: resultadoAutenticar[0].name,
-                            img_url: resultadoAutenticar[0].img_url,
-                            password: resultadoAutenticar[0].password,
+                            nome: resultadoAutenticar[0].nome,
+                            url_imagem: resultadoAutenticar[0].url_imagem,
+                            senha: resultadoAutenticar[0].senha,
                         });
 
                     } else if (resultadoAutenticar.length == 0) {
@@ -50,23 +50,22 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var username = req.body.usernameServer;
     var email = req.body.emailServer;
-    var password = req.body.passwordServer;
+    var senha = req.body.passwordServer || req.body.senhaServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (password == undefined) {
+    } else if (senha == undefined) {
     } else if (username == undefined) {
         res.status(400).send("Seu username está undefined!");
-    } else if (password == undefined) {
+    } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     }
     else {
 
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, username, email, password)
+        usuarioModel.cadastrar(nome, username, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -84,16 +83,16 @@ function cadastrar(req, res) {
     }
 }
 
-function updateUser(req, res) {
-    var name = req.body.name;
+function atualizarUsuario(req, res) {
+    var nome = req.body.name;
     var username = req.body.username;
-    var img_url = req.file ? `/assets/${req.file.filename}` : null; // se tiver img envia para assets/ caso nao retorna como null
+    var url_imagem = req.file ? `/assets/${req.file.filename}` : null;
     var email = req.body.email;
     var user_id = req.params.user_id;
 
-    usuarioModel.update(name, username, img_url, email, user_id)
+    usuarioModel.update(nome, username, url_imagem, email, user_id)
         .then(function (result) {
-            res.json({ img_url: img_url });
+            res.json({ url_imagem: url_imagem });
         })
         .catch(function (err) {
             console.log(err);
@@ -109,5 +108,5 @@ function updateUser(req, res) {
 module.exports = {
     autenticar,
     cadastrar,
-    updateUser
+    atualizarUsuario
 }
