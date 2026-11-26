@@ -77,6 +77,16 @@ function todasPostagensDoUsuario(usuario_id) {
     return database.executar(instrucaoSql);
 }
 
+function proporcaoLikesComentarios(usuario_id) {
+    var instrucaoSql = `
+    SELECT
+        (SELECT COUNT(*) FROM curtida_post cp JOIN postagem p ON p.id = cp.postagem_id WHERE p.usuario_id = ${usuario_id}) AS total_likes,
+        (SELECT COUNT(*) FROM comentario_post cm JOIN postagem p2 ON p2.id = cm.postagem_id WHERE p2.usuario_id = ${usuario_id}) AS total_comments;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 function excluirPost(postagem_id, usuario_id) {
     var donoDaPostagem = `SELECT id FROM postagem WHERE id = ${postagem_id} AND usuario_id = ${usuario_id}`;
 
@@ -90,4 +100,4 @@ function excluirPost(postagem_id, usuario_id) {
 }
 
 
-module.exports = { engajamento, excluirPost, contarPostagens, postagemMaiorEngajamento, curtidasPorMes, comentariosPorMes, todasPostagensDoUsuario }
+module.exports = { engajamento, excluirPost, contarPostagens, postagemMaiorEngajamento, curtidasPorMes, comentariosPorMes, todasPostagensDoUsuario, proporcaoLikesComentarios }

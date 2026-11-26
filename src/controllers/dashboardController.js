@@ -48,6 +48,14 @@ function getTodasPostagensDoUsuario(req, res) {
     })
 }
 
+function getProporcao(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
+
+    dashboardModel.proporcaoLikesComentarios(usuario_id).then((result) => {
+        res.json(result);
+    })
+}
+
 function excluirPost(req, res) {
     var postagem_id = req.params.post_id || req.params.postagem_id;
     var usuario_id = req.query.user_id || req.query.usuario_id;
@@ -61,4 +69,4 @@ function excluirPost(req, res) {
             res.status(500).json(err.sqlMessage);
         });
 }
-module.exports = { getEngajamento, getContagemPostagens, excluirPost, getPostagemMaiorEngajamento, getCurtidasPorMes, getComentariosPorMes, getTodasPostagensDoUsuario };
+module.exports = { getEngajamento, getContagemPostagens, excluirPost, getPostagemMaiorEngajamento, getCurtidasPorMes, getComentariosPorMes, getTodasPostagensDoUsuario, getProporcao };

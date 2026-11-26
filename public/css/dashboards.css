@@ -206,8 +206,11 @@ body {
 
 .graficos {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
     background-color: #bdd5fa4a;
     border-radius: 8px;
 }
@@ -220,9 +223,64 @@ body {
     margin: 8px 0 15px;
 }
 
+.graficos {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    background-color: #bdd5fa4a;
+    border-radius: 8px;
+}
+
+.chart-container {
+    flex: 1 1 320px;
+    max-width: 48%;
+    min-width: 260px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    /* neutral/transparent background to match original style */
+    background-color: transparent;
+    color: inherit;
+    border: none;
+}
+
+.chart-container h3 {
+    text-align: left;
+    color: #54967a;
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+
+/* Chart area responsive: keep aspect ratio and avoid overflow */
+.chart-container > div {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .chart-container canvas {
-    width: 60vw;
-    height: 60vh;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 360px;
+    display: block;
+}
+
+.chart-container.pie-container canvas {
+    max-height: 240px;
+    width: 80% !important;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .chart-container { max-width: 100%; flex-basis: 100%; }
+    .chart-container canvas { max-height: 420px; }
 }
 
 .registros {

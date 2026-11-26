@@ -33,7 +33,7 @@ router.delete('/comment/:comment_id/:user_id', function (req, res) {
 });
 
 router.delete('/like/:post_id/:user_id', function (req, res) {
-    postController.deleteLike(req, res);
+    postController.deletarCurtida(req, res);
 });
 
 router.delete('/:post_id', function (req, res) {

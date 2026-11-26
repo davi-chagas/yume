@@ -23,6 +23,10 @@ router.get('/comments', function (req, res) {
     dashboardController.getComentariosPorMes(req, res);
 })
 
+router.get('/proportion', function (req, res) {
+    dashboardController.getProporcao(req, res);
+})
+
 router.get('/', function (req, res) {
     dashboardController.getTodasPostagensDoUsuario(req, res);
 })

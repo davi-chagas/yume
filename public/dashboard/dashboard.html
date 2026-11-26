@@ -28,8 +28,6 @@
 <!-- <body onload=" atualizarFeed()"> -->
 
 <body>
-
-
     <div class="janela">
         <div class="header-left">
             <img src="../assets/imgs/logo.svg" width="100px" alt="">
@@ -101,6 +99,10 @@
                     <h3>Variação de comentários e curtidas no ano</h3>
                     <canvas id="engagement"></canvas>
                 </div>
+                <div class="chart-container pie-container">
+                    <h3>Proporção Curtidas x Comentários</h3>
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
 
             <div class="registros">
@@ -137,11 +139,66 @@
     const engagement = document.getElementById('engagement');
     var graficoEngagement = null;
 
+    const pizza = document.getElementById('myChart');
+
+    var pieChart = null;
+    function carregarProporcao() {
+        fetch(`/dashboard/proportion?user_id=${user_id}`)
+            .then(function (res) {
+                if (!res.ok) throw new Error('Erro ao buscar proporção');
+                return res.json();
+            })
+            .then(function (dados) {
+                var likes = 0;
+                var comments = 0;
+                if (Array.isArray(dados) && dados.length > 0) {
+                    var row = dados[0];
+                    likes = parseInt(row.total_likes) || 0;
+                    comments = parseInt(row.total_comments) || 0;
+                } else if (dados && typeof dados.total_likes !== 'undefined') {
+                    likes = parseInt(dados.total_likes) || 0;
+                    comments = parseInt(dados.total_comments) || 0;
+                }
+
+                try { pieChart && pieChart.destroy(); } catch (e) { }
+
+                pieChart = new Chart(pizza, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Curtidas', 'Comentários'],
+                        datasets: [{
+                            data: [likes, comments],
+                            backgroundColor: ['#bdd5fa', '#54967a']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        var label = context.label || '';
+                                        var value = context.parsed || 0;
+                                        var total = context.chart._metasets ? context.chart._metasets[0].total : (likes + comments);
+                                        var percent = total ? Math.round((value / total) * 100) : 0;
+                                        return label + ': ' + value + ' (' + percent + '%)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(function (err) {
+                console.log('Erro ao carregar proporção:', err);
+            });
+    }
+
     function montarMeses(lista, campo) {
         var meses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         for (var i = 0; i < lista.length; i++) {
-            // backend retorna o campo como `mes`
             meses[lista[i].mes - 1] = lista[i][campo];
         }
 
@@ -177,7 +234,9 @@
                     },
                     options: {
                         scales: { y: { beginAtZero: true } }
-                    }
+                    },
+                    responsive: true,
+                        maintainAspectRatio: false,
                 });
             })
             .catch(function (erro) {
@@ -225,8 +284,6 @@
             .then(function (dados) {
 
                 console.log("Total de publicações:", dados);
-
-                // backend retorna alias `qtd_postagens`
                 document.getElementById("total_posts").innerHTML =
                     dados[0].qtd_postagens;
 
@@ -254,8 +311,6 @@
                 console.log("Post mais engajado:", dados);
 
                 if (dados.length > 0) {
-
-                    // backend retorna `titulo`
                     document.getElementById("bigger_post").innerHTML =
                         dados[0].titulo;
 
@@ -295,10 +350,8 @@
                 if (dados.length > 0) {
                     for (var i = 0; i < dados.length; i++) {
                         var post = dados[i];
-
-                        // backend retorna `criado_em` no formato 'DD-MM-YYYY HH:MM:SS'
                         var dataHora = post.criado_em.split(" ");
-                        var data = dataHora[0]; // já no formato DD-MM-YYYY
+                        var data = dataHora[0]; 
                         var hora = dataHora[1];
 
                         tabela.innerHTML += `
@@ -358,5 +411,6 @@
     carregarCountPosts();
     carregarBiggerEngagement();
     carregarGrafico();
+    carregarProporcao();
 
 </script>
