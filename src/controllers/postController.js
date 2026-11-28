@@ -1,31 +1,31 @@
 var postModel = require('../models/postModel');
 
-function getAll(req, res) {
-    var user_id = req.query.user_id;
+function listarPostagens(req, res) {
+    var usuario_id = req.query.user_id || req.query.usuario_id;
 
-    postModel.getAll(user_id).then((result) => {
+    postModel.listarPostagens(usuario_id).then((result) => {
         res.status(200).json(result);
     });
 }
 
-function getAllComments(req, res) {
-    postModel.getComments().then((result) => {
+function listarComentarios(req, res) {
+    postModel.listarComentarios().then((result) => {
         res.status(200).json(result);
     })
 }
 
-function createPost(req, res) {
-    var title = req.body.title;
-    var description = req.body.description;
-    var user_id = req.body.user_id;
-    var img_url = req.file ? `/assets/${req.file.filename}` : null; // se tiver img envia para assets/ caso nao retorna como null
+function criarPost(req, res) {
+    var titulo = req.body.title || req.body.titulo;
+    var descricao = req.body.description || req.body.descricao;
+    var user_id = req.body.user_id || req.body.userId;
+    var url_imagem = req.file ? `/assets/${req.file.filename}` : null; // se tiver img envia para assets/ caso nao retorna como null
 
-    if (title == undefined) {
+    if (titulo == undefined) {
         res.status(400).send('Titulo indefinido')
     } else if (user_id == undefined) {
         res.status(400).send('Usuário indefinido')
     } else {
-        postModel.createPost(title, description, user_id, img_url).
+        postModel.criarPost(titulo, descricao, user_id, url_imagem).
             then(function (result) {
                 res.json(result)
             })
@@ -39,11 +39,11 @@ function createPost(req, res) {
     }
 }
 
-function likePost(req, res) {
-    var user_id = req.body.user_id;
-    var post_id = req.body.post_id;
+function curtirPost(req, res) {
+    var usuario_id = req.body.user_id || req.body.usuario_id;
+    var postagem_id = req.body.post_id || req.body.postagem_id;
 
-    postModel.likePost(user_id, post_id)
+    postModel.curtirPost(usuario_id, postagem_id)
         .then(
             function (result) {
                 res.send(result)
@@ -57,12 +57,12 @@ function likePost(req, res) {
         )
 }
 
-function commentPost(req, res) {
-    var user_id = req.body.user_id;
-    var post_id = req.body.post_id;
-    var content = req.body.content;
+function comentarPost(req, res) {
+    var usuario_id = req.body.user_id || req.body.usuario_id;
+    var postagem_id = req.body.post_id || req.body.postagem_id;
+    var conteudo = req.body.content || req.body.conteudo;
 
-    postModel.commentPost(user_id, post_id, content)
+    postModel.comentarPost(usuario_id, postagem_id, conteudo)
         .then(
             function (result) {
                 res.send(result)
@@ -76,11 +76,11 @@ function commentPost(req, res) {
         )
 }
 
-function deleteComment(req, res) {
-    var post_id = req.params.post_id;
-    var user_id = req.params.user_id;
+function deletarComentario(req, res) {
+    var postagem_id = req.params.post_id || req.params.postagem_id;
+    var usuario_id = req.params.user_id || req.params.usuario_id;
 
-    postModel.deleteCommentPost(user_id, post_id)
+    postModel.deletarComentario(usuario_id, postagem_id)
         .then(
             function (result) {
                 res.json(result)
@@ -93,11 +93,11 @@ function deleteComment(req, res) {
             })
 }
 
-function deleteLike(req, res) {
-    var post_id = req.params.post_id;
-    var user_id = req.params.user_id;
+function deletarCurtida(req, res) {
+    var postagem_id = req.params.post_id || req.params.postagem_id;
+    var usuario_id = req.params.user_id || req.params.usuario_id;
 
-    postModel.deleteLikePost(post_id, user_id)
+    postModel.deletarCurtida(postagem_id, usuario_id)
         .then(
             function (result) {
                 res.json(result)
@@ -110,13 +110,13 @@ function deleteLike(req, res) {
             })
 }
 
-function updatePost(req, res) {
-    var new_title = req.body.title;
-    var new_description = req.body.description;
-    var new_img_url = req.body.img_url;
+function atualizarPost(req, res) {
+    var novo_titulo = req.body.title || req.body.titulo;
+    var nova_descricao = req.body.description || req.body.descricao;
+    var nova_url_imagem = req.body.img_url || req.body.url_imagem;
     var post_id = req.params.post_id;
 
-    postModel.update(new_title, new_description, new_img_url, post_id)
+    postModel.atualizarPost(novo_titulo, nova_descricao, nova_url_imagem, post_id)
         .then(
             function (result) {
                 res.json(result);
@@ -130,4 +130,13 @@ function updatePost(req, res) {
         )
 }
 
-module.exports = { getAll, getAllComments, createPost, updatePost, commentPost, likePost, deleteComment, deleteLike };
+module.exports = {
+    listarPostagens,
+    listarComentarios,
+    criarPost,
+    atualizarPost,
+    comentarPost,
+    curtirPost,
+    deletarComentario,
+    deletarCurtida
+};

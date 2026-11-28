@@ -14,7 +14,7 @@ router.post("/autenticar", function (req, res) {
 });
 
 router.put('/:user_id', upload.single('imagem'), function (req, res){
-    usuarioController.updateUser(req, res);
+    usuarioController.atualizarUsuario(req, res);
 })
 
 module.exports = router;

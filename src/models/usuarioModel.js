@@ -1,33 +1,33 @@
 var database = require("../database/config")
 
-function autenticar(email, password) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, password)
+function autenticar(email, senha) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-        SELECT id, name, email, username, img_url FROM user WHERE email = '${email}' AND password = '${password}';
+        SELECT id, nome, email, username, url_imagem FROM usuario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(name, username, email, password) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", name, username, email, password);
+function cadastrar(nome, username, email, senha) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, username, email, senha);
 
     // Insira exatamente a query do banco aqui, lembrando da namenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO user (name, username, email, password) VALUES ('${name}', '${username}', '${email}', '${password}');
+        INSERT INTO usuario (nome, username, email, senha) VALUES ('${nome}', '${username}', '${email}', '${senha}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function update(name, username, img_url, email, user_id) {
+function update(nome, username, url_imagem, email, user_id) {
     var instrucaoSql = `
-        UPDATE user
-        SET name = '${name}',
+        UPDATE usuario
+        SET nome = '${nome}',
             username = '${username}',
-            img_url = ${img_url ? "'" + img_url + "'" : 'NULL'},
+            url_imagem = ${url_imagem ? "'" + url_imagem + "'" : 'NULL'},
             email = '${email}'
         WHERE id = ${user_id}
     `;
@@ -36,7 +36,7 @@ function update(name, username, img_url, email, user_id) {
 }
 
 function buscarPorId(user_id) {
-    var instrucaoSql = `SELECT id, name, username, email, img_url FROM user WHERE id = ${user_id};`;
+    var instrucaoSql = `SELECT id, nome, username, email, url_imagem FROM usuario WHERE id = ${user_id};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -44,5 +44,11 @@ function buscarPorId(user_id) {
 module.exports = {
     autenticar,
     cadastrar,
-    update
+    update,
+    buscarPorId: buscarPorId
 };
+
+function buscarPorId(usuario_id) {
+    var instrucaoSql = `SELECT id, nome, username, email, url_imagem FROM usuario WHERE id = ${usuario_id};`;
+    return database.executar(instrucaoSql);
+}

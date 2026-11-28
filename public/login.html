@@ -110,9 +110,9 @@
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
+                body: JSON.stringify({
                 emailServer: emailVar,
-                passwordServer: passwordVar
+                senhaServer: passwordVar
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
@@ -125,8 +125,8 @@
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USER = json.email;
                     sessionStorage.USERNAME_USER = json.username;
-                    sessionStorage.NAME_USER = json.name;
-                    sessionStorage.IMG_USER = json.img_url;
+                    sessionStorage.NAME_USER = json.nome || json.name;
+                    sessionStorage.IMG_USER = json.url_imagem || json.img_url;
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {

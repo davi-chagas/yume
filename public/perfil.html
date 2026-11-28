@@ -146,14 +146,15 @@
                 if (obsessions.length > 0) {
                     var obsession = obsessions[0];
 
-                    dadosObsessoes[0].nome = obsession.favorite_anime || 'Não definido';
-                    dadosObsessoes[0].imagem = obsession.img_favorite_anime || avatarPadrao;
+                    // backend retorna campos em português; aceitar inglês como fallback
+                    dadosObsessoes[0].nome = obsession.anime_favorito || obsession.favorite_anime || 'Não definido';
+                    dadosObsessoes[0].imagem = obsession.url_imagem_anime_favorito || obsession.img_favorite_anime || avatarPadrao;
 
-                    dadosObsessoes[1].nome = obsession.watching_now || 'Não definido';
-                    dadosObsessoes[1].imagem = obsession.img_watching_now || avatarPadrao;
+                    dadosObsessoes[1].nome = obsession.assistindo_agora || obsession.watching_now || 'Não definido';
+                    dadosObsessoes[1].imagem = obsession.url_imagem_assistindo_agora || obsession.img_watching_now || avatarPadrao;
 
-                    dadosObsessoes[2].nome = obsession.favorite_character || 'Não definido';
-                    dadosObsessoes[2].imagem = obsession.img_favorite_character || avatarPadrao;
+                    dadosObsessoes[2].nome = obsession.personagem_favorito || obsession.favorite_character || 'Não definido';
+                    dadosObsessoes[2].imagem = obsession.url_imagem_personagem_favorito || obsession.img_favorite_character || avatarPadrao;
                 }
 
                 var header = document.createElement('div');

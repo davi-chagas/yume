@@ -1,57 +1,55 @@
 CREATE DATABASE yume;
 USE yume;
 
-CREATE TABLE user (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(45) NOT NULL,
-	username VARCHAR(15) NOT NULL UNIQUE,
-	email VARCHAR(70) NOT NULL UNIQUE,
-	password VARCHAR(50) NOT NULL,
-    img_url VARCHAR(255) NULL,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    username VARCHAR(15) NOT NULL UNIQUE,
+    email VARCHAR(70) NOT NULL UNIQUE,
+    senha VARCHAR(50) NOT NULL,
+    url_imagem VARCHAR(255) NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE post (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	title VARCHAR(45) NOT NULL,
-	description VARCHAR(150) NULL,
-	img_url VARCHAR(255) NULL,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-	user_id INT,
-	FOREIGN KEY (user_id) REFERENCES user(id)
+CREATE TABLE postagem (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(45) NOT NULL,
+    descricao VARCHAR(150) NULL,
+    url_imagem VARCHAR(255) NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-CREATE TABLE like_post (
-	id INT AUTO_INCREMENT,
-	user_id INT,
-    post_id INT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id, user_id, post_id),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (post_id) REFERENCES post(id)
+CREATE TABLE curtida_post (
+    id INT AUTO_INCREMENT,
+    usuario_id INT,
+    postagem_id INT,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id, usuario_id, postagem_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (postagem_id) REFERENCES postagem(id)
 );
 
-CREATE TABLE comment_post (
-	id INT AUTO_INCREMENT,
-	user_id INT,
-    post_id INT,
-    content VARCHAR(150),
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id, user_id, post_id),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (post_id) REFERENCES post(id)
+CREATE TABLE comentario_post (
+    id INT AUTO_INCREMENT,
+    usuario_id INT,
+    postagem_id INT,
+    conteudo VARCHAR(150),
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id, usuario_id, postagem_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (postagem_id) REFERENCES postagem(id)
 );
 
-CREATE TABLE obsession (
-	user_id INT,
-    PRIMARY KEY(user_id),
-	FOREIGN KEY (user_id) REFERENCES user(id),
-    favorite_anime VARCHAR(45) NULL,
-    img_favorite_anime VARCHAR(255) NULL,
-    watching_now VARCHAR(45) NULL,
-    img_watching_now VARCHAR(255) NULL,
-    favorite_character VARCHAR(45) NULL,
-    img_favorite_character VARCHAR(255) NULL
+CREATE TABLE obsessao (
+    usuario_id INT,
+    PRIMARY KEY(usuario_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    anime_favorito VARCHAR(45) NULL,
+    url_imagem_anime_favorito VARCHAR(255) NULL,
+    assistindo_agora VARCHAR(45) NULL,
+    url_imagem_assistindo_agora VARCHAR(255) NULL,
+    personagem_favorito VARCHAR(45) NULL,
+    url_imagem_personagem_favorito VARCHAR(255) NULL
 );
-
-

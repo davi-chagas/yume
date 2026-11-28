@@ -179,9 +179,10 @@
 
                 var obsession = obsessions[0];
 
-                ipt_favorite_anime.value = obsession.favorite_anime || '';
-                ipt_watching_now.value = obsession.watching_now || '';
-                ipt_favorite_character.value = obsession.favorite_character || '';
+                // backend retorna campos em português; aceitar inglês como fallback
+                ipt_favorite_anime.value = obsession.anime_favorito || obsession.favorite_anime || '';
+                ipt_watching_now.value = obsession.assistindo_agora || obsession.watching_now || '';
+                ipt_favorite_character.value = obsession.personagem_favorito || obsession.favorite_character || '';
 
             })
             .catch(function (erro) {
